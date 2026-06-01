@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current In Progress — Learning Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0c10;
+  --bg2:#16131a;
+  --panel:#1c1822;
+  --panel2:#221d2a;
+  --ink:#f4eee9;
+  --muted:#9a8fa6;
+  --faint:#6a6172;
+  --line:#2e2836;
+  --accent:#ff5a3c;      /* circus red-orange */
+  --accent2:#ffb33c;     /* gold */
+  --accent3:#3cc6c2;     /* teal */
+  --done:#4ddb9e;
+  --shadow:0 20px 60px -20px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Outfit',sans-serif;
+  font-weight:300;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(circle at 12% 8%, rgba(255,90,60,.10), transparent 40%),
+    radial-gradient(circle at 88% 4%, rgba(60,198,194,.08), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(255,179,60,.06), transparent 50%);
+  background-attachment:fixed;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 24px 120px}
+
+/* ---- HERO ---- */
+header.hero{
+  position:relative;
+  margin:0 -24px 48px;
+  padding:0 24px;
+}
+.banner{
+  height:230px;margin:0 -24px;
+  background:
+    linear-gradient(120deg,#3cc6c2 0%, #f2a3a3 38%, #ff5a3c 64%, #ffb33c 100%);
+  position:relative;overflow:hidden;
+}
+.banner::after{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 28px,transparent 28px 56px);
+  mix-blend-mode:overlay;
+}
+.tent{
+  position:absolute;left:24px;bottom:-34px;font-size:64px;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,.4));
+  animation:bob 4s ease-in-out infinite;
+}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
+h1.title{
+  font-family:'Fraunces',serif;font-weight:900;
+  font-size:clamp(2.6rem,7vw,5rem);
+  letter-spacing:-.02em;line-height:.95;
+  margin:54px 0 10px;
+}
+h1.title em{font-style:italic;color:var(--accent2)}
+.subtitle{color:var(--muted);font-size:1.05rem;max-width:620px;font-weight:300}
+
+/* ---- STATS DASH ---- */
+.dash{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:16px;margin:36px 0 8px;
+}
+.stat{
+  background:linear-gradient(160deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);border-radius:18px;padding:20px 22px;
+  position:relative;overflow:hidden;
+}
+.stat .num{font-family:'Fraunces',serif;font-weight:700;font-size:2.4rem;line-height:1}
+.stat .lbl{color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;margin-top:8px}
+.stat.accent .num{color:var(--accent)}
+.stat.gold .num{color:var(--accent2)}
+.stat.teal .num{color:var(--accent3)}
+.stat.green .num{color:var(--done)}
+
+.bigbar{margin:26px 0 4px}
+.bigbar .track{position:relative;height:14px;background:var(--panel);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.bigbar .fill{position:absolute;left:0;top:0;height:100%;width:0;border-radius:20px;
+  background:linear-gradient(90deg,var(--done),#3cc6c2);
+  transition:width 1s cubic-bezier(.2,.8,.2,1);z-index:2}
+.bigbar .prog{position:absolute;top:0;height:100%;left:0;width:0;
+  background:repeating-linear-gradient(45deg,var(--accent2) 0 8px,#e69b1f 8px 16px);
+  opacity:.85;transition:left .8s,width .8s;z-index:1}
+.bigbar .cap{display:flex;justify-content:space-between;margin-top:8px;font-size:.82rem;color:var(--muted);font-family:'Space Mono',monospace}
+
+/* ---- CONTROLS ---- */
+.controls{
+  display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+  margin:34px 0 28px;position:sticky;top:0;z-index:20;
+  padding:14px 0;background:linear-gradient(var(--bg),var(--bg) 70%,transparent);
+}
+.search{
+  flex:1;min-width:220px;display:flex;align-items:center;gap:10px;
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:11px 16px;
+}
+.search input{background:none;border:none;color:var(--ink);font-family:'Outfit';font-size:.95rem;width:100%;outline:none}
+.search input::placeholder{color:var(--faint)}
+.search svg{stroke:var(--muted);flex-shrink:0}
+.btn{
+  background:var(--panel);border:1px solid var(--line);color:var(--muted);
+  padding:11px 16px;border-radius:14px;cursor:pointer;font-family:'Outfit';
+  font-size:.88rem;font-weight:500;transition:.2s;white-space:nowrap;
+}
+.btn:hover{color:var(--ink);border-color:var(--faint)}
+.btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.ghost:hover{background:var(--panel2)}
+
+/* ---- SECTIONS ---- */
+.section{
+  background:linear-gradient(165deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);border-radius:20px;
+  margin-bottom:18px;overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.sec-head{
+  display:flex;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;
+  user-select:none;transition:background .2s;
+}
+.sec-head:hover{background:var(--panel2)}
+.sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;background:var(--accent)}
+.sec-title{
+  font-family:'Fraunces',serif;font-weight:600;font-size:1.35rem;flex:1;letter-spacing:-.01em;
+}
+.sec-meta{display:flex;align-items:center;gap:14px}
+.minibar{position:relative;width:90px;height:7px;background:var(--bg);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.minibar b{position:absolute;left:0;top:0;display:block;height:100%;background:linear-gradient(90deg,var(--done),#3cc6c2);border-radius:10px;transition:width .6s;z-index:2}
+.minibar i{position:absolute;left:0;top:0;display:block;height:100%;background:var(--accent2);opacity:.5;border-radius:10px;transition:width .6s;z-index:1}
+.sec-count{font-family:'Space Mono',monospace;font-size:.8rem;color:var(--muted);min-width:54px;text-align:right}
+.chev{transition:transform .3s;color:var(--muted)}
+.section.collapsed .chev{transform:rotate(-90deg)}
+.section.collapsed .sec-body{display:none}
+.sec-body{padding:4px 20px 16px}
+
+/* ---- ITEMS ---- */
+.grp{margin:6px 0}
+.grp-label{
+  font-size:.74rem;text-transform:uppercase;letter-spacing:.16em;color:var(--accent3);
+  font-weight:600;padding:14px 12px 6px;font-family:'Outfit';
+}
+.item{
+  display:flex;align-items:flex-start;gap:13px;padding:10px 12px;border-radius:11px;
+  transition:background .15s;position:relative;
+}
+.item:hover{background:var(--panel2)}
+.item.sub{margin-left:26px}
+.itxt{font-size:.97rem;color:var(--ink);font-weight:400;flex:1;word-break:break-word}
+.cbox{
+  position:relative;width:20px;height:20px;border:2px solid var(--faint);border-radius:6px;flex-shrink:0;
+  cursor:pointer;margin-top:1px;transition:.2s;display:grid;place-items:center;
+  background:transparent;
+}
+.cbox:hover{border-color:var(--accent2)}
+.cbox:focus-visible{outline:2px solid var(--accent3);outline-offset:2px}
+.cbox svg.ic-check{opacity:0;transform:scale(.5);transition:.2s;stroke:#0e0c10}
+.cbox .ic-prog{position:absolute;width:8px;height:8px;border-radius:2px;background:#0e0c10;opacity:0;transform:rotate(0);transition:.2s}
+
+/* DONE */
+.item.st-done .cbox{background:var(--done);border-color:var(--done)}
+.item.st-done .cbox svg.ic-check{opacity:1;transform:scale(1)}
+.item.st-done .itxt{color:var(--faint);text-decoration:line-through;text-decoration-color:var(--done)}
+
+/* IN PROGRESS */
+.item.st-prog .cbox{background:var(--accent2);border-color:var(--accent2)}
+.item.st-prog .cbox .ic-prog{opacity:1;width:9px;height:9px;border-radius:50%;
+  background:conic-gradient(#0e0c10 0 50%, transparent 50% 100%)}
+.item.st-prog .itxt{color:var(--ink)}
+.item.st-prog .itxt::after{
+  content:"in progress";margin-left:8px;font-size:.62rem;text-transform:uppercase;
+  letter-spacing:.1em;font-weight:700;color:var(--accent2);
+  background:rgba(255,179,60,.14);padding:2px 8px;border-radius:20px;vertical-align:middle;
+}
+.itxt a{color:var(--accent3);text-decoration:none;border-bottom:1px solid transparent;transition:.2s}
+.itxt a:hover{border-bottom-color:var(--accent3)}
+.stars{color:var(--accent2);font-size:.8rem;letter-spacing:1px;margin-left:6px}
+.badge{
+  font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;
+  padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle;font-family:'Outfit';
+}
+.badge.udemy{background:rgba(255,179,60,.16);color:var(--accent2)}
+.badge.prog{background:rgba(60,198,194,.16);color:var(--accent3)}
+.hidden{display:none!important}
+
+footer{text-align:center;color:var(--faint);margin-top:60px;font-size:.82rem;font-family:'Space Mono',monospace}
+footer .reset{color:var(--accent);cursor:pointer;border:none;background:none;font-family:inherit;font-size:inherit}
+footer .reset:hover{text-decoration:underline}
+
+/* ---- ROW ACTIONS ---- */
+.row-actions{display:flex;gap:4px;opacity:0;transition:opacity .15s;flex-shrink:0;align-self:center}
+.item:hover .row-actions{opacity:1}
+.mini-btn{
+  background:var(--bg);border:1px solid var(--line);color:var(--muted);
+  width:26px;height:26px;border-radius:8px;cursor:pointer;font-size:.8rem;
+  display:grid;place-items:center;transition:.15s;font-family:'Outfit';
+}
+.mini-btn:hover{color:var(--ink);border-color:var(--faint)}
+.mini-btn.del:hover{color:var(--accent);border-color:var(--accent)}
+.add-here{
+  margin:8px 12px 4px;font-size:.82rem;color:var(--faint);width:auto;
+  background:transparent;border:1px dashed var(--line);
+}
+.add-here:hover{color:var(--accent3);border-color:var(--accent3);background:var(--panel2)}
+.btn.add-global{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.add-global:hover{filter:brightness(1.08);color:#fff}
+
+/* ---- MODAL ---- */
+.modal{
+  position:fixed;inset:0;z-index:100;display:none;
+  background:rgba(8,6,10,.72);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:24px;
+}
+.modal.open{display:flex;animation:fade .2s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal-card{
+  width:100%;max-width:460px;background:linear-gradient(165deg,var(--panel),var(--bg2));
+  border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--shadow);
+  animation:pop .25s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes pop{from{transform:scale(.94) translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.modal-card h3{font-family:'Fraunces',serif;font-weight:700;font-size:1.5rem;margin-bottom:18px}
+.fld{display:block;margin-bottom:14px}
+.fld span{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px}
+.fld span em{text-transform:none;letter-spacing:0;color:var(--faint);font-style:normal}
+.fld select,.fld input,.fld-input{
+  width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;
+  padding:11px 14px;color:var(--ink);font-family:'Outfit';font-size:.95rem;outline:none;transition:.15s;
+}
+.fld select:focus,.fld input:focus,.fld-input:focus{border-color:var(--accent2)}
+.fld-input{margin:-6px 0 14px}
+.fld-row{display:flex;gap:14px}
+.fld-row .fld{flex:1}
+.modal-actions{display:flex;align-items:center;gap:10px;margin-top:22px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.btn.primary:hover{filter:brightness(1.08)}
+#m-delete{color:var(--accent);border-color:transparent}
+#m-delete:hover{border-color:var(--accent)}
+
+
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--faint)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="banner"><div class="tent">🎪</div></div>
+  <h1 class="title">Current <em>In Progress</em></h1>
+  <p class="subtitle">A living tracker of the agentic-AI, LLM, and engineering rabbit holes currently in flight. Tap a box to cycle <span style="color:var(--faint)">empty</span> → <span style="color:var(--accent2)">in&nbsp;progress</span> → <span style="color:var(--done)">done</span>.</p>
+
+  <div class="dash" id="dash"></div>
+
+  <div class="bigbar">
+    <div class="track"><div class="fill" id="bigfill"></div><div class="prog" id="bigprog"></div></div>
+    <div class="cap"><span id="capleft">0 of 0 complete</span><span id="capright">0%</span></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="controls">
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input id="search" type="text" placeholder="Search courses, links, topics…">
+    </label>
+    <button class="btn active" data-filter="all" id="f-all">All</button>
+    <button class="btn" data-filter="todo">To do</button>
+    <button class="btn" data-filter="prog">In progress</button>
+    <button class="btn" data-filter="done">Done</button>
+    <button class="btn ghost" id="expand">Expand all</button>
+    <button class="btn ghost" id="collapse">Collapse all</button>
+    <button class="btn add-global" id="add-global">+ Add item</button>
+  </div>
+
+  <div id="board"></div>
+
+  <footer>
+    Built from a Notion export · progress stored locally in your browser · <button class="reset" id="reset">reset all</button>
+  </footer>
+</div>
+
+<!-- ADD / EDIT MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <h3 id="m-title">Add item</h3>
+    <label class="fld">
+      <span>Section</span>
+      <select id="m-section"></select>
+    </label>
+    <input class="fld-input hidden" id="m-newsection" type="text" placeholder="New section name…">
+    <label class="fld">
+      <span>Title <em>(required)</em></span>
+      <input id="m-text" type="text" placeholder="e.g. Advanced RAG Bootcamp">
+    </label>
+    <label class="fld">
+      <span>Link <em>(optional)</em></span>
+      <input id="m-link" type="text" placeholder="https://…">
+    </label>
+    <div class="fld-row">
+      <label class="fld">
+        <span>Status</span>
+        <select id="m-status">
+          <option value="todo">To do</option>
+          <option value="prog">In progress</option>
+          <option value="done">Done</option>
+        </select>
+      </label>
+      <label class="fld">
+        <span>Stars (0–6)</span>
+        <input id="m-stars" type="number" min="0" max="6" value="0">
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" id="m-delete">Delete</button>
+      <span style="flex:1"></span>
+      <button class="btn ghost" id="m-cancel">Cancel</button>
+      <button class="btn primary" id="m-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  {
+    "title": "🎓 Cohorts & Live Programs",
+    "items": [
+      {
+        "t": "Google Cohort",
+        "link": "https://hack2skill.com/event/apac-genaiacademy-c2/dashboard/roadmap"
+      },
+      {
+        "t": "Analytics Vidhya Assessment - Mentorship Assessment (31st March)",
+        "done": true
+      },
+      {
+        "t": "02. WEEK 1 - Guided Learning LLM Foundations",
+        "done": true
+      },
+      {
+        "t": "03_WEEK_2_Deep_Dive_Project_1_Build_an_LLM_Playground_Sat_11th_Oct",
+        "done": true
+      },
+      {
+        "t": "04_WEEK_2_Guided_Learning_Retrieval_Augmented_Generation_RAG",
+        "done": true
+      },
+      {
+        "t": "05_WEEK_3_Deep_Dive_Project_2_Build_a_Customer_Support_Chatbot_Sat",
+        "done": true
+      },
+      {
+        "t": "06. WEEK 3 - Guided Learning Agents"
+      },
+      {
+        "t": "07_WEEK_4_Deep_Dive_Project_3_Build_an_Ask_the_Web_Agent_Similar"
+      },
+      {
+        "t": "08 WEEK 4 - Guided Learning Thinking and Reasoning LLMs"
+      },
+      {
+        "t": "09_WEEK_5_Deep_Dive_Project_4_Build_Deep_Research_Capability_Sat"
+      },
+      {
+        "t": "10. WEEK 5 - Guided Learning Image and Video Generation"
+      },
+      {
+        "t": "11_WEEK_6_Deep_Dive_Project_5_Build_a_Multi_modal_Generation_Agent"
+      },
+      {
+        "t": "12_WEEK_6_Capstone_Project_Demo_and_Presentation_Sun_9th_Nov"
+      },
+      {
+        "t": "13. FINAL Extra Demo and Presentation (Sun 30th Nov)"
+      }
+    ]
+  },
+  {
+    "title": "🤖 Claude & Anthropic",
+    "items": [
+      {
+        "t": "Extending AI with Agent Skills 2026",
+        "link": "https://www.udemy.com/course/ai-agent-skills/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "Claude Code Masterclass",
+        "link": "https://www.udemy.com/course/claude-code-master-class/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "AI Coder: Complete Claude Code & Coding Agents Course",
+        "link": "https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "Build with Claude — Anthropic Academy",
+        "link": "https://www.anthropic.com/learn/build-with-claude"
+      },
+      {
+        "t": "Getting Started with the Anthropic Claude Agent SDK (Python)",
+        "link": "https://blog.namusanga.com/getting-started-with-anthropic-claude-agent-sdk-python-826a2216381d"
+      },
+      {
+        "t": "Claude Docs: Build a Tool-Using Agent",
+        "link": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/build-a-tool-using-agent"
+      },
+      {
+        "t": "DataCamp: How to Use the Claude Agent SDK",
+        "link": "https://www.datacamp.com/tutorial/how-to-use-claude-agent-sdk"
+      },
+      {
+        "t": "CLAUDE CODE Full Course For Beginners (DATA DOMAIN Edition)",
+        "link": "https://www.youtube.com/watch?v=TqC1qOfiVcQ"
+      },
+      {
+        "t": "How to build AI Agents with Claude API in Python",
+        "link": "https://www.udemy.com/course/how-to-build-ai-agents/?couponCode=CM2600504IN",
+        "stars": 5
+      },
+      {
+        "t": "Learn Google's Gemini and Anthropic's Claude API with Python",
+        "link": "https://www.udemy.com/course/google-gemini-pro-vision-api-with-python/?couponCode=CM2600504IN",
+        "stars": 5
+      },
+      {
+        "t": "Exam Prep - Claude Certified Architect",
+        "link": "https://www.notion.so/Exam-Prep-Claude-Certified-Architect-3241bd0081a980d3b5f0f6b50d7e1c7c?pvs=21"
+      },
+      {
+        "t": "Claude Certifications",
+        "link": "https://claudecertifications.com/",
+        "stars": 4
+      },
+      {
+        "t": "GitHub: paullarionov/claude-certified-architect",
+        "link": "https://github.com/paullarionov/claude-certified-architect",
+        "stars": 4
+      },
+      {
+        "t": "GitHub: daronyondem/claude-architect-exam-guide",
+        "link": "https://github.com/daronyondem/claude-architect-exam-guide",
+        "stars": 4
+      },
+      {
+        "t": "GitHub: aderegil/claude-certified-architect",
+        "link": "https://github.com/aderegil/claude-certified-architect"
+      },
+      {
+        "t": "GitHub: SpillwaveSolutions/cca-exam-prep-customer-support",
+        "link": "https://github.com/SpillwaveSolutions/cca-exam-prep-customer-support"
+      },
+      {
+        "t": "GitHub: yungkim/AnthropiArch",
+        "link": "https://github.com/yungkim/AnthropiArch"
+      },
+      {
+        "t": "GitHub: dnacenta/claude-certified-architect",
+        "link": "https://github.com/dnacenta/claude-certified-architect",
+        "stars": 4
+      },
+      {
+        "t": "Claude Certified Architect: Foundations Certification Prep Guide",
+        "link": "https://dynamicbalaji.medium.com/claude-certified-architect-foundations-certification-preparation-guide-c70546b51f51"
+      },
+      {
+        "t": "GitHub: GovindaPaliwal/Anthropic-Claude-Certified-Architect-Guide",
+        "link": "https://github.com/GovindaPaliwal/Anthropic-Claude-Certified-Architect-Guide"
+      },
+      {
+        "t": "Building with the Claude API",
+        "link": "https://anthropic.skilljar.com/claude-with-the-anthropic-api"
+      },
+      {
+        "t": "Introduction to Model Context Protocol",
+        "link": "https://anthropic.skilljar.com/introduction-to-model-context-protocol"
+      },
+      {
+        "t": "Claude Code in Action",
+        "link": "https://anthropic.skilljar.com/claude-code-in-action"
+      },
+      {
+        "t": "Introduction to agent skills - Anthropic Academy",
+        "link": "https://anthropic.skilljar.com/introduction-to-agent-skills"
+      },
+      {
+        "t": "Agent Skills from Scratch",
+        "link": "https://www.udemy.com/course/agents-skills/"
+      },
+      {
+        "t": "How to Build Your Own Claude Code Skill",
+        "link": "https://www.freecodecamp.org/news/how-to-build-your-own-claude-code-skill/"
+      },
+      {
+        "t": "Claude Code Beginner to Pro: Agentic Coding for Developers",
+        "link": "https://www.udemy.com/course/learn-claude-code/?couponCode=CM260427IN"
+      },
+      {
+        "t": "GitHub: luongnv89/claude-howto (Vibe Coding visual guide)",
+        "link": "https://github.com/luongnv89/claude-howto"
+      },
+      {
+        "t": "50 Claude Code Tips and Best Practices For Daily Use",
+        "link": "https://x.com/CodevolutionWeb/status/2034683638382506063"
+      },
+      {
+        "t": "Claude Code for Real Engineers - AIHero. IN PROGRESS",
+        "badge": "prog"
+      },
+      {
+        "t": "Build a Shared Memory for Claude Desktop and Cursor",
+        "link": "https://www.dailydoseofds.com/build-a-shared-memory-for-claude-desktop-and-cursor/"
+      }
+    ]
+  },
+  {
+    "title": "🔗 LangChain & LangGraph",
+    "items": [
+      {
+        "t": "Advanced LangGraph: Workflows, Multi-Agents, Deep Agents",
+        "link": "https://www.udemy.com/course/advanced-langgraph-workflows-multi-agents-deep-agents/?couponCode=CP260518SUMMXIN",
+        "stars": 5
+      },
+      {
+        "t": "2026 Deep Agent - Multi Agent RAG with Gemini and Langchain",
+        "link": "https://www.udemy.com/course/deep-agent/?couponCode=CP260518SUMMXIN",
+        "stars": 3
+      },
+      {
+        "t": "Project: Deep Agents",
+        "link": "https://academy.langchain.com/courses/deep-agents-with-langgraph"
+      },
+      {
+        "t": "Project: Ambient Agents with LangGraph",
+        "link": "https://academy.langchain.com/courses/ambient-agents"
+      },
+      {
+        "t": "Project: Deep Research with LangGraph",
+        "link": "https://academy.langchain.com/courses/deep-research-with-langgraph"
+      },
+      {
+        "t": "Foundation: Introduction to LangGraph - Python",
+        "link": "https://academy.langchain.com/courses/intro-to-langgraph"
+      },
+      {
+        "t": "Foundation: Introduction to Agent Observability & Evaluations",
+        "link": "https://academy.langchain.com/courses/intro-to-langsmith"
+      },
+      {
+        "t": "Foundation: Building Reliable Agents",
+        "link": "https://academy.langchain.com/courses/building-reliable-agents"
+      },
+      {
+        "t": "Foundation: Monitoring Production Agents",
+        "link": "https://academy.langchain.com/courses/production-monitoring"
+      },
+      {
+        "t": "Quickstart: LangSmith Fleet",
+        "link": "https://academy.langchain.com/courses/quickstart-agent-builder"
+      },
+      {
+        "t": "Quickstart: LangSmith Essentials",
+        "link": "https://academy.langchain.com/courses/quickstart-langsmith-essentials"
+      },
+      {
+        "t": "Quickstart: LangGraph Essentials - Python",
+        "link": "https://academy.langchain.com/courses/langgraph-essentials-python"
+      },
+      {
+        "t": "Quickstart: LangChain Essentials - Python",
+        "link": "https://academy.langchain.com/courses/langchain-essentials-python"
+      },
+      {
+        "t": "Agentic AI Internals: Build an Agent from Scratch",
+        "link": "https://www.udemy.com/course/agentic-ai-internals/"
+      },
+      {
+        "t": "LangChain- Agentic AI Engineering with LangChain & LangGraph",
+        "link": "https://www.udemy.com/course/langchain/",
+        "stars": 4
+      },
+      {
+        "t": "Agentic AI: Deploy LangChain v1 Agent Projects to Production",
+        "link": "https://www.udemy.com/course/langchain-ai-agent-projects/",
+        "stars": 6
+      },
+      {
+        "t": "YouTube: Building Deep Agents with LangChain",
+        "link": "https://www.youtube.com/watch?v=NHuA3qArV-g",
+        "done": true
+      },
+      {
+        "t": "Code link (Google Drive)",
+        "link": "https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbXdCTEo5SDhEaTNka0lIb1A2YzM3cVItSE0yQXxBQ3Jtc0ttdWxPWU1qQ2xNRlZPS2pVcjZJZVJxOXQ4c2llMHBEOVpVVVVvRWhFdHJrWTEwcW4yc2l0RjBmTGFVbDNydFpqRGRPc0d3VGxMT3ZpU1c5b2oyeUEzb2JMM2owbHRtTy1mOHM3WHRnSGpwMlBjUTlJdw&q=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1SVjvgqvKfF-FPAIqpEZdKMQLhe13NLFD%2Fview%3Fusp%3Dsharing&v=qCyMMGKctuI",
+        "done": true
+      },
+      {
+        "t": "LangChain Blog: Deep Agents",
+        "link": "https://blog.langchain.com/deep-agents/"
+      },
+      {
+        "t": "LangChain Docs: Deep Agents Overview",
+        "link": "https://docs.langchain.com/oss/python/deepagents/overview"
+      },
+      {
+        "t": "GitHub: langchain-ai/deep-agents-from-scratch",
+        "link": "https://github.com/langchain-ai/deep-agents-from-scratch"
+      },
+      {
+        "t": "GitHub: alkispoly-db/skill-apps-deep-agent-with-skills",
+        "link": "https://github.com/alkispoly-db/skill-apps-deep-agent-with-skills"
+      },
+      {
+        "t": "GitHub: langchain-ai/open_deep_research",
+        "link": "https://github.com/langchain-ai/open_deep_research?ref=blog.langchain.com"
+      },
+      {
+        "t": "Building Stateful Agentic AI with LangGraph and Llama 3",
+        "link": "https://www.krishnaik.in/project/building-stateful-agentic-ai-with-langgraph-and-llama-3"
+      },
+      {
+        "t": "Building an Autonomous Blog Generation Agent with Langgraph & FastAPI",
+        "link": "https://www.krishnaik.in/project/production-grade-content-generation-engine-with-langgraph-fastapi-and-uv"
+      },
+      {
+        "t": "LangChain Blog",
+        "link": "https://blog.langchain.com/"
+      },
+      {
+        "t": "LangChain Docs: Built-in Middleware",
+        "link": "https://docs.langchain.com/oss/python/langchain/middleware/built-in"
+      },
+      {
+        "t": "LangChain Blog: Agent Middleware",
+        "link": "https://blog.langchain.com/agent-middleware/"
+      },
+      {
+        "t": "LangChain Middlewares: Lightweight Hooks for More Structured Agents",
+        "link": "https://medium.com/@ale.garavaglia/langchain-middlewares-lightweight-hooks-for-more-structured-agents-f0abba828934"
+      },
+      {
+        "t": "GitHub: langchain-ai/langchain",
+        "link": "https://github.com/langchain-ai/langchain"
+      },
+      {
+        "t": "LangChain Blog: How Middleware Lets You Customize Your Agent Harness",
+        "link": "https://blog.langchain.com/how-middleware-lets-you-customize-your-agent-harness/"
+      },
+      {
+        "t": "Cisco: Secure LangChain Agent with Cisco AI Defense",
+        "link": "https://blogs.cisco.com/ai/secure-langchain-agent-cisco-ai-defense"
+      },
+      {
+        "t": "Reddit r/LangChain: Middleware in LangGraph",
+        "link": "https://www.reddit.com/r/LangChain/comments/1oia4x0/middleware_in_langgraph/"
+      },
+      {
+        "t": "Ultimate RAG Bootcamp Using Langchain,LangGraph & Langsmith",
+        "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/"
+      },
+      {
+        "t": "Complete Agentic AI Bootcamp With LangGraph and Langchain",
+        "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/"
+      }
+    ]
+  },
+  {
+    "title": "🧠 Agentic Memory & Context",
+    "items": [
+      {
+        "t": "AI-Powered Customer Support Agent with Memory and Tool Calling",
+        "link": "https://www.krishnaik.in/project/ai-powered-customer-support-agent-with-memory-and-tool-calling"
+      },
+      {
+        "t": "Memory Layer"
+      },
+      {
+        "t": "Graph Memory and Knowledge Graph"
+      },
+      {
+        "t": "A Practical Deep Dive Into Memory Optimization for Agentic Systems (Part A)",
+        "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-15-with-implementation/#long-term-memory"
+      },
+      {
+        "t": "A Practical Deep Dive Into Memory Optimization for Agentic Systems (Part B)",
+        "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-16-with-implementation/"
+      },
+      {
+        "t": "A Practical Deep Dive Into Memory Optimization for Agentic Systems (Part C)",
+        "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-17-with-implementation/"
+      },
+      {
+        "t": "A Practical Deep Dive Into Memory for Agentic Systems (Part A)",
+        "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-8-with-implementation/#in-part-9"
+      },
+      {
+        "t": "A Practical Deep Dive Into Memory for Agentic Systems (Part B)",
+        "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-9-with-implementation/"
+      },
+      {
+        "t": "How to Build Memory-Driven AI Agents with Short-Term, Long-Term, and Episodic Memory 🧠🤖",
+        "link": "https://rajuhemanth456.medium.com/how-to-build-memory-driven-ai-agents-with-short-term-long-term-and-episodic-memory-98d5257f315d"
+      },
+      {
+        "t": "Managing Agentic Meomery with LangMem 1/5 — Introduction to Agentic Meomery(",
+        "link": "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-1-5-introduction-to-agentic-meomery-0f6f48633e73)"
+      },
+      {
+        "t": "Managing Agentic Memory with LangMem 2/5 — Building Baseline Agent(",
+        "link": "https://levelup.gitconnected.com/managing-agentic-memory-with-langmem-2-5-building-baseline-agent-4598bbd33236)"
+      },
+      {
+        "t": "Managing Agentic Meomery with LangMem 3/5 — Assistant Agent with Semantic Memory(",
+        "link": "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-3-5-assistant-agent-with-semantic-memory-c3c76ddc7d98)"
+      },
+      {
+        "t": "Managing Agentic Meomery with LangMem 4/5 — Building Agent with Semantic & Episodic Memory(",
+        "link": "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-4-5-building-agent-with-semantic-episodic-memory-f1c892df97b1)"
+      },
+      {
+        "t": "Building Agent with Semantic, Episodic & Procedural Memory",
+        "link": "https://levelup.gitconnected.com/building-agent-with-semantic-episodic-procedural-memory-8f481aee9614"
+      },
+      {
+        "t": "Hands-on Build an AI Agent With Human-like Memory(",
+        "link": "https://www.dailydoseofds.com/p/hands-on-build-an-ai-agent-with-human-like-memory/)"
+      },
+      {
+        "t": "Context Engineering: Memory and Temporal Context",
+        "link": "https://www.dailydoseofds.com/llmops-crash-course-part-8/"
+      },
+      {
+        "t": "Hands-on Make RAG systems 32x memory efficient!(",
+        "link": "https://www.dailydoseofds.com/p/hands-on-make-rag-systems-32x-memory-efficient/)"
+      },
+      {
+        "t": "7 Steps to Mastering Memory in Agentic AI Systems",
+        "link": "https://machinelearningmastery.com/7-steps-to-mastering-memory-in-agentic-ai-systems/"
+      },
+      {
+        "t": "Udemy: Full Stack AI with Python",
+        "link": "https://www.udemy.com/course/full-stack-ai-with-python/?couponCode=CM260417IN"
+      }
+    ]
+  },
+  {
+    "title": "🏗️ Agent Frameworks & Builds",
+    "items": [
+      {
+        "t": "Agentic AI Projects: FastAPI, MCP, AWS Deploy & Gemini 3",
+        "link": "https://www.udemy.com/course/langchain-ai-agent-projects/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "AI Engineer Agentic Track: The Complete Agent & MCP Course",
+        "link": "https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/?couponCode=CM260427IN"
+      },
+      {
+        "t": "The Agentic AI Engineering Masterclass 2026",
+        "link": "https://www.udemy.com/course/become-an-ai-agent-workflow-automation-engineer/?couponCode=CM260427IN"
+      },
+      {
+        "t": "DataCamp: Hermes Agent Tutorial",
+        "link": "https://www.datacamp.com/tutorial/hermes-agent"
+      },
+      {
+        "t": "dev.to: Hermes Agent Deep Dive — Build Your Own",
+        "link": "https://dev.to/truongpx396/hermes-agent-deep-dive-build-your-own-guide-1pcc"
+      },
+      {
+        "t": "YouTube: Hermes Agent walkthrough",
+        "link": "https://www.youtube.com/watch?v=1ve4Atbqmoo"
+      },
+      {
+        "t": "Felo: Hermes Agent Tutorial — Research Workflow",
+        "link": "https://felo.ai/blog/hermes-agent-tutorial-research-workflow/"
+      },
+      {
+        "t": "OpenWebUI Docs: Connect Hermes Agent",
+        "link": "https://docs.openwebui.com/getting-started/quick-start/connect-an-agent/hermes-agent/"
+      },
+      {
+        "t": "Hermes Agent: Build a Self-Improving AI Agent",
+        "link": "https://www.udemy.com/course/hermes-agent-build-a-self-improving-ai-agent/",
+        "badge": "udemy"
+      },
+      {
+        "t": "OpenAI API Docs: Rate Limits",
+        "link": "https://developers.openai.com/api/docs/guides/rate-limits"
+      },
+      {
+        "t": "Notion ReAct Planner Agent",
+        "link": "https://www.krishnaik.in/project/notion-react-planner-agent"
+      },
+      {
+        "t": "Multi-Agent Quantitative Analysis System with Azure Cloud Integration",
+        "link": "https://www.krishnaik.in/project/multi-agent-quantitative-analysis-system-with-azure-cloud-integration"
+      },
+      {
+        "t": "Youtube content creation agent",
+        "link": "https://learn.krishnaikacademy.com/web/courses/details/6999cc7ea76e36334df253d5"
+      },
+      {
+        "t": "Realtime Source Code Analyser",
+        "link": "https://learn.krishnaikacademy.com/web/courses/details/69a2e73fb2e813127858989b"
+      },
+      {
+        "t": "Knowledge Intelligence System",
+        "link": "https://learn.krishnaikacademy.com/web/courses/details/699eb4f80acae68441a945a3"
+      },
+      {
+        "t": "Telegram Chatbot",
+        "link": "https://learn.krishnaikacademy.com/web/courses/details/699c1762861325927d36c737"
+      },
+      {
+        "t": "End to End Medical Chatbot",
+        "link": "https://learn.krishnaikacademy.com/web/courses/details/69970d69cb45d66996124437",
+        "done": true
+      },
+      {
+        "t": "Personalized Holiday Management Agent",
+        "link": "https://learn.krishnaikacademy.com/web/courses",
+        "done": true
+      },
+      {
+        "t": "Resume Genie: An AI-Powered Career Suite",
+        "link": "https://www.krishnaik.in/project/resume-genie-an-ai-powered-career-suite",
+        "done": true
+      },
+      {
+        "t": "Follow Krish Naik Youtube Channel",
+        "link": "https://www.youtube.com/@krishnaik06/videos"
+      }
+    ]
+  },
+  {
+    "title": "📊 RAG, Evals & Production",
+    "items": [
+      {
+        "t": "How to test or Evaluate Gen AI, LLM, RAG, Agentic AI",
+        "link": "https://www.udemy.com/course/testgenai/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "RAG-Based Document Search Application",
+        "link": "https://www.krishnaik.in/project/building-a-rag-based-document-search-application"
+      },
+      {
+        "t": "Automated Candidate Interview & Evaluation System",
+        "link": "https://www.krishnaik.in/project/automated-candidate-interview-evaluation-system",
+        "done": true
+      },
+      {
+        "t": "Scalable RAG with Async Queues and Distributed Workers"
+      },
+      {
+        "t": "LLMOps/MLOps Course"
+      },
+      {
+        "t": "Aakash Gupta: AI Evals",
+        "link": "https://www.news.aakashg.com/p/ai-evals"
+      },
+      {
+        "t": "Aakash Gupta: Hamel & Shreya Podcast (AI Evals)",
+        "link": "https://www.news.aakashg.com/p/hamel-shreya-podcast"
+      },
+      {
+        "t": "Maven: AI Evals (Parlance Labs)",
+        "link": "https://maven.com/parlance-labs/evals?promoCode=ag-product-growth"
+      },
+      {
+        "t": "YouTube: AI Evals talk",
+        "link": "https://www.youtube.com/watch?v=XueTa4qrMpg"
+      },
+      {
+        "t": "Advanced RAG: Build & Deploy Production GenAI Apps",
+        "link": "https://www.udemy.com/course/advanced-rag-build-deploy-production-genai-apps/"
+      }
+    ]
+  },
+  {
+    "title": "⚙️ Engineering Foundations",
+    "items": [
+      {
+        "t": "Full stack generative and Agentic AI with python",
+        "link": "https://www.udemy.com/course/full-stack-ai-with-python/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "Docker for Developers",
+        "link": "https://www.educative.io/courses/docker-for-developers"
+      },
+      {
+        "t": "Kubernetes in Practice",
+        "link": "https://www.educative.io/courses/kubernetes-in-practice"
+      },
+      {
+        "t": "Terraform"
+      },
+      {
+        "t": "MultiThreading, Multiprocessing and GIL in Python"
+      },
+      {
+        "t": "Asyncio in Python"
+      },
+      {
+        "t": "All that you should know about Pydantic"
+      },
+      {
+        "t": "Multi Modal Agents"
+      },
+      {
+        "t": "Checkpointing with MongoDB"
+      },
+      {
+        "t": "Voice Agents and Chained Patters"
+      },
+      {
+        "t": "Docker Introduction"
+      },
+      {
+        "t": "Kubernetes Introduction"
+      },
+      {
+        "t": "Udemy: Complete Guide to AI Infrastructure",
+        "link": "https://www.udemy.com/course/complete-guide-ai-infrastructure/"
+      },
+      {
+        "t": "Docker for Developers"
+      },
+      {
+        "t": "AI Infrastructure & Operations (NCA-AIIO)",
+        "link": "https://www.udemy.com/course/ai-infrastructure-operations-nca-aiio/?couponCode=CP260518SUMMXIN"
+      }
+    ]
+  },
+  {
+    "title": "📐 Theory & Math",
+    "items": [
+      {
+        "t": "How does LLMs works, Understand Concept & Coding of Transformer,Attention, Deepseek using pytorch Python",
+        "link": "https://www.udemy.com/course/draft/6496233/learn/lecture/48942971#overview"
+      },
+      {
+        "t": "Generative AI - Natural Language Processing Bootcamp 2026",
+        "link": "https://www.udemy.com/course/practical-natural-language-processing-go-from-zero-to-hero/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "Mathematics for Machine Learning and Data Science Specialization - Coursera",
+        "link": "https://www.coursera.org/specializations/mathematics-for-machine-learning-and-data-science"
+      },
+      {
+        "t": "Stanford CME295 Transformers & LLMs | Autumn 2025",
+        "link": "https://cme295.stanford.edu/syllabus/"
+      },
+      {
+        "t": "LLM Architecture Gallery",
+        "link": "https://sebastianraschka.com/llm-architecture-gallery/"
+      },
+      {
+        "t": "Learn how to fine-tune LLMs in 12 hours",
+        "link": "https://www.freecodecamp.org/news/learn-how-to-fine-tune-llms-in-12-hours/"
+      }
+    ]
+  },
+  {
+    "title": "📖 Books & Reading List",
+    "items": [
+      {
+        "t": "AI Engineering",
+        "group": true
+      },
+      {
+        "t": "Chapter 9 - Inference Optimization",
+        "done": true,
+        "sub": true
+      },
+      {
+        "t": "Chapter 2 - Understanding Foundation Models",
+        "done": true,
+        "sub": true
+      },
+      {
+        "t": "Chapter 3 - Evaluation Methodology",
+        "sub": true
+      },
+      {
+        "t": "Natural Language Processing with Transformers"
+      },
+      {
+        "t": "Practical MLflow for Generative AI on Databricks"
+      },
+      {
+        "t": "AI Agents and Applications - OnGoing",
+        "badge": "prog"
+      },
+      {
+        "t": "KDnuggets: 5 Best Books for Building Agentic AI Systems in 2026",
+        "link": "https://www.kdnuggets.com/5-best-books-for-building-agentic-ai-systems-in-2026"
+      }
+    ]
+  },
+  {
+    "title": "📰 Newsletters & Substacks",
+    "items": [
+      {
+        "t": "Hands On AI Agent Mastery Course",
+        "link": "https://aiamastery.substack.com/?utm_campaign=profile_chips"
+      },
+      {
+        "t": "AI Agents Roadmap",
+        "link": "https://substack.com/@aiagentsroadmap?utm_source=substack-feed-item"
+      },
+      {
+        "t": "AI & Product Newsletter",
+        "link": "https://srilaxmi.substack.com/"
+      },
+      {
+        "t": "The Palindrome (newsletter)",
+        "link": "https://thepalindrome.org/"
+      },
+      {
+        "t": "Jam With AI (Substack)",
+        "link": "https://jamwithai.substack.com/"
+      },
+      {
+        "t": "Advanced Architectures for Vertical AI Agents: 90-Lesson Curriculum (Code-First)",
+        "link": "https://aiamastery.substack.com/p/advanced-architectures-for-vertical"
+      },
+      {
+        "t": "Boring Bot (Substack)",
+        "link": "https://boringbot.substack.com/"
+      },
+      {
+        "t": "Substack post (saved)",
+        "link": "https://substack.com/home/post/p-196289465"
+      }
+    ]
+  },
+  {
+    "title": "🛠️ Bootcamps & Certs (Backlog)",
+    "items": [
+      {
+        "t": "AI Engineering from Scratch",
+        "link": "https://aiengineeringfromscratch.com/"
+      },
+      {
+        "t": "GitHub: rohitg00/ai-engineering-from-scratch",
+        "link": "https://github.com/rohitg00/ai-engineering-from-scratch"
+      },
+      {
+        "t": "AI Hero: A 12-Month Journey Taking You from Zero to Expert",
+        "link": "https://www.udemy.com/course/ai-hero-a-12-month-journey-taking-you-from-zero-to-expert/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "Certified AI Engineering Masterclass: From Zero to AI Hero",
+        "link": "https://www.udemy.com/course/ai-engineering-masterclass-from-zero-to-ai-hero/?couponCode=CP260518SUMMXIN"
+      },
+      {
+        "t": "Data Science Academy",
+        "link": "https://www.udemy.com/user/muhammad-usman-mallick-2/"
+      }
+    ]
+  }
+];
+
+</script>
+<script>
+(function () {
+  const board = document.getElementById('board');
+  const DATA_KEY = 'cip-tracker-data-v2';   // user-added/edited items
+  const STATE_KEY = 'cip-tracker-v2';        // per-item status overrides
+
+  // ---- load persisted data (custom items) layered over the built-in DATA ----
+  let custom = {};   // { sectionTitle: [ {t,link,...}, ... ] }  user additions
+  let edits = {};    // { id: {t?,link?,stars?,deleted?} }  edits to built-ins or customs
+  let state = {};    // { id: 'todo'|'prog'|'done' }
+  try { custom = JSON.parse(localStorage.getItem(DATA_KEY))?.custom || {}; } catch(e){}
+  try { edits = JSON.parse(localStorage.getItem(DATA_KEY))?.edits || {}; } catch(e){}
+  try { state = JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch (e) { state = {}; }
+
+  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits})); }catch(e){} }
+  function saveState(){ try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){} }
+
+  // ---- build the working model: merge built-in DATA + custom additions + edits ----
+  // Each rendered item gets a stable id. Built-ins: "b:<section>:<index>". Customs: "c:<section>:<n>".
+  function buildModel(){
+    const model = [];
+    const seen = new Set();
+    DATA.forEach(sec => {
+      const items = [];
+      sec.items.forEach((it, i) => {
+        const id = 'b:' + sec.title + ':' + i;
+        const e = edits[id];
+        if (e && e.deleted) return;
+        items.push(Object.assign({}, it, e || {}, { _id: id }));
+      });
+      (custom[sec.title] || []).forEach((it, n) => {
+        const id = 'c:' + sec.title + ':' + n;
+        const e = edits[id];
+        if (e && e.deleted) return;
+        items.push(Object.assign({}, it, e || {}, { _id: id }));
+      });
+      model.push({ title: sec.title, items });
+      seen.add(sec.title);
+    });
+    // brand-new sections that only exist in custom
+    Object.keys(custom).forEach(title => {
+      if (seen.has(title)) return;
+      const items = custom[title].map((it, n) => {
+        const id = 'c:' + title + ':' + n;
+        const e = edits[id];
+        if (e && e.deleted) return null;
+        return Object.assign({}, it, e || {}, { _id: id });
+      }).filter(Boolean);
+      if (items.length) model.push({ title, items });
+    });
+    return model;
+  }
+
+  let MODEL = buildModel();
+
+  function statusOf(item) {
+    const v = state[item._id];
+    if (v === 'todo' || v === 'prog' || v === 'done') return v;
+    if (item.done) return 'done';
+    if (item.badge === 'prog') return 'prog';
+    return 'todo';
+  }
+  const NEXT = { todo: 'prog', prog: 'done', done: 'todo' };
+
+  function escapeHtml(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+  function escapeAttr(s){return (s||'').replace(/"/g,'&quot;');}
+
+  function renderItem(item) {
+    if (item.group) return `<div class="grp-label">${escapeHtml(item.t)}</div>`;
+    const st = statusOf(item);
+    const cls = ['item','st-'+st];
+    if (item.sub) cls.push('sub');
+    let txt = item.link
+      ? `<a href="${escapeAttr(item.link)}" target="_blank" rel="noopener">${escapeHtml(item.t)}</a>`
+      : escapeHtml(item.t);
+    if (item.stars) txt += `<span class="stars">${'★'.repeat(item.stars)}</span>`;
+    if (item.badge === 'udemy') txt += `<span class="badge udemy">Udemy</span>`;
+    return `<div class="${cls.join(' ')}" data-id="${escapeAttr(item._id)}" data-status="${st}" data-text="${escapeAttr((item.t+' '+(item.link||'')).toLowerCase())}">
+      <div class="cbox" role="checkbox" tabindex="0" aria-label="cycle status" title="Click to cycle: To do → In progress → Done">
+        <svg class="ic-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span class="ic-prog"></span>
+      </div>
+      <div class="itxt">${txt}</div>
+      <div class="row-actions">
+        <button class="mini-btn edit" title="Edit">✎</button>
+        <button class="mini-btn del" title="Delete">✕</button>
+      </div>
+    </div>`;
+  }
+
+  function sectionStats(sec){
+    let total=0,done=0,prog=0;
+    sec.items.forEach(it=>{ if(it.group) return; total++; const s=statusOf(it); if(s==='done')done++; else if(s==='prog')prog++; });
+    return {total,done,prog};
+  }
+
+  const palette=['#ff5a3c','#ffb33c','#3cc6c2','#4ddb9e'];
+  const dotColor=i=>palette[i%palette.length];
+
+  function render(){
+    MODEL = buildModel();
+    board.innerHTML = MODEL.map((sec,s)=>{
+      const {total,done,prog}=sectionStats(sec);
+      const pct=total?Math.round(done/total*100):0;
+      const pp=total?Math.round(prog/total*100):0;
+      const itemsHtml=sec.items.map(renderItem).join('');
+      return `<section class="section" data-sec="${s}" data-title="${escapeAttr(sec.title)}">
+        <div class="sec-head">
+          <span class="sec-dot" style="background:${dotColor(s)}"></span>
+          <span class="sec-title">${escapeHtml(sec.title)}</span>
+          <span class="sec-meta">
+            <span class="minibar"><b style="width:${pct}%"></b><i style="width:${pp}%"></i></span>
+            <span class="sec-count">${done}/${total}</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </div>
+        <div class="sec-body">${itemsHtml}
+          <button class="add-here btn ghost" data-section="${escapeAttr(sec.title)}">+ Add item to this section</button>
+        </div>
+      </section>`;
+    }).join('');
+    bindEvents();
+    updateDash();
+    applyFilter();
+  }
+
+  function bindEvents(){
+    document.querySelectorAll('.sec-head').forEach(h=>{
+      h.addEventListener('click',()=>h.parentElement.classList.toggle('collapsed'));
+    });
+    document.querySelectorAll('.item').forEach(row=>{
+      const box=row.querySelector('.cbox');
+      const cycle=e=>{ e.stopPropagation();
+        const id=row.dataset.id, cur=row.dataset.status, nxt=NEXT[cur]||'prog';
+        state[id]=nxt; row.dataset.status=nxt;
+        row.classList.remove('st-todo','st-prog','st-done'); row.classList.add('st-'+nxt);
+        saveState(); refreshSection(row.closest('.section')); updateDash(); applyFilter();
+      };
+      box.addEventListener('click',cycle);
+      box.addEventListener('keydown',e=>{ if(e.key===' '||e.key==='Enter'){e.preventDefault();cycle(e);} });
+      row.querySelector('.edit').addEventListener('click',e=>{ e.stopPropagation(); openEditor(row.dataset.id); });
+      row.querySelector('.del').addEventListener('click',e=>{ e.stopPropagation(); deleteItem(row.dataset.id); });
+    });
+    document.querySelectorAll('.add-here').forEach(b=>{
+      b.addEventListener('click',e=>{ e.stopPropagation(); openEditor(null, b.dataset.section); });
+    });
+  }
+
+  function refreshSection(secEl){
+    const title=secEl.dataset.title;
+    const sec=MODEL.find(s=>s.title===title); if(!sec) return;
+    const {total,done,prog}=sectionStats(sec);
+    secEl.querySelector('.minibar b').style.width=(total?Math.round(done/total*100):0)+'%';
+    secEl.querySelector('.minibar i').style.width=(total?Math.round(prog/total*100):0)+'%';
+    secEl.querySelector('.sec-count').textContent=`${done}/${total}`;
+  }
+
+  function totals(){ let t=0,d=0,p=0; MODEL.forEach(sec=>{const r=sectionStats(sec);t+=r.total;d+=r.done;p+=r.prog;}); return {total:t,done:d,prog:p}; }
+
+  function updateDash(){
+    const {total,done,prog}=totals();
+    const pct=total?Math.round(done/total*100):0, rem=total-done-prog;
+    document.getElementById('dash').innerHTML=`
+      <div class="stat green"><div class="num">${done}</div><div class="lbl">Completed</div></div>
+      <div class="stat gold"><div class="num">${prog}</div><div class="lbl">In progress</div></div>
+      <div class="stat accent"><div class="num">${rem}</div><div class="lbl">Not started</div></div>
+      <div class="stat teal"><div class="num">${total}</div><div class="lbl">Total items</div></div>`;
+    document.getElementById('bigfill').style.width=pct+'%';
+    const pf=document.getElementById('bigprog');
+    if(pf){ pf.style.left=pct+'%'; pf.style.width=(total?Math.round(prog/total*100):0)+'%'; }
+    document.getElementById('capleft').textContent=`${done} done · ${prog} in progress · ${rem} to start`;
+    document.getElementById('capright').textContent=pct+'%';
+  }
+
+  // ---- filters / search ----
+  let filter='all', query='';
+  function applyFilter(){
+    const q=query.trim();
+    document.querySelectorAll('.section').forEach(secEl=>{
+      let vis=0;
+      secEl.querySelectorAll('.item').forEach(row=>{
+        const st=row.dataset.status; let show=true;
+        if(filter==='todo'&&st!=='todo')show=false;
+        if(filter==='prog'&&st!=='prog')show=false;
+        if(filter==='done'&&st!=='done')show=false;
+        if(q&&row.dataset.text.indexOf(q)===-1)show=false;
+        row.classList.toggle('hidden',!show); if(show)vis++;
+      });
+      const filtering=q||filter!=='all';
+      secEl.classList.toggle('hidden',filtering&&vis===0);
+    });
+  }
+  document.getElementById('search').addEventListener('input',e=>{query=e.target.value.toLowerCase();applyFilter();});
+  document.querySelectorAll('.btn[data-filter]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.btn[data-filter]').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active'); filter=b.dataset.filter; applyFilter();
+    });
+  });
+  document.getElementById('expand').addEventListener('click',()=>document.querySelectorAll('.section').forEach(s=>s.classList.remove('collapsed')));
+  document.getElementById('collapse').addEventListener('click',()=>document.querySelectorAll('.section').forEach(s=>s.classList.add('collapsed')));
+  document.getElementById('reset').addEventListener('click',()=>{
+    if(confirm('Reset progress status only? (Your added/edited items stay.)')){ state={}; saveState(); render(); }
+  });
+
+  // ---- ADD / EDIT MODAL ----
+  const modal=document.getElementById('modal');
+  let editing=null; // _id when editing, null when adding
+
+  function sectionOptions(selected){
+    const titles=MODEL.map(s=>s.title);
+    return titles.map(t=>`<option value="${escapeAttr(t)}" ${t===selected?'selected':''}>${escapeHtml(t)}</option>`).join('')
+      + `<option value="__new__">➕ New section…</option>`;
+  }
+
+  function openEditor(id, presetSection){
+    editing=id;
+    let item={t:'',link:'',stars:0}, section=presetSection||MODEL[0]?.title;
+    if(id){
+      for(const sec of MODEL){ const f=sec.items.find(x=>x._id===id); if(f){item=f;section=sec.title;break;} }
+    }
+    document.getElementById('m-title').textContent = id?'Edit item':'Add item';
+    document.getElementById('m-section').innerHTML = sectionOptions(section);
+    document.getElementById('m-newsection').value='';
+    document.getElementById('m-newsection').classList.add('hidden');
+    document.getElementById('m-text').value=item.t||'';
+    document.getElementById('m-link').value=item.link||'';
+    document.getElementById('m-stars').value=item.stars||0;
+    if(id){
+      document.getElementById('m-status').value=statusOf(item);
+      document.getElementById('m-delete').classList.remove('hidden');
+    } else {
+      document.getElementById('m-status').value='todo';
+      document.getElementById('m-delete').classList.add('hidden');
+    }
+    modal.classList.add('open');
+    document.getElementById('m-text').focus();
+  }
+  function closeEditor(){ modal.classList.remove('open'); editing=null; }
+
+  document.getElementById('m-section').addEventListener('change',e=>{
+    document.getElementById('m-newsection').classList.toggle('hidden', e.target.value!=='__new__');
+    if(e.target.value==='__new__') document.getElementById('m-newsection').focus();
+  });
+
+  document.getElementById('m-save').addEventListener('click',()=>{
+    const text=document.getElementById('m-text').value.trim();
+    if(!text){ document.getElementById('m-text').focus(); return; }
+    let section=document.getElementById('m-section').value;
+    if(section==='__new__'){ section=document.getElementById('m-newsection').value.trim(); if(!section){document.getElementById('m-newsection').focus();return;} }
+    const link=document.getElementById('m-link').value.trim();
+    const stars=parseInt(document.getElementById('m-stars').value)||0;
+    const status=document.getElementById('m-status').value;
+
+    const payload={t:text}; if(link)payload.link=link; if(stars)payload.stars=stars;
+
+    if(editing){
+      // record an edit override on existing id (built-in or custom)
+      edits[editing]=Object.assign({}, edits[editing], payload);
+      state[editing]=status;
+    } else {
+      // append to custom[section]
+      if(!custom[section]) custom[section]=[];
+      custom[section].push(payload);
+      // status: set after we know its id
+      saveData();
+      MODEL=buildModel();
+      const sec=MODEL.find(s=>s.title===section);
+      const newId=sec.items[sec.items.length-1]._id;
+      state[newId]=status;
+    }
+    saveData(); saveState(); render(); closeEditor();
+  });
+
+  function deleteItem(id){
+    if(!confirm('Delete this item?')) return;
+    edits[id]=Object.assign({}, edits[id], {deleted:true});
+    delete state[id];
+    saveData(); saveState(); render();
+  }
+  document.getElementById('m-delete').addEventListener('click',()=>{ if(editing){ deleteItem(editing); closeEditor(); } });
+  document.getElementById('m-cancel').addEventListener('click',closeEditor);
+  modal.addEventListener('click',e=>{ if(e.target===modal) closeEditor(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('open')) closeEditor(); });
+  document.getElementById('add-global').addEventListener('click',()=>openEditor(null));
+
+  render();
+})();
+
+</script>
+</body>
+</html>
