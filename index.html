@@ -1080,11 +1080,21 @@ const DATA = [
 ];
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function () {
   const board = document.getElementById('board');
   const DATA_KEY = 'cip-tracker-data-v2';   // user-added/edited items
   const STATE_KEY = 'cip-tracker-v2';        // per-item status overrides
+
+  // ===== Supabase cloud sync config =====
+  // 1) Create a free project at https://supabase.com
+  // 2) Paste the Project URL and the anon/public API key below (Settings -> API).
+  // 3) Run the SQL in the README/comment to create the table.
+  // Until both are filled in, the app silently works local-only.
+  const SUPABASE_URL = 'xkdbwpsmoayncsfvlkum.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_NuISUMUPJ89Oj0YybEiF7Q_tw7aY9h7';
+  const SYNC_KEY_LS = 'cip-sync-key';
 
   // ---- load persisted data (custom items) layered over the built-in DATA ----
   let custom = {};   // { sectionTitle: [ {t,link,...}, ... ] }  user additions
@@ -1094,8 +1104,8 @@ const DATA = [
   try { edits = JSON.parse(localStorage.getItem(DATA_KEY))?.edits || {}; } catch(e){}
   try { state = JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch (e) { state = {}; }
 
-  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits})); }catch(e){} }
-  function saveState(){ try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){} }
+  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits})); }catch(e){} scheduleSync(); }
+  function saveState(){ try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){} scheduleSync(); }
 
   // ---- build the working model: merge built-in DATA + custom additions + edits ----
   // Each rendered item gets a stable id. Built-ins: "b:<section>:<index>". Customs: "c:<section>:<n>".
@@ -1366,7 +1376,93 @@ const DATA = [
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&modal.classList.contains('open')) closeEditor(); });
   document.getElementById('add-global').addEventListener('click',()=>openEditor(null));
 
+  // ===== Supabase cloud sync =====
+  let sb=null, syncKey=null, realtimeChan=null, syncTimer=null, applyingRemote=false;
+
+  function cloudConfigured(){
+    return SUPABASE_URL.indexOf('YOUR-')===-1 && SUPABASE_ANON_KEY.indexOf('YOUR-')===-1 && !!(window.supabase);
+  }
+
+  // status pill (bottom-right). Click to set/change the sync code.
+  const pill=document.createElement('button');
+  pill.id='sync-pill';
+  pill.style.cssText='position:fixed;right:16px;bottom:16px;z-index:9999;border:0;border-radius:999px;'
+    +'padding:8px 14px;font:600 12px/1 Outfit,system-ui,sans-serif;cursor:pointer;color:#fff;'
+    +'box-shadow:0 4px 14px rgba(0,0,0,.18);display:flex;gap:7px;align-items:center;letter-spacing:.02em;';
+  document.body.appendChild(pill);
+  pill.addEventListener('click',changeKey);
+  function setPill(kind,label){
+    const c={ok:'#1f9d6b',sync:'#c98a16',err:'#d23f2f',off:'#6b7280',local:'#6b7280'}[kind]||'#6b7280';
+    const dot=kind==='sync'?'◴':kind==='ok'?'✔':kind==='err'?'!':kind==='off'?'○':'•';
+    pill.style.background=c; pill.textContent=dot+'  '+label;
+  }
+
+  function changeKey(){
+    if(!cloudConfigured()){ alert('Cloud sync is not configured yet.\n\nEdit index.html and set SUPABASE_URL and SUPABASE_ANON_KEY near the top of the script.'); return; }
+    const k=prompt('Sync code — type the SAME code on every browser/device to share your progress.\nLeave blank to turn sync off on this browser.', syncKey||'');
+    if(k===null) return;
+    const v=k.trim();
+    if(!v){ localStorage.removeItem(SYNC_KEY_LS); syncKey=null; if(realtimeChan){sb.removeChannel(realtimeChan);realtimeChan=null;} setPill('off','Sync off'); return; }
+    localStorage.setItem(SYNC_KEY_LS,v); syncKey=v; pullThenSubscribe();
+  }
+
+  function applyRemote(d){
+    custom = d.custom || {};
+    edits  = d.edits  || {};
+    state  = d.state  || {};
+    try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits})); }catch(e){}
+    try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){}
+    applyingRemote=true; render(); applyingRemote=false;
+  }
+
+  async function pull(){
+    try{
+      setPill('sync','Syncing…');
+      const {data,error}=await sb.from('tracker_state').select('data').eq('id',syncKey).maybeSingle();
+      if(error) throw error;
+      if(data && data.data){ applyRemote(data.data); setPill('ok','Synced'); }
+      else { await push(); }   // no cloud row yet -> seed it from this browser
+    }catch(e){ console.error('[sync] pull',e); setPill('err','Sync error'); }
+  }
+
+  async function push(){
+    if(!sb||!syncKey) return;
+    try{
+      setPill('sync','Saving…');
+      const {error}=await sb.from('tracker_state').upsert({id:syncKey,data:{custom,edits,state},updated_at:new Date().toISOString()});
+      if(error) throw error;
+      setPill('ok','Synced');
+    }catch(e){ console.error('[sync] push',e); setPill('err','Sync error'); }
+  }
+
+  function scheduleSync(){
+    if(!sb||!syncKey||applyingRemote) return;
+    clearTimeout(syncTimer);
+    syncTimer=setTimeout(push,600);
+  }
+
+  function subscribe(){
+    if(realtimeChan){ sb.removeChannel(realtimeChan); realtimeChan=null; }
+    realtimeChan=sb.channel('tracker-'+syncKey)
+      .on('postgres_changes',{event:'*',schema:'public',table:'tracker_state',filter:'id=eq.'+syncKey},payload=>{
+        const d=payload.new && payload.new.data; if(!d) return;
+        applyRemote(d); setPill('ok','Synced');
+      })
+      .subscribe();
+  }
+
+  async function pullThenSubscribe(){ await pull(); subscribe(); }
+
+  function initCloud(){
+    if(!cloudConfigured()){ setPill('local','Local only'); return; }
+    sb=window.supabase.createClient(SUPABASE_URL.startsWith('http')?SUPABASE_URL:'https://'+SUPABASE_URL, SUPABASE_ANON_KEY);
+    syncKey=localStorage.getItem(SYNC_KEY_LS)||null;
+    if(syncKey){ pullThenSubscribe(); }
+    else { setPill('off','Set sync code'); }
+  }
+
   render();
+  initCloud();
 })();
 
 </script>
