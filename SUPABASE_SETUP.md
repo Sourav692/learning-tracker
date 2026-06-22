@@ -1,70 +1,99 @@
-# Cloud sync setup (Supabase)
+# Cloud sync + Google sign-in setup (Supabase)
 
-The tracker stores your progress in the browser's `localStorage`, which is why
-different browsers showed different progress. With Supabase configured, every
-browser/device that uses the **same sync code** shares one copy of your progress,
-and changes propagate live (Supabase Realtime).
+The tracker is **local-first**: it always works in the browser using
+`localStorage`. When you **sign in with Google**, your progress is backed up to
+Supabase in a row that only *you* can read or write (enforced by Row-Level
+Security), and changes sync live across your devices (Supabase Realtime).
 
-## 1. Create a project
+> **Heads up:** Google OAuth requires the app to be served over **http/https**
+> (e.g. GitHub Pages, Vercel, Netlify, or `localhost`). It will not complete the
+> sign-in redirect when opening `index.html` directly via `file://`. The tracker
+> itself still works offline/locally in that case — you just won't get cloud sync.
 
-1. Go to https://supabase.com → sign in → **New project** (the free tier is fine).
-2. Once it's ready, open **Project Settings → API** and copy:
+---
+
+## 1. Create a Supabase project
+
+1. Go to https://supabase.com → **New project** (free tier is fine).
+2. Open **Project Settings → API** and copy:
    - **Project URL** (e.g. `https://abcd1234.supabase.co`)
-   - **anon / public** API key
+   - **anon / publishable** API key
 
-## 2. Create the table
+## 2. Create the table + RLS
 
-Open **SQL Editor** in the Supabase dashboard, paste this, and run it:
+Open **SQL Editor**, paste the contents of [`supabase/schema.sql`](supabase/schema.sql),
+and run it. This creates `public.tracker_state` (one row per user, keyed by
+`auth.uid()`), enables RLS with owner-only policies, adds the table to Realtime,
+and adds an `updated_at` trigger.
 
-```sql
-create table if not exists public.tracker_state (
-  id          text primary key,           -- your sync code
-  data        jsonb not null default '{}', -- { custom, edits, state }
-  updated_at  timestamptz not null default now()
-);
+## 3. Enable Google as an auth provider
 
--- Row Level Security
-alter table public.tracker_state enable row level security;
+> **Note:** Google renamed/moved this. The old "APIs & Services → OAuth consent
+> screen" is now the **Google Auth Platform** section (left nav: Overview,
+> Branding, Audience, Clients, Data Access, …). The steps below use the new UI.
 
--- Allow the anonymous (public) key to read/write.
--- Privacy comes from the sync code being the primary key: rows are only
--- reachable if you know the code. Use a long, hard-to-guess code.
-create policy "anon read"   on public.tracker_state for select using (true);
-create policy "anon insert" on public.tracker_state for insert with check (true);
-create policy "anon update" on public.tracker_state for update using (true) with check (true);
-```
+**a. Get the Supabase callback URL first.** In **Supabase → Authentication →
+Providers → Google**, toggle it on and copy the **Callback URL** it shows, e.g.
+`https://abcd1234.supabase.co/auth/v1/callback`. Leave this tab open.
 
-Then enable Realtime for the table:
-**Database → Replication → `supabase_realtime`** → add `public.tracker_state`
-(or in newer dashboards: **Database → Publications**).
+**b. Configure the consent screen (Google Cloud Console → Google Auth Platform).**
+Open https://console.cloud.google.com → search "**Google Auth Platform**" (or
+**APIs & Services → OAuth consent screen**, which redirects there). If it's your
+first time, click **Get started** and fill the wizard; otherwise set each tab:
+   - **Branding**: App name + user support email (logo optional). Save.
+   - **Audience**: set **User type = External**. You can leave **Publishing status =
+     Testing**; under **Test users** click **Add users** and add your own Google
+     address (only listed test users can sign in while in Testing).
 
-## 3. Paste your credentials into `index.html`
+**c. Create the OAuth client.** Left nav → **Clients** → **Create client** (or
+**+ Create credentials → OAuth client ID** under the classic Credentials page):
+   - **Application type: Web application**, give it a name.
+   - **Authorized redirect URIs → Add URI** → paste the Supabase **Callback URL**
+     from step (a).
+   - *(Optional)* **Authorized JavaScript origins** → add your app's origin
+     (e.g. `https://<you>.github.io` and/or `http://localhost:8765`).
+   - **Create**, then copy the **Client ID** and **Client secret**.
 
-Near the top of the main `<script>` block (search for `SUPABASE_URL`):
+**d. Paste back into Supabase.** Return to the Supabase Google provider tab from
+step (a), paste the **Client ID** and **Client secret**, and **Save**.
+
+## 4. Allow your app's URL to receive the redirect
+
+In **Supabase → Authentication → URL Configuration**:
+- **Site URL**: your deployed app URL (e.g. `https://<you>.github.io/learning-tracker/`).
+- **Redirect URLs**: add the same URL (and `http://localhost:5173/` or whatever
+  you use locally). The app redirects back to `window.location` after sign-in.
+
+## 5. Point the app at your project
+
+Edit [`config.js`](config.js):
 
 ```js
-const SUPABASE_URL      = 'https://abcd1234.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOi...your-anon-key...';
+window.APP_CONFIG = {
+  SUPABASE_URL: 'https://abcd1234.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_...your-anon-key...',
+  TABLE: 'tracker_state'
+};
 ```
 
-Commit & push to GitHub Pages.
+Commit & deploy (e.g. push to GitHub Pages).
 
-## 4. Use it
+## 6. Use it
 
-- A pill appears bottom-right. Click it and enter a **sync code** (e.g. a long
-  passphrase like `sourav-learning-9f3a2c`). Use the **same code** on every
-  browser/device.
-- First browser seeds the cloud from its current local data; others pull it down.
-- Edits sync automatically (debounced ~0.6s) and other open tabs update live.
+- A pill appears bottom-right:
+  - **Local only** — Supabase not configured in `config.js`.
+  - **Sign in to sync** — configured but logged out. Click it → **Continue with Google**.
+  - **Syncing… / Saving… / Synced** — signed in and syncing.
+  - **Sync error** — check the browser console.
+- On first sign-in, if your cloud row is empty it's **seeded from this browser's
+  local data**; otherwise the cloud copy is pulled down (cloud wins).
+- Edits sync automatically (debounced ~0.6s); other open tabs/devices update live.
+- Click the pill while signed in to see your account and **Sign out** (local data
+  stays on the device).
 
-Pill states: `Local only` (not configured) · `Set sync code` · `Syncing…` ·
-`Saving…` · `Synced` · `Sync error` (check the browser console).
+## Security model
 
-## Security note
-
-The anon key is visible in the page source — that's normal for Supabase, but it
-means the only thing protecting your data is the secrecy of the **sync code**
-(it's the row's primary key). For a personal learning tracker that's a reasonable
-trade-off. If you want stronger isolation later, move reads/writes behind a
-`security definer` RPC that takes the code as an argument and lock the table down,
-or switch to Supabase Auth.
+- The anon key in `config.js` is **meant** to be public. Every `tracker_state`
+  row is gated by RLS policies (`auth.uid() = user_id`), so one user can never
+  read or write another's data, even with the key.
+- Realtime also respects RLS — you only receive change events for your own row.

@@ -1,0 +1,707 @@
+(function () {
+  const board = document.getElementById('board');
+  const DATA = window.LEARNING_DATA || [];     // seed content (data.js)
+  const DATA_KEY = 'cip-tracker-data-v2';       // user-added/edited items
+  const STATE_KEY = 'cip-tracker-v2';           // per-item status overrides
+
+  // ===== Supabase config (from config.js) =====
+  const CFG = window.APP_CONFIG || {};
+  const SUPABASE_URL = CFG.SUPABASE_URL || '';
+  const SUPABASE_ANON_KEY = CFG.SUPABASE_ANON_KEY || '';
+  const TABLE = CFG.TABLE || 'tracker_state';
+
+  // ---- load persisted data (custom items) layered over the built-in DATA ----
+  let custom = {};   // { moduleTitle: { topicTitle: [ {t,link,...}, ... ] } }  user additions
+  let edits = {};    // { id: {t?,link?,stars?,deleted?} }  edits to built-ins or customs
+  let topicEdits = {}; // { "section::origTopic": {title?, deleted?} }  rename/remove sub-topics
+  let order = {};    // { sections:[title,...], topics:{ section:[topicTitle,...] } }  drag-reorder
+  let state = {};    // { id: 'todo'|'prog'|'done' }
+  try { custom = JSON.parse(localStorage.getItem(DATA_KEY))?.custom || {}; } catch(e){}
+  try { edits = JSON.parse(localStorage.getItem(DATA_KEY))?.edits || {}; } catch(e){}
+  try { topicEdits = JSON.parse(localStorage.getItem(DATA_KEY))?.topicEdits || {}; } catch(e){}
+  try { order = JSON.parse(localStorage.getItem(DATA_KEY))?.order || {}; } catch(e){}
+  try { state = JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch (e) { state = {}; }
+  // migrate old flat custom shape { module: [items] } -> { module: { topic: [items] } }
+  Object.keys(custom).forEach(mod=>{ if(Array.isArray(custom[mod])) custom[mod]={ 'Added items': custom[mod] }; });
+
+  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order})); }catch(e){} scheduleSync(); }
+  function saveState(){ try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){} scheduleSync(); }
+
+  // ---- build the working model: merge built-in DATA + custom additions + edits ----
+  // Stable ids: built-ins "b:<module>::<topic>::<i>", customs "c:<module>::<topic>::<n>".
+  const SEP = '::';
+  function buildModel(){
+    const model = [];
+    const seen = new Set();
+    DATA.forEach(sec => {
+      const topics = [];
+      const seenTopics = new Set();
+      (sec.topics || []).forEach(top => {
+        const items = [];
+        top.items.forEach((it, i) => {
+          const id = 'b:' + sec.title + SEP + top.title + SEP + i;
+          const e = edits[id];
+          if (e && e.deleted) return;
+          items.push(Object.assign({}, it, e || {}, { _id: id }));
+        });
+        ((custom[sec.title] && custom[sec.title][top.title]) || []).forEach((it, n) => {
+          const id = 'c:' + sec.title + SEP + top.title + SEP + n;
+          const e = edits[id];
+          if (e && e.deleted) return;
+          items.push(Object.assign({}, it, e || {}, { _id: id }));
+        });
+        seenTopics.add(top.title);
+        const meta = topicEdits[sec.title + SEP + top.title];
+        if (meta && meta.deleted) return;
+        topics.push({ title: top.title, display: (meta && meta.title) || top.title, items });
+      });
+      // custom sub-topics added under a built-in module
+      if (custom[sec.title]) {
+        Object.keys(custom[sec.title]).forEach(tt => {
+          if (seenTopics.has(tt)) return;
+          const items = (custom[sec.title][tt] || []).map((it, n) => {
+            const id = 'c:' + sec.title + SEP + tt + SEP + n;
+            const e = edits[id];
+            if (e && e.deleted) return null;
+            return Object.assign({}, it, e || {}, { _id: id });
+          }).filter(Boolean);
+          const meta = topicEdits[sec.title + SEP + tt];
+          if (meta && meta.deleted) return;
+          if (items.length) topics.push({ title: tt, display: (meta && meta.title) || tt, items });
+        });
+      }
+      model.push({ title: sec.title, topics });
+      seen.add(sec.title);
+    });
+    // brand-new modules that only exist in custom
+    Object.keys(custom).forEach(title => {
+      if (seen.has(title)) return;
+      const topics = [];
+      Object.keys(custom[title]).forEach(tt => {
+        const items = (custom[title][tt] || []).map((it, n) => {
+          const id = 'c:' + title + SEP + tt + SEP + n;
+          const e = edits[id];
+          if (e && e.deleted) return null;
+          return Object.assign({}, it, e || {}, { _id: id });
+        }).filter(Boolean);
+        const meta = topicEdits[title + SEP + tt];
+        if (meta && meta.deleted) return;
+        if (items.length) topics.push({ title: tt, display: (meta && meta.title) || tt, items });
+      });
+      if (topics.length) model.push({ title, topics });
+    });
+    applyOrder(model);
+    return model;
+  }
+
+  // apply saved drag-reorder; titles not listed keep their original order at the end (stable sort)
+  function applyOrder(model){
+    const rank = (arr, t) => { const i = arr ? arr.indexOf(t) : -1; return i === -1 ? 1e9 : i; };
+    if (order.sections && order.sections.length) {
+      model.sort((a, b) => rank(order.sections, a.title) - rank(order.sections, b.title));
+    }
+    if (order.topics) {
+      model.forEach(sec => {
+        const ord = order.topics[sec.title];
+        if (ord && ord.length) sec.topics.sort((a, b) => rank(ord, a.title) - rank(ord, b.title));
+      });
+    }
+    if (order.items) {
+      model.forEach(sec => sec.topics.forEach(top => {
+        const ord = order.items[sec.title + SEP + top.title];
+        if (ord && ord.length) top.items.sort((a, b) => rank(ord, a._id) - rank(ord, b._id));
+      }));
+    }
+  }
+
+  let MODEL = buildModel();
+
+  function statusOf(item) {
+    const v = state[item._id];
+    if (v === 'todo' || v === 'prog' || v === 'done') return v;
+    if (item.done) return 'done';
+    if (item.badge === 'prog') return 'prog';
+    return 'todo';
+  }
+  const NEXT = { todo: 'prog', prog: 'done', done: 'todo' };
+
+  function escapeHtml(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+  function escapeAttr(s){return (s||'').replace(/"/g,'&quot;');}
+
+  function renderItem(item) {
+    if (item.group) return `<div class="grp-label">${escapeHtml(item.t)}</div>`;
+    const st = statusOf(item);
+    const cls = ['item','st-'+st];
+    if (item.sub) cls.push('sub');
+    let txt = item.link
+      ? `<a href="${escapeAttr(item.link)}" target="_blank" rel="noopener" draggable="false">${escapeHtml(item.t)}</a>`
+      : escapeHtml(item.t);
+    if (item.stars) txt += `<span class="stars">${'★'.repeat(item.stars)}</span>`;
+    if (item.badge === 'udemy') txt += `<span class="badge udemy">Udemy</span>`;
+    return `<div class="${cls.join(' ')}" data-id="${escapeAttr(item._id)}" data-status="${st}" data-text="${escapeAttr((item.t+' '+(item.link||'')).toLowerCase())}">
+      <span class="drag-grip" title="Drag to reorder">⠿</span>
+      <div class="cbox" role="checkbox" tabindex="0" aria-label="cycle status" title="Click to cycle: To do → In progress → Done">
+        <svg class="ic-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        <span class="ic-prog"></span>
+      </div>
+      <div class="itxt">${txt}</div>
+      <div class="row-actions">
+        <button class="mini-btn edit" title="Edit">✎</button>
+        <button class="mini-btn del" title="Delete">✕</button>
+      </div>
+    </div>`;
+  }
+
+  function itemsStats(items){
+    let total=0,done=0,prog=0;
+    items.forEach(it=>{ if(it.group) return; total++; const s=statusOf(it); if(s==='done')done++; else if(s==='prog')prog++; });
+    return {total,done,prog};
+  }
+  function topicStats(top){ return itemsStats(top.items); }
+  function sectionStats(sec){
+    let total=0,done=0,prog=0;
+    sec.topics.forEach(top=>{ const r=itemsStats(top.items); total+=r.total; done+=r.done; prog+=r.prog; });
+    return {total,done,prog};
+  }
+
+  const palette=['#ff5a3c','#ffb33c','#3cc6c2','#4ddb9e'];
+  const dotColor=i=>palette[i%palette.length];
+
+  function render(){
+    MODEL = buildModel();
+    board.innerHTML = MODEL.map((sec,s)=>{
+      const {total,done,prog}=sectionStats(sec);
+      const pct=total?Math.round(done/total*100):0;
+      const pp=total?Math.round(prog/total*100):0;
+      const topicsHtml=sec.topics.map(top=>{
+        const r=topicStats(top);
+        const tpct=r.total?Math.round(r.done/r.total*100):0;
+        const tpp=r.total?Math.round(r.prog/r.total*100):0;
+        const itemsHtml=top.items.map(renderItem).join('');
+        return `<div class="topic" data-topic="${escapeAttr(top.title)}">
+          <div class="topic-head">
+            <span class="drag-grip" title="Drag to reorder">⠿</span>
+            <span class="topic-title">${escapeHtml(top.display||top.title)}</span>
+            <span class="topic-actions">
+              <button class="mini-btn t-edit" title="Edit / delete sub-topic" data-section="${escapeAttr(sec.title)}" data-topic="${escapeAttr(top.title)}">✎</button>
+            </span>
+            <span class="topic-meta">
+              <span class="minibar sm"><b style="width:${tpct}%"></b><i style="width:${tpp}%"></i></span>
+              <span class="topic-count">${r.done}/${r.total}</span>
+              <svg class="chev sm" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </span>
+          </div>
+          <div class="topic-body">${itemsHtml}
+            <button class="add-here btn ghost" data-section="${escapeAttr(sec.title)}" data-topic="${escapeAttr(top.title)}">+ Add link</button>
+          </div>
+        </div>`;
+      }).join('');
+      return `<section class="section" data-sec="${s}" data-title="${escapeAttr(sec.title)}">
+        <div class="sec-head">
+          <span class="drag-grip" title="Drag to reorder">⠿</span>
+          <span class="sec-dot" style="background:${dotColor(s)}"></span>
+          <span class="sec-title">${escapeHtml(sec.title)}</span>
+          <span class="sec-meta">
+            <span class="minibar"><b style="width:${pct}%"></b><i style="width:${pp}%"></i></span>
+            <span class="sec-count">${done}/${total}</span>
+            <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </div>
+        <div class="sec-body">${topicsHtml}
+          <button class="add-topic btn ghost" data-section="${escapeAttr(sec.title)}">+ Add sub-topic</button>
+        </div>
+      </section>`;
+    }).join('');
+    bindEvents();
+    updateDash();
+    applyFilter();
+  }
+
+  function bindEvents(){
+    document.querySelectorAll('.sec-head').forEach(h=>{
+      h.addEventListener('click',()=>h.parentElement.classList.toggle('collapsed'));
+    });
+    document.querySelectorAll('.topic-head').forEach(h=>{
+      h.addEventListener('click',e=>{ e.stopPropagation(); h.parentElement.classList.toggle('collapsed'); });
+    });
+    document.querySelectorAll('.item').forEach(row=>{
+      const box=row.querySelector('.cbox');
+      const cycle=e=>{ e.stopPropagation();
+        const id=row.dataset.id, cur=row.dataset.status, nxt=NEXT[cur]||'prog';
+        state[id]=nxt; row.dataset.status=nxt;
+        row.classList.remove('st-todo','st-prog','st-done'); row.classList.add('st-'+nxt);
+        saveState(); refreshSection(row.closest('.section')); updateDash(); applyFilter();
+      };
+      box.addEventListener('click',cycle);
+      box.addEventListener('keydown',e=>{ if(e.key===' '||e.key==='Enter'){e.preventDefault();cycle(e);} });
+      row.querySelector('.edit').addEventListener('click',e=>{ e.stopPropagation(); openEditor(row.dataset.id); });
+      row.querySelector('.del').addEventListener('click',e=>{ e.stopPropagation(); deleteItem(row.dataset.id); });
+      row.setAttribute('draggable','true');
+      row.addEventListener('dragstart',e=>{
+        if(e.target.closest('.cbox,.row-actions,button,a,input,select')){ e.preventDefault(); return; }
+        e.stopPropagation();
+        dragKind='item'; draggingEl=row; dragHomeBody=row.closest('.topic-body');
+        row.classList.add('dragging'); e.dataTransfer.effectAllowed='move';
+        try{ e.dataTransfer.setData('text/plain', row.dataset.id||''); }catch(_){}
+      });
+      row.addEventListener('dragend',endDrag);
+    });
+    document.querySelectorAll('.add-here').forEach(b=>{
+      b.addEventListener('click',e=>{ e.stopPropagation(); openEditor(null, b.dataset.section, b.dataset.topic); });
+    });
+    document.querySelectorAll('.add-topic').forEach(b=>{
+      b.addEventListener('click',e=>{ e.stopPropagation(); openEditor(null, b.dataset.section, '__new__'); });
+    });
+    document.querySelectorAll('.t-edit').forEach(b=>{
+      b.addEventListener('click',e=>{ e.stopPropagation(); editTopic(b.dataset.section, b.dataset.topic); });
+    });
+    // drag to reorder: section headers reorder modules, topic headers reorder sub-topics
+    document.querySelectorAll('.sec-head').forEach(h=>{
+      h.setAttribute('draggable','true');
+      h.addEventListener('dragstart',e=>{
+        if(e.target.closest('.mini-btn,button,a,input,select')){ e.preventDefault(); return; }
+        dragKind='section'; draggingEl=h.closest('.section'); dragHomeBody=null;
+        draggingEl.classList.add('dragging'); e.dataTransfer.effectAllowed='move';
+        try{ e.dataTransfer.setData('text/plain', draggingEl.dataset.title||''); }catch(_){}
+      });
+      h.addEventListener('dragend',endDrag);
+    });
+    document.querySelectorAll('.topic-head').forEach(h=>{
+      h.setAttribute('draggable','true');
+      h.addEventListener('dragstart',e=>{
+        if(e.target.closest('.mini-btn,button,a,input,select')){ e.preventDefault(); return; }
+        e.stopPropagation();
+        dragKind='topic'; draggingEl=h.closest('.topic'); dragHomeBody=draggingEl.closest('.sec-body');
+        draggingEl.classList.add('dragging'); e.dataTransfer.effectAllowed='move';
+        try{ e.dataTransfer.setData('text/plain', draggingEl.dataset.topic||''); }catch(_){}
+      });
+      h.addEventListener('dragend',endDrag);
+    });
+  }
+
+  // ---- drag-to-reorder helpers (board listeners bound once below) ----
+  let dragKind=null, draggingEl=null, dragHomeBody=null;
+  function endDrag(){
+    if(draggingEl) draggingEl.classList.remove('dragging');
+    const kind=dragKind;
+    dragKind=null; draggingEl=null; dragHomeBody=null;
+    if(kind){ persistOrderFromDOM(); }
+  }
+  function getDragAfterElement(container, y, selector){
+    const els=[...container.querySelectorAll(selector)].filter(el=>el!==draggingEl);
+    let closest={offset:-Infinity, element:null};
+    for(const child of els){
+      const box=child.getBoundingClientRect();
+      const offset=y - box.top - box.height/2;
+      if(offset<0 && offset>closest.offset) closest={offset, element:child};
+    }
+    return closest.element;
+  }
+  function persistOrderFromDOM(){
+    order.sections=[...board.querySelectorAll('.section')].map(s=>s.dataset.title);
+    order.topics=order.topics||{};
+    order.items=order.items||{};
+    board.querySelectorAll('.section').forEach(s=>{
+      order.topics[s.dataset.title]=[...s.querySelectorAll('.topic')].map(t=>t.dataset.topic);
+      s.querySelectorAll('.topic').forEach(t=>{
+        order.items[s.dataset.title+SEP+t.dataset.topic]=[...t.querySelectorAll('.item')].map(it=>it.dataset.id);
+      });
+    });
+    saveData(); render();
+  }
+  board.addEventListener('dragover',e=>{
+    if(!dragKind) return;
+    e.preventDefault(); e.dataTransfer.dropEffect='move';
+    if(dragKind==='section'){
+      const after=getDragAfterElement(board, e.clientY, '.section');
+      if(after==null) board.appendChild(draggingEl); else board.insertBefore(draggingEl, after);
+    } else if(dragKind==='topic' && dragHomeBody){
+      const after=getDragAfterElement(dragHomeBody, e.clientY, '.topic');
+      const addBtn=dragHomeBody.querySelector('.add-topic');
+      if(after==null) dragHomeBody.insertBefore(draggingEl, addBtn); else dragHomeBody.insertBefore(draggingEl, after);
+    } else if(dragKind==='item' && dragHomeBody){
+      const after=getDragAfterElement(dragHomeBody, e.clientY, '.item');
+      const addBtn=dragHomeBody.querySelector('.add-here');
+      if(after==null) dragHomeBody.insertBefore(draggingEl, addBtn); else dragHomeBody.insertBefore(draggingEl, after);
+    }
+  });
+  board.addEventListener('drop',e=>{ if(dragKind) e.preventDefault(); });
+
+  function topicDisplayTitle(section, origTopic){
+    const m=topicEdits[section+SEP+origTopic];
+    return (m && m.title) || origTopic;
+  }
+
+  // ---- RENAME / DELETE SUB-TOPIC MODAL ----
+  const tmodal=document.getElementById('tmodal');
+  let editingTopic=null; // {section, origTopic}
+  function editTopic(section, origTopic){
+    editingTopic={section, origTopic};
+    confirmingTopicDelete=false;
+    const btn=document.getElementById('tm-delete');
+    btn.textContent='Delete sub-topic'; btn.classList.remove('danger');
+    document.getElementById('tm-text').value=topicDisplayTitle(section, origTopic);
+    tmodal.classList.add('open');
+    const inp=document.getElementById('tm-text'); inp.focus(); inp.select();
+  }
+  function closeTopicEditor(){ tmodal.classList.remove('open'); confirmingTopicDelete=false; editingTopic=null; }
+  function saveTopicRename(){
+    if(!editingTopic) return;
+    const v=document.getElementById('tm-text').value.trim();
+    if(!v){ document.getElementById('tm-text').focus(); return; }
+    const key=editingTopic.section+SEP+editingTopic.origTopic;
+    topicEdits[key]=Object.assign({}, topicEdits[key], {title:v});
+    saveData(); render(); closeTopicEditor();
+  }
+  let confirmingTopicDelete=false;
+  function onTopicDeleteClick(){
+    if(!editingTopic) return;
+    const btn=document.getElementById('tm-delete');
+    if(!confirmingTopicDelete){
+      confirmingTopicDelete=true;
+      btn.textContent='Click again to confirm delete';
+      btn.classList.add('danger');
+      return;
+    }
+    const key=editingTopic.section+SEP+editingTopic.origTopic;
+    topicEdits[key]=Object.assign({}, topicEdits[key], {deleted:true});
+    saveData(); render(); closeTopicEditor();
+  }
+  document.getElementById('tm-save').addEventListener('click',saveTopicRename);
+  document.getElementById('tm-delete').addEventListener('click',onTopicDeleteClick);
+  document.getElementById('tm-cancel').addEventListener('click',closeTopicEditor);
+  document.getElementById('tm-text').addEventListener('keydown',e=>{ if(e.key==='Enter'){e.preventDefault();saveTopicRename();} });
+  tmodal.addEventListener('click',e=>{ if(e.target===tmodal) closeTopicEditor(); });
+
+  function refreshSection(secEl){
+    const title=secEl.dataset.title;
+    const sec=MODEL.find(s=>s.title===title); if(!sec) return;
+    const {total,done,prog}=sectionStats(sec);
+    secEl.querySelector('.sec-head .minibar b').style.width=(total?Math.round(done/total*100):0)+'%';
+    secEl.querySelector('.sec-head .minibar i').style.width=(total?Math.round(prog/total*100):0)+'%';
+    secEl.querySelector('.sec-count').textContent=`${done}/${total}`;
+    secEl.querySelectorAll('.topic').forEach(tEl=>{
+      const top=sec.topics.find(t=>t.title===tEl.dataset.topic); if(!top) return;
+      const r=topicStats(top);
+      tEl.querySelector('.minibar b').style.width=(r.total?Math.round(r.done/r.total*100):0)+'%';
+      tEl.querySelector('.minibar i').style.width=(r.total?Math.round(r.prog/r.total*100):0)+'%';
+      tEl.querySelector('.topic-count').textContent=`${r.done}/${r.total}`;
+    });
+  }
+
+  function totals(){ let t=0,d=0,p=0; MODEL.forEach(sec=>{const r=sectionStats(sec);t+=r.total;d+=r.done;p+=r.prog;}); return {total:t,done:d,prog:p}; }
+
+  function updateDash(){
+    const {total,done,prog}=totals();
+    const pct=total?Math.round(done/total*100):0, rem=total-done-prog;
+    document.getElementById('dash').innerHTML=`
+      <div class="stat green"><div class="num">${done}</div><div class="lbl">Completed</div></div>
+      <div class="stat gold"><div class="num">${prog}</div><div class="lbl">In progress</div></div>
+      <div class="stat accent"><div class="num">${rem}</div><div class="lbl">Not started</div></div>
+      <div class="stat teal"><div class="num">${total}</div><div class="lbl">Total items</div></div>`;
+    document.getElementById('bigfill').style.width=pct+'%';
+    const pf=document.getElementById('bigprog');
+    if(pf){ pf.style.left=pct+'%'; pf.style.width=(total?Math.round(prog/total*100):0)+'%'; }
+    document.getElementById('capleft').textContent=`${done} done · ${prog} in progress · ${rem} to start`;
+    document.getElementById('capright').textContent=pct+'%';
+  }
+
+  // ---- filters / search ----
+  let filter='all', query='';
+  function applyFilter(){
+    const q=query.trim();
+    const filtering=q||filter!=='all';
+    document.querySelectorAll('.section').forEach(secEl=>{
+      let secVis=0;
+      secEl.querySelectorAll('.topic').forEach(topEl=>{
+        let tVis=0;
+        topEl.querySelectorAll('.item').forEach(row=>{
+          const st=row.dataset.status; let show=true;
+          if(filter==='todo'&&st!=='todo')show=false;
+          if(filter==='prog'&&st!=='prog')show=false;
+          if(filter==='done'&&st!=='done')show=false;
+          if(q&&row.dataset.text.indexOf(q)===-1)show=false;
+          row.classList.toggle('hidden',!show); if(show){tVis++;secVis++;}
+        });
+        topEl.classList.toggle('hidden',filtering&&tVis===0);
+      });
+      secEl.classList.toggle('hidden',filtering&&secVis===0);
+    });
+  }
+  document.getElementById('search').addEventListener('input',e=>{query=e.target.value.toLowerCase();applyFilter();});
+  document.querySelectorAll('.btn[data-filter]').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('.btn[data-filter]').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active'); filter=b.dataset.filter; applyFilter();
+    });
+  });
+  document.getElementById('expand').addEventListener('click',()=>document.querySelectorAll('.section,.topic').forEach(s=>s.classList.remove('collapsed')));
+  document.getElementById('collapse').addEventListener('click',()=>document.querySelectorAll('.section,.topic').forEach(s=>s.classList.add('collapsed')));
+  document.getElementById('reset').addEventListener('click',()=>{
+    if(confirm('Reset progress status only? (Your added/edited items stay.)')){ state={}; saveState(); render(); }
+  });
+
+  // ---- ADD / EDIT MODAL ----
+  const modal=document.getElementById('modal');
+  let editing=null; // _id when editing, null when adding
+
+  function moduleOptions(selected){
+    const titles=MODEL.map(s=>s.title);
+    return titles.map(t=>`<option value="${escapeAttr(t)}" ${t===selected?'selected':''}>${escapeHtml(t)}</option>`).join('')
+      + `<option value="__new__" ${selected==='__new__'?'selected':''}>➕ New module…</option>`;
+  }
+  function topicOptions(moduleTitle, selected){
+    const sec=MODEL.find(s=>s.title===moduleTitle);
+    const titles=sec?sec.topics.map(t=>t.title):[];
+    return titles.map(t=>`<option value="${escapeAttr(t)}" ${t===selected?'selected':''}>${escapeHtml(t)}</option>`).join('')
+      + `<option value="__new__" ${selected==='__new__'?'selected':''}>➕ New sub-topic…</option>`;
+  }
+  function toggleNewInputs(){
+    document.getElementById('m-newsection').classList.toggle('hidden', document.getElementById('m-section').value!=='__new__');
+    document.getElementById('m-newtopic').classList.toggle('hidden', document.getElementById('m-topic').value!=='__new__');
+  }
+  function syncTopicSelect(){
+    const mod=document.getElementById('m-section').value;
+    const want=document.getElementById('m-topic').dataset.want||'';
+    if(mod==='__new__'){
+      document.getElementById('m-topic').innerHTML=`<option value="__new__" selected>➕ New sub-topic…</option>`;
+    } else {
+      document.getElementById('m-topic').innerHTML=topicOptions(mod, want||null);
+    }
+    document.getElementById('m-topic').dataset.want='';
+    toggleNewInputs();
+  }
+
+  function openEditor(id, presetSection, presetTopic){
+    editing=id;
+    let item={t:'',link:'',stars:0}, section=presetSection||MODEL[0]?.title, topic=presetTopic||null;
+    if(id){
+      outer: for(const sec of MODEL){ for(const top of sec.topics){ const f=top.items.find(x=>x._id===id); if(f){item=f;section=sec.title;topic=top.title;break outer;} } }
+    }
+    document.getElementById('m-title').textContent = id?'Edit item':'Add item';
+    document.getElementById('m-section').innerHTML = moduleOptions(section);
+    document.getElementById('m-newsection').value='';
+    document.getElementById('m-newtopic').value='';
+    const topicSel=document.getElementById('m-topic');
+    topicSel.dataset.want = (presetTopic==='__new__') ? '__new__' : (topic||'');
+    syncTopicSelect();
+    document.getElementById('m-text').value=item.t||'';
+    document.getElementById('m-link').value=item.link||'';
+    document.getElementById('m-stars').value=item.stars||0;
+    if(id){
+      document.getElementById('m-status').value=statusOf(item);
+      document.getElementById('m-delete').classList.remove('hidden');
+    } else {
+      document.getElementById('m-status').value='todo';
+      document.getElementById('m-delete').classList.add('hidden');
+    }
+    modal.classList.add('open');
+    if(topicSel.value==='__new__') document.getElementById('m-newtopic').focus();
+    else document.getElementById('m-text').focus();
+  }
+  function closeEditor(){ modal.classList.remove('open'); editing=null; }
+
+  document.getElementById('m-section').addEventListener('change',syncTopicSelect);
+  document.getElementById('m-topic').addEventListener('change',()=>{
+    toggleNewInputs();
+    if(document.getElementById('m-topic').value==='__new__') document.getElementById('m-newtopic').focus();
+  });
+
+  document.getElementById('m-save').addEventListener('click',()=>{
+    const text=document.getElementById('m-text').value.trim();
+    if(!text){ document.getElementById('m-text').focus(); return; }
+    let section=document.getElementById('m-section').value;
+    if(section==='__new__'){ section=document.getElementById('m-newsection').value.trim(); if(!section){document.getElementById('m-newsection').focus();return;} }
+    let topic=document.getElementById('m-topic').value;
+    if(topic==='__new__'){ topic=document.getElementById('m-newtopic').value.trim(); if(!topic){document.getElementById('m-newtopic').focus();return;} }
+    if(!topic) topic='Added items';
+    const link=document.getElementById('m-link').value.trim();
+    const stars=parseInt(document.getElementById('m-stars').value)||0;
+    const status=document.getElementById('m-status').value;
+
+    const payload={t:text}; if(link)payload.link=link; if(stars)payload.stars=stars;
+
+    if(editing){
+      // record an edit override on existing id (built-in or custom)
+      edits[editing]=Object.assign({}, edits[editing], payload);
+      state[editing]=status;
+    } else {
+      // append to custom[module][topic]
+      if(!custom[section]) custom[section]={};
+      if(!custom[section][topic]) custom[section][topic]=[];
+      custom[section][topic].push(payload);
+      // status: set after we know its id
+      saveData();
+      MODEL=buildModel();
+      const sec=MODEL.find(s=>s.title===section);
+      const top=sec&&sec.topics.find(t=>t.title===topic);
+      const newId=top?top.items[top.items.length-1]._id:null;
+      if(newId) state[newId]=status;
+    }
+    saveData(); saveState(); render(); closeEditor();
+  });
+
+  function deleteItem(id){
+    if(!confirm('Delete this item?')) return;
+    edits[id]=Object.assign({}, edits[id], {deleted:true});
+    delete state[id];
+    saveData(); saveState(); render();
+  }
+  document.getElementById('m-delete').addEventListener('click',()=>{ if(editing){ deleteItem(editing); closeEditor(); } });
+  document.getElementById('m-cancel').addEventListener('click',closeEditor);
+  modal.addEventListener('click',e=>{ if(e.target===modal) closeEditor(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(modal.classList.contains('open')) closeEditor(); if(tmodal.classList.contains('open')) closeTopicEditor(); } });
+  document.getElementById('add-global').addEventListener('click',()=>openEditor(null));
+
+  // ===== Cloud sync + Google authentication =====
+  // Each signed-in user owns exactly one row in `tracker_state`, keyed by their
+  // auth user id and protected by Row-Level Security (see supabase/schema.sql).
+  // Logged out, the app is fully usable and stores everything locally; signing in
+  // pulls cloud data (or seeds the cloud from local on first login) and keeps both
+  // in sync in realtime across devices.
+  let sb=null, user=null, realtimeChan=null, syncTimer=null, applyingRemote=false;
+
+  function cloudConfigured(){
+    return !!SUPABASE_URL && !!SUPABASE_ANON_KEY && !!(window.supabase);
+  }
+
+  // --- account/status pill (bottom-right) ---
+  const pill=document.createElement('button');
+  pill.id='sync-pill';
+  pill.style.cssText='position:fixed;right:16px;bottom:16px;z-index:9999;border:0;border-radius:999px;'
+    +'padding:8px 14px;font:600 12px/1 Outfit,system-ui,sans-serif;cursor:pointer;color:#fff;'
+    +'box-shadow:0 4px 14px rgba(0,0,0,.18);display:flex;gap:7px;align-items:center;letter-spacing:.02em;';
+  document.body.appendChild(pill);
+  pill.addEventListener('click',onPillClick);
+  function setPill(kind,label){
+    const c={ok:'#1f9d6b',sync:'#c98a16',err:'#d23f2f',off:'#6b7280',local:'#6b7280'}[kind]||'#6b7280';
+    const dot=kind==='sync'?'◴':kind==='ok'?'✔':kind==='err'?'!':kind==='off'?'○':'•';
+    pill.style.background=c; pill.textContent=dot+'  '+label;
+  }
+  function onPillClick(){
+    if(!cloudConfigured()) return openAuthModal('unconfigured');
+    openAuthModal(user?'account':'signin');
+  }
+
+  // --- auth modal ---
+  const GOOGLE_SVG='<svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">'
+    +'<path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 4.5 29.5 2.5 24 2.5 12.1 2.5 2.5 12.1 2.5 24S12.1 45.5 24 45.5 45.5 35.9 45.5 24c0-1.2-.1-2.3-.4-3.5z"/>'
+    +'<path fill="#FF3D00" d="M5 14.7l6.6 4.8C13.4 15.1 18.3 12 24 12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 4.5 29.5 2.5 24 2.5 16 2.5 9.1 7 5 14.7z"/>'
+    +'<path fill="#4CAF50" d="M24 45.5c5.4 0 10.3-2.1 14-5.4l-6.5-5.5C29.6 36 26.9 37 24 37c-5.2 0-9.6-3.3-11.3-8L6 33.9C10 41 16.4 45.5 24 45.5z"/>'
+    +'<path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.2 4.2-4.1 5.6l6.5 5.5C40.9 41.4 45.5 35.5 45.5 24c0-1.2-.1-2.3-.4-3.5z"/></svg>';
+  const authModal=document.getElementById('authmodal');
+  function openAuthModal(mode){
+    const body=document.getElementById('auth-body');
+    if(mode==='unconfigured'){
+      body.innerHTML='<h3>Cloud sync not set up</h3>'
+        +'<p class="auth-note">Add your Supabase URL and anon key to <code>config.js</code>, then run the SQL in <code>supabase/schema.sql</code>. Until then the tracker works locally in this browser.</p>'
+        +'<div class="modal-actions"><span style="flex:1"></span><button class="btn ghost" id="auth-close">Close</button></div>';
+    } else if(mode==='account'){
+      body.innerHTML='<h3>Account</h3>'
+        +'<p class="auth-note">Signed in as <strong>'+escapeHtml(user.email||user.id)+'</strong>. Your progress is backed up and syncs across your devices automatically.</p>'
+        +'<div class="modal-actions"><button class="btn ghost" id="auth-signout">Sign out</button><span style="flex:1"></span><button class="btn primary" id="auth-close">Done</button></div>';
+    } else {
+      body.innerHTML='<h3>Sign in to sync</h3>'
+        +'<p class="auth-note">Back up your progress and sync it across devices. Your data is private to your Google account.</p>'
+        +'<button class="btn google-btn" id="auth-google">'+GOOGLE_SVG+'<span>Continue with Google</span></button>'
+        +'<div class="modal-actions"><span style="flex:1"></span><button class="btn ghost" id="auth-close">Maybe later</button></div>';
+    }
+    authModal.classList.add('open');
+    const close=document.getElementById('auth-close'); if(close) close.onclick=closeAuthModal;
+    const g=document.getElementById('auth-google'); if(g) g.onclick=signInWithGoogle;
+    const so=document.getElementById('auth-signout'); if(so) so.onclick=signOut;
+  }
+  function closeAuthModal(){ authModal.classList.remove('open'); }
+  authModal.addEventListener('click',e=>{ if(e.target===authModal) closeAuthModal(); });
+
+  async function signInWithGoogle(){
+    try{
+      const {error}=await sb.auth.signInWithOAuth({ provider:'google', options:{ redirectTo: window.location.href.split('#')[0] } });
+      if(error) throw error;
+    }catch(e){ console.error('[auth] google sign-in',e); setPill('err','Sign-in error'); }
+  }
+  async function signOut(){
+    try{ await sb.auth.signOut(); }catch(e){ console.error('[auth] sign-out',e); }
+    closeAuthModal();
+  }
+
+  function localSnapshot(){ return {custom,edits,topicEdits,order,state}; }
+  function isEmptySnapshot(d){
+    if(!d) return true;
+    return !Object.keys(d.custom||{}).length && !Object.keys(d.edits||{}).length
+      && !Object.keys(d.topicEdits||{}).length && !Object.keys(d.order||{}).length
+      && !Object.keys(d.state||{}).length;
+  }
+
+  function applyRemote(d){
+    custom = d.custom || {};
+    edits  = d.edits  || {};
+    topicEdits = d.topicEdits || {};
+    order  = d.order  || {};
+    state  = d.state  || {};
+    try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order})); }catch(e){}
+    try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){}
+    applyingRemote=true; render(); applyingRemote=false;
+  }
+
+  async function pull(){
+    if(!sb||!user) return;
+    try{
+      setPill('sync','Syncing…');
+      const {data,error}=await sb.from(TABLE).select('data').eq('user_id',user.id).maybeSingle();
+      if(error) throw error;
+      if(data && data.data && !isEmptySnapshot(data.data)){ applyRemote(data.data); setPill('ok','Synced'); }
+      else { await push(); }   // no cloud data yet -> seed it from this browser
+    }catch(e){ console.error('[sync] pull',e); setPill('err','Sync error'); }
+  }
+
+  async function push(){
+    if(!sb||!user) return;
+    try{
+      setPill('sync','Saving…');
+      const {error}=await sb.from(TABLE).upsert({user_id:user.id,data:localSnapshot(),updated_at:new Date().toISOString()});
+      if(error) throw error;
+      setPill('ok','Synced');
+    }catch(e){ console.error('[sync] push',e); setPill('err','Sync error'); }
+  }
+
+  function scheduleSync(){
+    if(!sb||!user||applyingRemote) return;
+    clearTimeout(syncTimer);
+    syncTimer=setTimeout(push,600);
+  }
+
+  function subscribe(){
+    if(realtimeChan){ sb.removeChannel(realtimeChan); realtimeChan=null; }
+    realtimeChan=sb.channel('tracker-'+user.id)
+      .on('postgres_changes',{event:'*',schema:'public',table:TABLE,filter:'user_id=eq.'+user.id},payload=>{
+        const d=payload.new && payload.new.data; if(!d) return;
+        applyRemote(d); setPill('ok','Synced');
+      })
+      .subscribe();
+  }
+
+  async function onSignedIn(u){
+    user=u; setPill('sync','Syncing…');
+    await pull(); subscribe();
+  }
+  function onSignedOut(){
+    user=null;
+    if(realtimeChan){ sb.removeChannel(realtimeChan); realtimeChan=null; }
+    setPill('off','Sign in to sync');
+  }
+
+  function initCloud(){
+    if(!cloudConfigured()){ setPill('local','Local only'); return; }
+    sb=window.supabase.createClient(SUPABASE_URL.startsWith('http')?SUPABASE_URL:'https://'+SUPABASE_URL, SUPABASE_ANON_KEY);
+    setPill('off','Sign in to sync');
+    sb.auth.getSession().then(({data})=>{ if(data && data.session) onSignedIn(data.session.user); });
+    sb.auth.onAuthStateChange((event,session)=>{
+      if(session && session.user){ if(!user||user.id!==session.user.id) onSignedIn(session.user); }
+      else if(user){ onSignedOut(); }
+    });
+  }
+
+  render();
+  initCloud();
+})();

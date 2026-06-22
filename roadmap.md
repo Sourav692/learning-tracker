@@ -1,0 +1,84 @@
+# Learning Tracker — Product Roadmap
+
+Plan to evolve this from a personal tracker into a production-grade learning product.
+Status legend: ✅ done · 🚧 in progress · ⬜ planned.
+
+---
+
+## 0. Architecture / refactor
+
+- ✅ **Split the monolith** — extracted the single `index.html` into:
+  - `index.html` — markup shell only
+  - `styles.css` — all styling
+  - `data.js` — seed learning content (`window.LEARNING_DATA`)
+  - `config.js` — Supabase project config
+  - `app.js` — application logic (render, edit, drag-reorder, sync, auth)
+- ⬜ Move seed content out of a JS literal into the DB / a fetched JSON so content
+  can change without a code deploy.
+- ⬜ Introduce a build step (bundling, minification, cache-busting) once the app
+  outgrows plain `<script>` tags.
+- ⬜ Add a `schemaVersion` field to persisted data + a migration runner.
+- ⬜ Automated tests (unit for model/order logic, smoke/E2E for the UI).
+- ⬜ Error monitoring (e.g. Sentry) and a visible toast layer instead of silent
+  `catch{}` / `console.error`.
+
+## 1. Production foundations
+
+- ✅ **Auth — Google OAuth** via Supabase Auth (sign in / sign out, account pill).
+- ✅ **Per-user data isolation + RLS** — one row per `auth.uid()` in
+  `tracker_state`, owner-only Row-Level Security policies (`supabase/schema.sql`).
+- ✅ **Local-first fallback** — fully usable logged out; cloud sync layers on after
+  sign-in (seeds cloud from local on first login, else cloud wins).
+- ⬜ Data **export / import** (JSON, Markdown, CSV) + manual backup/restore.
+- ⬜ **PWA**: web manifest + service worker (installable, offline-capable).
+- ⬜ Full **mobile-responsive** layout pass.
+- ⬜ **Accessibility**: keyboard-accessible drag-reorder, ARIA on custom
+  checkboxes/menus, focus management in modals.
+- ⬜ Conflict handling for simultaneous multi-device edits (currently last-write-wins).
+
+## 2. Learning-specific features
+
+- ⬜ **Due dates & scheduling** per item; "in progress since" / staleness.
+- ⬜ **Reminders & notifications** (email / push) for due or stalled items.
+- ⬜ **Notes & reflections** per item (markdown: takeaways, snippets, links).
+- ⬜ **Time tracking** — estimated vs. actual hours; weekly totals.
+- ⬜ **Spaced-repetition / review queue** to resurface completed material.
+- ⬜ **Resource enrichment** — auto-fetch title/favicon/duration, classify type
+  (video / course / article / repo), per-item rating (stars already exist).
+- ⬜ **Tags & priority** with filtering.
+
+## 3. Insights & motivation
+
+- ⬜ **Analytics dashboard** — completion velocity, time-to-done, per-section trends.
+- ⬜ **Activity heatmap** (GitHub-style streak calendar).
+- ⬜ **Goals & streaks** — weekly goals, streak counter.
+- ⬜ **Gamification** — badges / XP / levels.
+- ⬜ **Weekly digest** email ("finished this week / slipping").
+
+## 4. Sharing & growth
+
+- ⬜ **Shareable / public learning paths** (read-only, clonable).
+- ⬜ **Templates / starter tracks** users can fork.
+- ⬜ **Import** from Notion / Markdown / YouTube playlists.
+- ⬜ **Accountability partners / cohorts** with shared progress visibility.
+
+## 5. UX polish
+
+- ⬜ **Command palette (⌘K)** + keyboard shortcuts.
+- ⬜ **Undo / redo** (esp. after delete & reorder) and **bulk actions** (multi-select).
+- ⬜ **Light / dark theme** toggle.
+- ⬜ **Hide-completed** toggle and saved filter views.
+- ⬜ First-run **onboarding** + empty states.
+
+---
+
+## Suggested sequence
+
+1. ✅ Refactor → ✅ Auth + RLS  *(this iteration)*
+2. ⬜ Export/import + PWA  *(durability, no backend change)*
+3. ⬜ Due dates + notes  *(core learning value)*
+4. ⬜ Analytics + streaks  *(engagement)*
+5. ⬜ Sharing + templates  *(growth)*
+
+> **Note:** Auth uses Google OAuth, which requires the app to be hosted over
+> http/https. See `SUPABASE_SETUP.md` for the one-time Supabase + Google Cloud setup.
