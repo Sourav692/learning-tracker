@@ -335,9 +335,14 @@
   // ---- drag-to-reorder helpers (board listeners bound once below) ----
   let dragKind=null, draggingEl=null, dragHomeBody=null;
   function endDrag(){
+    document.querySelectorAll('.topic-body.drop-target').forEach(b=>b.classList.remove('drop-target'));
     if(draggingEl) draggingEl.classList.remove('dragging');
-    const kind=dragKind;
+    const kind=dragKind, el=draggingEl, home=dragHomeBody;
     dragKind=null; draggingEl=null; dragHomeBody=null;
+    if(kind==='item' && el && home){
+      const finalBody=el.closest('.topic-body');
+      if(finalBody && finalBody!==home) moveItemAcross(el, finalBody);
+    }
     if(kind){ persistOrderFromDOM(); }
   }
   function getDragAfterElement(container, y, selector){
@@ -392,13 +397,48 @@
       const after=getDragAfterElement(dragHomeBody, e.clientY, '.topic');
       const addBtn=dragHomeBody.querySelector('.add-topic');
       if(after==null) dragHomeBody.insertBefore(draggingEl, addBtn); else dragHomeBody.insertBefore(draggingEl, after);
-    } else if(dragKind==='item' && dragHomeBody){
-      const after=getDragAfterElement(dragHomeBody, e.clientY, '.item');
-      const addBtn=dragHomeBody.querySelector('.add-here');
-      if(after==null) dragHomeBody.insertBefore(draggingEl, addBtn); else dragHomeBody.insertBefore(draggingEl, after);
+    } else if(dragKind==='item'){
+      // items may move across sub-topics (and modules): target whatever .topic-body
+      // the cursor is over; if not over a body, keep it where it currently sits.
+      const body = e.target.closest('.topic-body') || draggingEl.closest('.topic-body');
+      if(!body) return;
+      const after=getDragAfterElement(body, e.clientY, '.item');
+      const addBtn=body.querySelector('.add-here');
+      if(after==null) body.insertBefore(draggingEl, addBtn); else body.insertBefore(draggingEl, after);
+      // highlight the target sub-topic when it's not the origin
+      document.querySelectorAll('.topic-body.drop-target').forEach(b=>{ if(b!==body) b.classList.remove('drop-target'); });
+      if(body!==dragHomeBody) body.classList.add('drop-target'); else body.classList.remove('drop-target');
     }
   });
   board.addEventListener('drop',e=>{ if(dragKind) e.preventDefault(); });
+
+  // Re-home an item that was dropped into a different sub-topic: recreate it as a
+  // custom item in the target (carrying its data + status) and soft-delete the
+  // original. Avoids re-indexing other items. Returns the new id (or null).
+  function moveItemAcross(el, targetBody){
+    const origId=el.dataset.id;
+    const src=MODEL_ITEM(origId); if(!src) return null;
+    const targetSection=targetBody.closest('.section').dataset.title;
+    const targetTopic=targetBody.closest('.topic').dataset.topic;
+    const st=statusOf(src);
+    const payload={t:src.t};
+    if(src.link) payload.link=src.link;
+    if(src.stars) payload.stars=src.stars;
+    if(src.due) payload.due=src.due;
+    if(src.note) payload.note=src.note;
+    if(Array.isArray(src.tags)&&src.tags.length) payload.tags=src.tags.slice();
+    if(src.priority) payload.priority=true;
+    if(src.badge) payload.badge=src.badge;
+    if(!custom[targetSection]) custom[targetSection]={};
+    if(!custom[targetSection][targetTopic]) custom[targetSection][targetTopic]=[];
+    const newId='c:'+targetSection+SEP+targetTopic+SEP+custom[targetSection][targetTopic].length;
+    custom[targetSection][targetTopic].push(payload);
+    edits[origId]=Object.assign({}, edits[origId], {deleted:true}); // tombstone original
+    if(st && st!=='todo') state[newId]=st;
+    delete state[origId];
+    el.dataset.id=newId; // so persistOrderFromDOM records the new id at the dropped spot
+    return newId;
+  }
 
   function topicDisplayTitle(section, origTopic){
     const m=topicEdits[section+SEP+origTopic];

@@ -166,6 +166,7 @@ h1.title em{font-style:italic;color:var(--accent2)}
 .item .drag-grip{font-size:.85rem;align-self:center;margin-left:-4px}
 .section.dragging,.topic.dragging,.item.dragging{opacity:.4}
 .section.dragging>.sec-head,.topic.dragging>.topic-head,.item.dragging{cursor:grabbing}
+.topic-body.drop-target{outline:2px dashed var(--accent3);outline-offset:-4px;border-radius:12px;background:rgba(60,198,194,.06)}
 .topic-meta{display:flex;align-items:center;gap:10px}
 .minibar.sm{width:60px;height:6px}
 .topic-count{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--muted);min-width:42px;text-align:right}
