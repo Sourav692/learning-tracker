@@ -15,16 +15,18 @@
   let edits = {};    // { id: {t?,link?,stars?,deleted?} }  edits to built-ins or customs
   let topicEdits = {}; // { "section::origTopic": {title?, deleted?} }  rename/remove sub-topics
   let order = {};    // { sections:[title,...], topics:{ section:[topicTitle,...] } }  drag-reorder
+  let activity = {}; // { 'YYYY-MM-DD': count }  completion events per day (for streaks/heatmap)
   let state = {};    // { id: 'todo'|'prog'|'done' }
   try { custom = JSON.parse(localStorage.getItem(DATA_KEY))?.custom || {}; } catch(e){}
   try { edits = JSON.parse(localStorage.getItem(DATA_KEY))?.edits || {}; } catch(e){}
   try { topicEdits = JSON.parse(localStorage.getItem(DATA_KEY))?.topicEdits || {}; } catch(e){}
   try { order = JSON.parse(localStorage.getItem(DATA_KEY))?.order || {}; } catch(e){}
+  try { activity = JSON.parse(localStorage.getItem(DATA_KEY))?.activity || {}; } catch(e){}
   try { state = JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch (e) { state = {}; }
   // migrate old flat custom shape { module: [items] } -> { module: { topic: [items] } }
   Object.keys(custom).forEach(mod=>{ if(Array.isArray(custom[mod])) custom[mod]={ 'Added items': custom[mod] }; });
 
-  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order})); }catch(e){} scheduleSync(); }
+  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order,activity})); }catch(e){} scheduleSync(); }
   function saveState(){ try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){} scheduleSync(); }
 
   // ---- build the working model: merge built-in DATA + custom additions + edits ----
@@ -441,6 +443,38 @@
     if(confirm('Reset progress status only? (Your added/edited items stay.)')){ state={}; saveState(); render(); }
   });
 
+  // ---- EXPORT / IMPORT (JSON backup & restore) ----
+  function ymd(d){ const z=n=>String(n).padStart(2,'0'); return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate()); }
+  document.getElementById('export').addEventListener('click',()=>{
+    const payload={ app:'learning-tracker', track:'ai-engineering', version:2, exportedAt:new Date().toISOString(), data:localSnapshot() };
+    const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download='ai-engineering-tracker-'+ymd(new Date())+'.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+  const importFile=document.getElementById('import-file');
+  document.getElementById('import').addEventListener('click',()=>importFile.click());
+  importFile.addEventListener('change',e=>{
+    const f=e.target.files && e.target.files[0]; if(!f) return;
+    const reader=new FileReader();
+    reader.onload=()=>{
+      try{
+        const parsed=JSON.parse(reader.result);
+        const d=parsed && parsed.data ? parsed.data : parsed; // accept raw snapshot too
+        if(!d || typeof d!=='object') throw new Error('not an object');
+        if(!confirm('Import this backup? It will REPLACE your current items, progress and history on this device (and sync to your account if signed in).')) { importFile.value=''; return; }
+        custom=d.custom||{}; edits=d.edits||{}; topicEdits=d.topicEdits||{};
+        order=d.order||{}; activity=d.activity||{}; state=d.state||{};
+        Object.keys(custom).forEach(mod=>{ if(Array.isArray(custom[mod])) custom[mod]={ 'Added items': custom[mod] }; });
+        saveData(); saveState(); render();
+      }catch(err){ alert('Could not import: that file isn’t a valid tracker backup.\n\n('+err.message+')'); }
+      importFile.value='';
+    };
+    reader.readAsText(f);
+  });
+
   // ---- ADD / EDIT MODAL ----
   const modal=document.getElementById('modal');
   let editing=null; // _id when editing, null when adding
@@ -625,12 +659,12 @@
     closeAuthModal();
   }
 
-  function localSnapshot(){ return {custom,edits,topicEdits,order,state}; }
+  function localSnapshot(){ return {custom,edits,topicEdits,order,activity,state}; }
   function isEmptySnapshot(d){
     if(!d) return true;
     return !Object.keys(d.custom||{}).length && !Object.keys(d.edits||{}).length
       && !Object.keys(d.topicEdits||{}).length && !Object.keys(d.order||{}).length
-      && !Object.keys(d.state||{}).length;
+      && !Object.keys(d.activity||{}).length && !Object.keys(d.state||{}).length;
   }
 
   function applyRemote(d){
@@ -638,8 +672,9 @@
     edits  = d.edits  || {};
     topicEdits = d.topicEdits || {};
     order  = d.order  || {};
+    activity = d.activity || {};
     state  = d.state  || {};
-    try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order})); }catch(e){}
+    try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order,activity})); }catch(e){}
     try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){}
     applyingRemote=true; render(); applyingRemote=false;
   }

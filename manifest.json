@@ -1,0 +1,15 @@
+{
+  "name": "Learning Trackers",
+  "short_name": "Trackers",
+  "description": "Living learning trackers — AI Engineering, Data Engineering, and the Databricks path.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0e0c10",
+  "theme_color": "#0e0c10",
+  "icons": [
+    { "src": "icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "icon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "maskable" }
+  ]
+}

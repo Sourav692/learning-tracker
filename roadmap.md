@@ -8,13 +8,25 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
 ## 0. Architecture / refactor
 
 - ✅ **Split the monolith** — extracted the single `index.html` into:
-  - `index.html` — markup shell only
-  - `styles.css` — all styling
+  - `index.html` — landing page (shell)
+  - `ai-engineering.html` — the AI Engineering tracker shell
+  - `styles.css` — all styling (tracker + landing/placeholder)
   - `data.js` — seed learning content (`window.LEARNING_DATA`)
   - `config.js` — Supabase project config
   - `app.js` — application logic (render, edit, drag-reorder, sync, auth)
+- ✅ **Multi-tracker landing page** — `index.html` is now the front door with three
+  ticket-stub cards: AI Engineering (live), Data Engineering + Databricks Path
+  (`data-engineering.html` / `databricks.html` coming-soon placeholders).
+- ⬜ **Namespace storage per tracker** — `app.js` currently uses fixed keys
+  (`cip-tracker-data-v2`, `cip-tracker-v2`) and a single Supabase row, so all
+  trackers would share one progress blob. Before Data Engineering / Databricks
+  become real trackers, key localStorage + the cloud row by a `trackId`
+  (e.g. `tracker_state` row per `(user_id, track)` or a `track` field in `data`)
+  so each path tracks progress independently. Pass the active `trackId` into the
+  app from each tracker page.
 - ⬜ Move seed content out of a JS literal into the DB / a fetched JSON so content
-  can change without a code deploy.
+  can change without a code deploy (pairs naturally with per-tracker data files,
+  e.g. `data/ai-engineering.json`).
 - ⬜ Introduce a build step (bundling, minification, cache-busting) once the app
   outgrows plain `<script>` tags.
 - ⬜ Add a `schemaVersion` field to persisted data + a migration runner.
