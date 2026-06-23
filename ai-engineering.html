@@ -134,6 +134,23 @@
   </div>
 </div>
 
+<!-- RENAME / DELETE MODULE MODAL -->
+<div class="modal" id="smodal">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="sm-title">
+    <h3 id="sm-title">Rename module</h3>
+    <label class="fld">
+      <span>Module name <em>(required)</em></span>
+      <input id="sm-text" type="text" placeholder="Module name…">
+    </label>
+    <div class="modal-actions">
+      <button class="btn ghost" id="sm-delete">Delete module</button>
+      <span style="flex:1"></span>
+      <button class="btn ghost" id="sm-cancel">Cancel</button>
+      <button class="btn primary" id="sm-save">Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- AUTH / ACCOUNT MODAL (contents rendered by app.js) -->
 <div class="modal" id="authmodal">
   <div class="modal-card" id="auth-body" role="dialog" aria-modal="true" aria-label="Account"></div>

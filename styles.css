@@ -157,6 +157,8 @@ h1.title em{font-style:italic;color:var(--accent2)}
 }
 .topic-actions{display:flex;gap:4px;opacity:0;transition:opacity .15s;flex-shrink:0}
 .topic-head:hover .topic-actions{opacity:1}
+.sec-actions{display:flex;gap:4px;opacity:0;transition:opacity .15s;flex-shrink:0}
+.sec-head:hover .sec-actions{opacity:1}
 .drag-grip{cursor:grab;color:var(--faint);opacity:0;transition:opacity .15s;font-size:1rem;line-height:1;flex-shrink:0;user-select:none}
 .sec-head:hover .drag-grip,.topic-head:hover .drag-grip,.item:hover .drag-grip{opacity:.65}
 .drag-grip:hover{color:var(--ink)}
@@ -462,7 +464,7 @@ footer .reset:hover{text-decoration:underline}
    ========================================================================= */
 /* On touch devices there is no hover, so always reveal row/topic actions + grips */
 @media (hover:none){
-  .row-actions,.topic-actions{opacity:1}
+  .row-actions,.topic-actions,.sec-actions{opacity:1}
   .sec-head .drag-grip,.topic-head .drag-grip,.item .drag-grip{opacity:.55}
 }
 /* focus-visible affordance for keyboard users */

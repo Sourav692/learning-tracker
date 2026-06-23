@@ -14,6 +14,7 @@
   let custom = {};   // { moduleTitle: { topicTitle: [ {t,link,...}, ... ] } }  user additions
   let edits = {};    // { id: {t?,link?,stars?,deleted?} }  edits to built-ins or customs
   let topicEdits = {}; // { "section::origTopic": {title?, deleted?} }  rename/remove sub-topics
+  let sectionEdits = {}; // { "origSection": {title?, deleted?} }  rename/remove modules
   let order = {};    // { sections:[title,...], topics:{ section:[topicTitle,...] } }  drag-reorder
   let activity = {}; // { 'YYYY-MM-DD': count }  completion events per day (for streaks/heatmap)
   let settings = {}; // { weeklyGoal }  user preferences (synced)
@@ -21,6 +22,7 @@
   try { custom = JSON.parse(localStorage.getItem(DATA_KEY))?.custom || {}; } catch(e){}
   try { edits = JSON.parse(localStorage.getItem(DATA_KEY))?.edits || {}; } catch(e){}
   try { topicEdits = JSON.parse(localStorage.getItem(DATA_KEY))?.topicEdits || {}; } catch(e){}
+  try { sectionEdits = JSON.parse(localStorage.getItem(DATA_KEY))?.sectionEdits || {}; } catch(e){}
   try { order = JSON.parse(localStorage.getItem(DATA_KEY))?.order || {}; } catch(e){}
   try { activity = JSON.parse(localStorage.getItem(DATA_KEY))?.activity || {}; } catch(e){}
   try { settings = JSON.parse(localStorage.getItem(DATA_KEY))?.settings || {}; } catch(e){}
@@ -28,7 +30,7 @@
   // migrate old flat custom shape { module: [items] } -> { module: { topic: [items] } }
   Object.keys(custom).forEach(mod=>{ if(Array.isArray(custom[mod])) custom[mod]={ 'Added items': custom[mod] }; });
 
-  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order,activity,settings})); }catch(e){} scheduleSync(); }
+  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,sectionEdits,order,activity,settings})); }catch(e){} scheduleSync(); }
   function saveState(){ try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){} scheduleSync(); }
 
   // ---- build the working model: merge built-in DATA + custom additions + edits ----
@@ -74,12 +76,16 @@
           if (items.length) topics.push({ title: tt, display: (meta && meta.title) || tt, items });
         });
       }
-      model.push({ title: sec.title, topics });
       seen.add(sec.title);
+      const smeta = sectionEdits[sec.title];
+      if (smeta && smeta.deleted) return;
+      model.push({ title: sec.title, display: (smeta && smeta.title) || sec.title, topics });
     });
     // brand-new modules that only exist in custom
     Object.keys(custom).forEach(title => {
       if (seen.has(title)) return;
+      const smeta = sectionEdits[title];
+      if (smeta && smeta.deleted) return;
       const topics = [];
       Object.keys(custom[title]).forEach(tt => {
         const items = (custom[title][tt] || []).map((it, n) => {
@@ -92,7 +98,7 @@
         if (meta && meta.deleted) return;
         if (items.length) topics.push({ title: tt, display: (meta && meta.title) || tt, items });
       });
-      if (topics.length) model.push({ title, topics });
+      if (topics.length) model.push({ title, display: (smeta && smeta.title) || title, topics });
     });
     applyOrder(model);
     return model;
@@ -235,7 +241,10 @@
         <div class="sec-head">
           <span class="drag-grip" tabindex="0" role="button" aria-label="Reorder module — focus and press arrow up or down" title="Drag, or focus + ↑/↓ to reorder">⠿</span>
           <span class="sec-dot" style="background:${dotColor(s)}"></span>
-          <span class="sec-title">${escapeHtml(sec.title)}</span>
+          <span class="sec-title">${escapeHtml(sec.display||sec.title)}</span>
+          <span class="sec-actions">
+            <button class="mini-btn s-edit" title="Edit / delete module" data-section="${escapeAttr(sec.title)}">✎</button>
+          </span>
           <span class="sec-meta">
             <span class="minibar"><b style="width:${pct}%"></b><i style="width:${pp}%"></i></span>
             <span class="sec-count">${done}/${total}</span>
@@ -292,6 +301,9 @@
     });
     document.querySelectorAll('.t-edit').forEach(b=>{
       b.addEventListener('click',e=>{ e.stopPropagation(); editTopic(b.dataset.section, b.dataset.topic); });
+    });
+    document.querySelectorAll('.s-edit').forEach(b=>{
+      b.addEventListener('click',e=>{ e.stopPropagation(); editSection(b.dataset.section); });
     });
     // drag to reorder: section headers reorder modules, topic headers reorder sub-topics
     document.querySelectorAll('.sec-head').forEach(h=>{
@@ -434,6 +446,46 @@
   document.getElementById('tm-text').addEventListener('keydown',e=>{ if(e.key==='Enter'){e.preventDefault();saveTopicRename();} });
   tmodal.addEventListener('click',e=>{ if(e.target===tmodal) closeTopicEditor(); });
 
+  // ---- RENAME / DELETE MODULE MODAL ----
+  function sectionDisplayTitle(orig){ const m=sectionEdits[orig]; return (m && m.title) || orig; }
+  const smodal=document.getElementById('smodal');
+  let editingSection=null;            // original module title
+  let confirmingSectionDelete=false;
+  function editSection(orig){
+    editingSection=orig;
+    confirmingSectionDelete=false;
+    const btn=document.getElementById('sm-delete');
+    btn.textContent='Delete module'; btn.classList.remove('danger');
+    document.getElementById('sm-text').value=sectionDisplayTitle(orig);
+    smodal.classList.add('open');
+    const inp=document.getElementById('sm-text'); inp.focus(); inp.select();
+  }
+  function closeSectionEditor(){ smodal.classList.remove('open'); confirmingSectionDelete=false; editingSection=null; }
+  function saveSectionRename(){
+    if(editingSection===null) return;
+    const v=document.getElementById('sm-text').value.trim();
+    if(!v){ document.getElementById('sm-text').focus(); return; }
+    sectionEdits[editingSection]=Object.assign({}, sectionEdits[editingSection], {title:v});
+    saveData(); render(); closeSectionEditor();
+  }
+  function onSectionDeleteClick(){
+    if(editingSection===null) return;
+    const btn=document.getElementById('sm-delete');
+    if(!confirmingSectionDelete){
+      confirmingSectionDelete=true;
+      btn.textContent='Click again — deletes the whole module';
+      btn.classList.add('danger');
+      return;
+    }
+    sectionEdits[editingSection]=Object.assign({}, sectionEdits[editingSection], {deleted:true});
+    saveData(); render(); closeSectionEditor();
+  }
+  document.getElementById('sm-save').addEventListener('click',saveSectionRename);
+  document.getElementById('sm-delete').addEventListener('click',onSectionDeleteClick);
+  document.getElementById('sm-cancel').addEventListener('click',closeSectionEditor);
+  document.getElementById('sm-text').addEventListener('keydown',e=>{ if(e.key==='Enter'){e.preventDefault();saveSectionRename();} });
+  smodal.addEventListener('click',e=>{ if(e.target===smodal) closeSectionEditor(); });
+
   function refreshSection(secEl){
     const title=secEl.dataset.title;
     const sec=MODEL.find(s=>s.title===title); if(!sec) return;
@@ -559,7 +611,7 @@
         const d=parsed && parsed.data ? parsed.data : parsed; // accept raw snapshot too
         if(!d || typeof d!=='object') throw new Error('not an object');
         if(!confirm('Import this backup? It will REPLACE your current items, progress and history on this device (and sync to your account if signed in).')) { importFile.value=''; return; }
-        custom=d.custom||{}; edits=d.edits||{}; topicEdits=d.topicEdits||{};
+        custom=d.custom||{}; edits=d.edits||{}; topicEdits=d.topicEdits||{}; sectionEdits=d.sectionEdits||{};
         order=d.order||{}; activity=d.activity||{}; settings=d.settings||{}; state=d.state||{};
         Object.keys(custom).forEach(mod=>{ if(Array.isArray(custom[mod])) custom[mod]={ 'Added items': custom[mod] }; });
         saveData(); saveState(); render();
@@ -608,7 +660,7 @@
     return MODEL.map((sec,i)=>{
       const {total,done}=sectionStats(sec);
       const pct=total?Math.round(done/total*100):0;
-      return `<div class="mbar"><span class="mbar-t">${escapeHtml(sec.title)}</span>`
+      return `<div class="mbar"><span class="mbar-t">${escapeHtml(sec.display||sec.title)}</span>`
         +`<span class="mbar-track"><b style="width:${pct}%;background:${dotColor(i)}"></b></span>`
         +`<span class="mbar-n">${done}/${total}</span></div>`;
     }).join('');
@@ -678,8 +730,7 @@
   let editing=null; // _id when editing, null when adding
 
   function moduleOptions(selected){
-    const titles=MODEL.map(s=>s.title);
-    return titles.map(t=>`<option value="${escapeAttr(t)}" ${t===selected?'selected':''}>${escapeHtml(t)}</option>`).join('')
+    return MODEL.map(s=>`<option value="${escapeAttr(s.title)}" ${s.title===selected?'selected':''}>${escapeHtml(s.display||s.title)}</option>`).join('')
       + `<option value="__new__" ${selected==='__new__'?'selected':''}>➕ New module…</option>`;
   }
   function topicOptions(moduleTitle, selected){
@@ -793,7 +844,7 @@
   document.getElementById('m-delete').addEventListener('click',()=>{ if(editing){ deleteItem(editing); closeEditor(); } });
   document.getElementById('m-cancel').addEventListener('click',closeEditor);
   modal.addEventListener('click',e=>{ if(e.target===modal) closeEditor(); });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(modal.classList.contains('open')) closeEditor(); if(tmodal.classList.contains('open')) closeTopicEditor(); if(insightsModal.classList.contains('open')) insightsModal.classList.remove('open'); if(authModal.classList.contains('open')) closeAuthModal(); } });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(modal.classList.contains('open')) closeEditor(); if(tmodal.classList.contains('open')) closeTopicEditor(); if(smodal.classList.contains('open')) closeSectionEditor(); if(insightsModal.classList.contains('open')) insightsModal.classList.remove('open'); if(authModal.classList.contains('open')) closeAuthModal(); } });
   document.getElementById('add-global').addEventListener('click',()=>openEditor(null));
 
   // ===== Cloud sync + Google authentication =====
@@ -868,7 +919,7 @@
     closeAuthModal();
   }
 
-  function localSnapshot(){ return {custom,edits,topicEdits,order,activity,settings,state}; }
+  function localSnapshot(){ return {custom,edits,topicEdits,sectionEdits,order,activity,settings,state}; }
   function isEmptySnapshot(d){
     if(!d) return true;
     return !Object.keys(d.custom||{}).length && !Object.keys(d.edits||{}).length
@@ -880,11 +931,12 @@
     custom = d.custom || {};
     edits  = d.edits  || {};
     topicEdits = d.topicEdits || {};
+    sectionEdits = d.sectionEdits || {};
     order  = d.order  || {};
     activity = d.activity || {};
     settings = d.settings || {};
     state  = d.state  || {};
-    try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order,activity,settings})); }catch(e){}
+    try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,sectionEdits,order,activity,settings})); }catch(e){}
     try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){}
     applyingRemote=true; render(); applyingRemote=false;
   }
