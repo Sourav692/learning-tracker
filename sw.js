@@ -1,6 +1,6 @@
 // Service worker — offline app shell for the Learning Trackers PWA.
 // Bump CACHE when shipping changes so clients pick up new assets.
-const CACHE = 'lt-shell-v2';
+const CACHE = 'lt-shell-v3';
 const SHELL = [
   './',
   './index.html',

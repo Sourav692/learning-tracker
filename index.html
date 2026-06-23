@@ -89,6 +89,16 @@
     }
   })();
 </script>
-<script>if('serviceWorker' in navigator){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
+<script>
+if('serviceWorker' in navigator){
+  var __hadController = !!navigator.serviceWorker.controller, __reloading=false;
+  navigator.serviceWorker.addEventListener('controllerchange',function(){
+    if(__hadController && !__reloading){ __reloading=true; location.reload(); } // auto-pick-up new deploys
+  });
+  addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').then(function(reg){ reg.update(); }).catch(function(){});
+  });
+}
+</script>
 </body>
 </html>
