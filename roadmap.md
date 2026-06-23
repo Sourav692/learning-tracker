@@ -46,9 +46,11 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
   *(Markdown/CSV export still ⬜.)*
 - ✅ **PWA**: `manifest.json` + `sw.js` (app-shell cache, offline-capable, installable);
   registered on all pages, `icon.svg` marquee mark.
-- ⬜ Full **mobile-responsive** layout pass.
-- ⬜ **Accessibility**: keyboard-accessible drag-reorder, ARIA on custom
-  checkboxes/menus, focus management in modals.
+- ✅ **Mobile-responsive** layout pass — responsive controls/board/modals, touch
+  reveal of row/topic actions + grips (`hover:none`), full-width search on phones.
+- ✅ **Accessibility** — keyboard-accessible reorder (focus a ⠿ grip + ↑/↓),
+  `aria-checked` tri-state on checkboxes, `role=dialog`/`aria-modal`/`aria-labelledby`
+  on modals, focus-visible outlines.
 - ⬜ Conflict handling for simultaneous multi-device edits (currently last-write-wins).
 
 ## 2. Learning-specific features
@@ -61,7 +63,8 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
 - ⬜ **Spaced-repetition / review queue** to resurface completed material.
 - ⬜ **Resource enrichment** — auto-fetch title/favicon/duration, classify type
   (video / course / article / repo), per-item rating (stars already exist).
-- ⬜ **Tags & priority** with filtering.
+- ✅ **Tags & priority** with filtering — per-item tags + priority flag, tag chips on
+  items, and a filter bar (tag chips + ⚑ Priority + hide-done) wired into search/filter.
 
 ## 3. Insights & motivation
 
@@ -69,8 +72,9 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
 - ✅ **Activity heatmap** (GitHub-style, last 18 weeks) driven by an `activity`
   completion log (date → count), synced in the data blob.
 - ✅ **Per-module progress** bars in the Insights view.
-- ⬜ **Goals** — weekly goals / targets (streak counter shipped above).
-- ⬜ **Gamification** — badges / XP / levels.
+- ✅ **Goals** — editable weekly goal with this-week progress bar in Insights.
+- ✅ **Gamification** — XP + levels (from items done) and a 6-badge grid
+  (first step, streak 3/7, goal crusher, century, module master).
 - ⬜ **Weekly digest** email ("finished this week / slipping").
 
 ## 4. Sharing & growth
@@ -85,7 +89,7 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
 - ⬜ **Command palette (⌘K)** + keyboard shortcuts.
 - ⬜ **Undo / redo** (esp. after delete & reorder) and **bulk actions** (multi-select).
 - ⬜ **Light / dark theme** toggle.
-- ⬜ **Hide-completed** toggle and saved filter views.
+- ✅ **Hide-completed** toggle (persisted per browser). *(Saved filter views still ⬜.)*
 - ⬜ First-run **onboarding** + empty states.
 
 ---
@@ -96,8 +100,9 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
 2. ✅ Export/import + PWA  *(durability)*
 3. ✅ Due dates + notes  *(core learning value)*
 4. ✅ Analytics + streaks + heatmap  *(engagement)*
-5. ⬜ Mobile-responsive + accessibility pass  *(polish — now public)*
-6. ⬜ Sharing + templates  *(growth)*
+5. ✅ Mobile-responsive + accessibility pass
+6. ✅ Tags + priority filtering · goals + gamification · hide-done
+7. ⬜ Sharing + templates  *(growth)*  ·  per-tracker storage (to launch Data Eng / Databricks)
 
 > **Note:** Auth uses Google OAuth, which requires the app to be hosted over
 > http/https. See `SUPABASE_SETUP.md` for the one-time Supabase + Google Cloud setup.

@@ -40,12 +40,15 @@
     <button class="btn" data-filter="done">Done</button>
     <button class="btn ghost" id="expand">Expand all</button>
     <button class="btn ghost" id="collapse">Collapse all</button>
+    <button class="btn ghost" id="hide-done" aria-pressed="false">Hide done</button>
     <button class="btn ghost" id="insights">📊 Insights</button>
     <button class="btn ghost" id="export">Export</button>
     <button class="btn ghost" id="import">Import</button>
     <input type="file" id="import-file" accept="application/json,.json" class="hidden">
     <button class="btn add-global" id="add-global">+ Add item</button>
   </div>
+
+  <div class="tagbar hidden" id="tagbar" aria-label="Filter by tag"></div>
 
   <div id="board"></div>
 
@@ -56,7 +59,7 @@
 
 <!-- ADD / EDIT MODAL -->
 <div class="modal" id="modal">
-  <div class="modal-card">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="m-title">
     <h3 id="m-title">Add item</h3>
     <div class="fld-row">
       <label class="fld">
@@ -100,6 +103,11 @@
       <span>Notes <em>(optional)</em></span>
       <textarea id="m-note" rows="3" placeholder="Key takeaways, snippets, reminders…"></textarea>
     </label>
+    <label class="fld">
+      <span>Tags <em>(comma-separated, optional)</em></span>
+      <input id="m-tags" type="text" placeholder="rag, agents, must-read">
+    </label>
+    <label class="checkline"><input id="m-priority" type="checkbox"> <span>⚑ Mark as priority</span></label>
     <div class="modal-actions">
       <button class="btn ghost" id="m-delete">Delete</button>
       <span style="flex:1"></span>
@@ -111,7 +119,7 @@
 
 <!-- RENAME / DELETE SUB-TOPIC MODAL -->
 <div class="modal" id="tmodal">
-  <div class="modal-card">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="tm-title">
     <h3 id="tm-title">Rename sub-topic</h3>
     <label class="fld">
       <span>Sub-topic name <em>(required)</em></span>
@@ -128,12 +136,12 @@
 
 <!-- AUTH / ACCOUNT MODAL (contents rendered by app.js) -->
 <div class="modal" id="authmodal">
-  <div class="modal-card" id="auth-body"></div>
+  <div class="modal-card" id="auth-body" role="dialog" aria-modal="true" aria-label="Account"></div>
 </div>
 
 <!-- INSIGHTS MODAL (contents rendered by app.js) -->
 <div class="modal" id="insightsmodal">
-  <div class="modal-card insights-card" id="insights-body"></div>
+  <div class="modal-card insights-card" id="insights-body" role="dialog" aria-modal="true" aria-label="Insights"></div>
 </div>
 
 <!-- Config, seed data, Supabase client, then app logic -->

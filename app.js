@@ -16,17 +16,19 @@
   let topicEdits = {}; // { "section::origTopic": {title?, deleted?} }  rename/remove sub-topics
   let order = {};    // { sections:[title,...], topics:{ section:[topicTitle,...] } }  drag-reorder
   let activity = {}; // { 'YYYY-MM-DD': count }  completion events per day (for streaks/heatmap)
+  let settings = {}; // { weeklyGoal }  user preferences (synced)
   let state = {};    // { id: 'todo'|'prog'|'done' }
   try { custom = JSON.parse(localStorage.getItem(DATA_KEY))?.custom || {}; } catch(e){}
   try { edits = JSON.parse(localStorage.getItem(DATA_KEY))?.edits || {}; } catch(e){}
   try { topicEdits = JSON.parse(localStorage.getItem(DATA_KEY))?.topicEdits || {}; } catch(e){}
   try { order = JSON.parse(localStorage.getItem(DATA_KEY))?.order || {}; } catch(e){}
   try { activity = JSON.parse(localStorage.getItem(DATA_KEY))?.activity || {}; } catch(e){}
+  try { settings = JSON.parse(localStorage.getItem(DATA_KEY))?.settings || {}; } catch(e){}
   try { state = JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch (e) { state = {}; }
   // migrate old flat custom shape { module: [items] } -> { module: { topic: [items] } }
   Object.keys(custom).forEach(mod=>{ if(Array.isArray(custom[mod])) custom[mod]={ 'Added items': custom[mod] }; });
 
-  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order,activity})); }catch(e){} scheduleSync(); }
+  function saveData(){ try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order,activity,settings})); }catch(e){} scheduleSync(); }
   function saveState(){ try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){} scheduleSync(); }
 
   // ---- build the working model: merge built-in DATA + custom additions + edits ----
@@ -156,7 +158,10 @@
     const st = statusOf(item);
     const cls = ['item','st-'+st];
     if (item.sub) cls.push('sub');
-    let txt = item.link
+    const tags = Array.isArray(item.tags) ? item.tags : [];
+    let txt = '';
+    if (item.priority) txt += `<span class="prio-flag" title="Priority">⚑</span>`;
+    txt += item.link
       ? `<a href="${escapeAttr(item.link)}" target="_blank" rel="noopener" draggable="false">${escapeHtml(item.t)}</a>`
       : escapeHtml(item.t);
     if (item.stars) txt += `<span class="stars">${'★'.repeat(item.stars)}</span>`;
@@ -166,13 +171,15 @@
       if (di) txt += `<span class="due ${di.cls}" title="Due ${escapeAttr(item.due)}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>${di.label}</span>`;
     }
     const noteHtml = item.note ? `<div class="inote">${escapeHtml(item.note)}</div>` : '';
-    return `<div class="${cls.join(' ')}" data-id="${escapeAttr(item._id)}" data-status="${st}" data-text="${escapeAttr((item.t+' '+(item.link||'')+' '+(item.note||'')).toLowerCase())}">
-      <span class="drag-grip" title="Drag to reorder">⠿</span>
-      <div class="cbox" role="checkbox" tabindex="0" aria-label="cycle status" title="Click to cycle: To do → In progress → Done">
+    const tagsHtml = tags.length ? `<div class="itags">${tags.map(t=>`<span class="itag">#${escapeHtml(t)}</span>`).join('')}</div>` : '';
+    const dataTags = tags.map(t=>t.toLowerCase()).join(' ');
+    return `<div class="${cls.join(' ')}" data-id="${escapeAttr(item._id)}" data-status="${st}" data-priority="${item.priority?'1':'0'}" data-tags="${escapeAttr(dataTags)}" data-text="${escapeAttr((item.t+' '+(item.link||'')+' '+(item.note||'')+' '+tags.join(' ')).toLowerCase())}">
+      <span class="drag-grip" tabindex="0" role="button" aria-label="Reorder item — focus and press arrow up or down" title="Drag, or focus + ↑/↓ to reorder">⠿</span>
+      <div class="cbox" role="checkbox" tabindex="0" aria-checked="${st==='done'?'true':st==='prog'?'mixed':'false'}" aria-label="cycle status" title="Click to cycle: To do → In progress → Done">
         <svg class="ic-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
         <span class="ic-prog"></span>
       </div>
-      <div class="itxt">${txt}${noteHtml}</div>
+      <div class="itxt">${txt}${noteHtml}${tagsHtml}</div>
       <div class="row-actions">
         <button class="mini-btn edit" title="Edit">✎</button>
         <button class="mini-btn del" title="Delete">✕</button>
@@ -208,7 +215,7 @@
         const itemsHtml=top.items.map(renderItem).join('');
         return `<div class="topic" data-topic="${escapeAttr(top.title)}">
           <div class="topic-head">
-            <span class="drag-grip" title="Drag to reorder">⠿</span>
+            <span class="drag-grip" tabindex="0" role="button" aria-label="Reorder sub-topic — focus and press arrow up or down" title="Drag, or focus + ↑/↓ to reorder">⠿</span>
             <span class="topic-title">${escapeHtml(top.display||top.title)}</span>
             <span class="topic-actions">
               <button class="mini-btn t-edit" title="Edit / delete sub-topic" data-section="${escapeAttr(sec.title)}" data-topic="${escapeAttr(top.title)}">✎</button>
@@ -226,7 +233,7 @@
       }).join('');
       return `<section class="section" data-sec="${s}" data-title="${escapeAttr(sec.title)}">
         <div class="sec-head">
-          <span class="drag-grip" title="Drag to reorder">⠿</span>
+          <span class="drag-grip" tabindex="0" role="button" aria-label="Reorder module — focus and press arrow up or down" title="Drag, or focus + ↑/↓ to reorder">⠿</span>
           <span class="sec-dot" style="background:${dotColor(s)}"></span>
           <span class="sec-title">${escapeHtml(sec.title)}</span>
           <span class="sec-meta">
@@ -242,6 +249,7 @@
     }).join('');
     bindEvents();
     updateDash();
+    renderTagBar();
     applyFilter();
   }
 
@@ -258,6 +266,7 @@
         const id=row.dataset.id, cur=row.dataset.status, nxt=NEXT[cur]||'prog';
         state[id]=nxt; row.dataset.status=nxt;
         row.classList.remove('st-todo','st-prog','st-done'); row.classList.add('st-'+nxt);
+        box.setAttribute('aria-checked', nxt==='done'?'true':nxt==='prog'?'mixed':'false');
         if(nxt==='done' && cur!=='done'){ logCompletion(); saveData(); }
         saveState(); refreshSection(row.closest('.section')); updateDash(); applyFilter();
       };
@@ -306,6 +315,9 @@
       });
       h.addEventListener('dragend',endDrag);
     });
+    document.querySelectorAll('.drag-grip').forEach(g=>{
+      g.addEventListener('keydown',e=>gripKeyMove(g,e));
+    });
   }
 
   // ---- drag-to-reorder helpers (board listeners bound once below) ----
@@ -326,7 +338,7 @@
     }
     return closest.element;
   }
-  function persistOrderFromDOM(){
+  function persistOrderFromDOM(skipRender){
     order.sections=[...board.querySelectorAll('.section')].map(s=>s.dataset.title);
     order.topics=order.topics||{};
     order.items=order.items||{};
@@ -336,7 +348,27 @@
         order.items[s.dataset.title+SEP+t.dataset.topic]=[...t.querySelectorAll('.item')].map(it=>it.dataset.id);
       });
     });
-    saveData(); render();
+    saveData(); if(!skipRender) render();
+  }
+
+  // keyboard reorder: focus a ⠿ grip, press ↑/↓ to move its item/sub-topic/module.
+  // DOM is moved in place and order persisted WITHOUT a re-render, so focus is kept.
+  function gripKeyMove(grip, e){
+    if(e.key!=='ArrowUp' && e.key!=='ArrowDown') return;
+    e.preventDefault();
+    const up=e.key==='ArrowUp';
+    let el, type;
+    if(grip.closest('.sec-head')){ el=grip.closest('.section'); type='section'; }
+    else if(grip.closest('.topic-head')){ el=grip.closest('.topic'); type='topic'; }
+    else { el=grip.closest('.item'); type='item'; }
+    if(!el) return;
+    const container=el.parentElement;
+    const sibs=[...container.children].filter(c=>c.classList.contains(type));
+    const idx=sibs.indexOf(el);
+    if(up){ if(idx<=0) return; container.insertBefore(el, sibs[idx-1]); }
+    else { if(idx>=sibs.length-1) return; container.insertBefore(el, sibs[idx+1].nextSibling); }
+    persistOrderFromDOM(true);
+    grip.focus();
   }
   board.addEventListener('dragover',e=>{
     if(!dragKind) return;
@@ -436,10 +468,13 @@
   }
 
   // ---- filters / search ----
-  let filter='all', query='';
+  let filter='all', query='', hideDone=false, priorityOnly=false;
+  const activeTags=new Set();
+  try{ hideDone=localStorage.getItem('cip-hide-done')==='1'; }catch(e){}
   function applyFilter(){
     const q=query.trim();
-    const filtering=q||filter!=='all';
+    const tags=[...activeTags];
+    const filtering=q||filter!=='all'||hideDone||priorityOnly||tags.length>0;
     document.querySelectorAll('.section').forEach(secEl=>{
       let secVis=0;
       secEl.querySelectorAll('.topic').forEach(topEl=>{
@@ -449,6 +484,9 @@
           if(filter==='todo'&&st!=='todo')show=false;
           if(filter==='prog'&&st!=='prog')show=false;
           if(filter==='done'&&st!=='done')show=false;
+          if(hideDone&&st==='done')show=false;
+          if(priorityOnly&&row.dataset.priority!=='1')show=false;
+          if(tags.length){ const rt=(row.dataset.tags||'').split(' ').filter(Boolean); if(!tags.some(t=>rt.indexOf(t)!==-1))show=false; }
           if(q&&row.dataset.text.indexOf(q)===-1)show=false;
           row.classList.toggle('hidden',!show); if(show){tVis++;secVis++;}
         });
@@ -457,6 +495,31 @@
       secEl.classList.toggle('hidden',filtering&&secVis===0);
     });
   }
+  function allTags(){
+    const s=new Set();
+    MODEL.forEach(sec=>sec.topics.forEach(t=>t.items.forEach(it=>{ (it.tags||[]).forEach(tg=>s.add(tg)); })));
+    return [...s].sort((a,b)=>a.localeCompare(b));
+  }
+  function anyPriority(){
+    return MODEL.some(sec=>sec.topics.some(t=>t.items.some(it=>it.priority)));
+  }
+  function renderTagBar(){
+    const bar=document.getElementById('tagbar');
+    const tags=allTags(), hasPrio=anyPriority();
+    if(!tags.length && !hasPrio){ bar.classList.add('hidden'); bar.innerHTML=''; return; }
+    let html='';
+    if(hasPrio) html+=`<button class="tagchip prio${priorityOnly?' active':''}" data-prio="1" aria-pressed="${priorityOnly}">⚑ Priority</button>`;
+    tags.forEach(t=>{ const on=activeTags.has(t.toLowerCase()); html+=`<button class="tagchip${on?' active':''}" data-tag="${escapeAttr(t.toLowerCase())}" aria-pressed="${on}">#${escapeHtml(t)}</button>`; });
+    if(activeTags.size||priorityOnly) html+=`<button class="tagchip clear" data-clear="1">✕ clear</button>`;
+    bar.innerHTML=html; bar.classList.remove('hidden');
+  }
+  document.getElementById('tagbar').addEventListener('click',e=>{
+    const b=e.target.closest('.tagchip'); if(!b) return;
+    if(b.dataset.clear){ activeTags.clear(); priorityOnly=false; }
+    else if(b.dataset.prio){ priorityOnly=!priorityOnly; }
+    else if(b.dataset.tag){ const t=b.dataset.tag; activeTags.has(t)?activeTags.delete(t):activeTags.add(t); }
+    renderTagBar(); applyFilter();
+  });
   document.getElementById('search').addEventListener('input',e=>{query=e.target.value.toLowerCase();applyFilter();});
   document.querySelectorAll('.btn[data-filter]').forEach(b=>{
     b.addEventListener('click',()=>{
@@ -466,6 +529,10 @@
   });
   document.getElementById('expand').addEventListener('click',()=>document.querySelectorAll('.section,.topic').forEach(s=>s.classList.remove('collapsed')));
   document.getElementById('collapse').addEventListener('click',()=>document.querySelectorAll('.section,.topic').forEach(s=>s.classList.add('collapsed')));
+  const hideDoneBtn=document.getElementById('hide-done');
+  function syncHideDoneBtn(){ hideDoneBtn.classList.toggle('active',hideDone); hideDoneBtn.setAttribute('aria-pressed',hideDone?'true':'false'); hideDoneBtn.textContent=hideDone?'Show done':'Hide done'; }
+  hideDoneBtn.addEventListener('click',()=>{ hideDone=!hideDone; try{localStorage.setItem('cip-hide-done',hideDone?'1':'0');}catch(e){} syncHideDoneBtn(); applyFilter(); });
+  syncHideDoneBtn();
   document.getElementById('reset').addEventListener('click',()=>{
     if(confirm('Reset progress status only? (Your added/edited items stay.)')){ state={}; saveState(); render(); }
   });
@@ -493,7 +560,7 @@
         if(!d || typeof d!=='object') throw new Error('not an object');
         if(!confirm('Import this backup? It will REPLACE your current items, progress and history on this device (and sync to your account if signed in).')) { importFile.value=''; return; }
         custom=d.custom||{}; edits=d.edits||{}; topicEdits=d.topicEdits||{};
-        order=d.order||{}; activity=d.activity||{}; state=d.state||{};
+        order=d.order||{}; activity=d.activity||{}; settings=d.settings||{}; state=d.state||{};
         Object.keys(custom).forEach(mod=>{ if(Array.isArray(custom[mod])) custom[mod]={ 'Added items': custom[mod] }; });
         saveData(); saveState(); render();
       }catch(err){ alert('Could not import: that file isn’t a valid tracker backup.\n\n('+err.message+')'); }
@@ -547,22 +614,61 @@
     }).join('');
   }
   function insStat(num,lbl){ return `<div class="ins-stat"><div class="ins-num">${escapeHtml(num)}</div><div class="ins-lbl">${escapeHtml(lbl)}</div></div>`; }
+  function weekCompletions(){
+    const today=new Date(); today.setHours(0,0,0,0); let n=0;
+    for(let i=0;i<7;i++){ const d=new Date(today); d.setDate(d.getDate()-i); n+=activity[ymd(d)]||0; }
+    return n;
+  }
+  function levelInfo(totalDone){
+    const xp=totalDone*10;
+    let level=Math.floor(Math.sqrt(xp/50))+1; if(level<1) level=1;
+    const curBase=Math.pow(level-1,2)*50, nextBase=Math.pow(level,2)*50;
+    const into=xp-curBase, span=nextBase-curBase;
+    return {xp, level, pct: span?Math.round(into/span*100):0, toNext: Math.max(0, nextBase-xp)};
+  }
+  function badgeList(s,o){
+    const wk=weekCompletions(), goal=settings.weeklyGoal||5;
+    const moduleMaster=MODEL.some(sec=>{ const r=sectionStats(sec); return r.total>0 && r.done===r.total; });
+    return [
+      {icon:'🌱', name:'First step',   got:s.total>=1,    hint:'Complete 1 item'},
+      {icon:'🔥', name:'On fire',      got:s.current>=3,  hint:'3-day streak'},
+      {icon:'📅', name:'Consistent',   got:s.longest>=7,  hint:'7-day streak'},
+      {icon:'🎯', name:'Goal crusher', got:wk>=goal,      hint:'Hit your weekly goal'},
+      {icon:'💯', name:'Century',      got:o.done>=100,   hint:'100 items done'},
+      {icon:'🏆', name:'Module master',got:moduleMaster,  hint:'Finish a whole module'}
+    ];
+  }
   function openInsights(){
     const s=computeStreaks(), o=totals();
+    const goal=settings.weeklyGoal||5, wk=weekCompletions(), wkPct=Math.min(100,Math.round(wk/goal*100));
+    const lv=levelInfo(o.done);
+    const badgesHtml=badgeList(s,o).map(b=>
+      `<div class="badge-card${b.got?' got':''}" title="${escapeAttr(b.hint)}"><div class="badge-ic">${b.icon}</div><div class="badge-nm">${escapeHtml(b.name)}</div><div class="badge-ht">${b.got?'Earned':escapeHtml(b.hint)}</div></div>`
+    ).join('');
     document.getElementById('insights-body').innerHTML=
       '<h3>Insights</h3>'
       +'<div class="ins-stats">'
         +insStat(s.current+(s.current===1?' day':' days'),'Current streak')
         +insStat(s.longest+(s.longest===1?' day':' days'),'Longest streak')
         +insStat(o.done+' / '+o.total,'Items done')
-        +insStat(String(s.total),'Completions logged')
+        +insStat('Lv '+lv.level,'XP '+lv.xp)
       +'</div>'
+      +'<div class="ins-section"><div class="ins-label">Weekly goal</div>'
+        +'<div class="goal-row"><div class="goal-bar"><b style="width:'+wkPct+'%"></b></div>'
+        +'<span class="goal-num">'+wk+' / <input id="ins-goal" type="number" min="1" max="99" value="'+goal+'" aria-label="Weekly goal"> this week</span></div>'
+        +'<div class="lvl-bar" title="'+lv.toNext+' XP to level '+(lv.level+1)+'"><b style="width:'+lv.pct+'%"></b></div>'
+        +'<div class="lvl-cap">Level '+lv.level+' · '+lv.toNext+' XP to next</div></div>'
+      +'<div class="ins-section"><div class="ins-label">Badges</div><div class="badge-grid">'+badgesHtml+'</div></div>'
       +'<div class="ins-section"><div class="ins-label">Activity · last 18 weeks</div>'+heatmapHtml(18)
         +'<div class="hm-legend">Less <i class="hm lvl0"></i><i class="hm lvl1"></i><i class="hm lvl2"></i><i class="hm lvl3"></i><i class="hm lvl4"></i> More</div></div>'
       +'<div class="ins-section"><div class="ins-label">Progress by module</div>'+moduleBarsHtml()+'</div>'
       +'<div class="modal-actions"><span style="flex:1"></span><button class="btn primary" id="ins-close">Done</button></div>';
     insightsModal.classList.add('open');
     document.getElementById('ins-close').onclick=()=>insightsModal.classList.remove('open');
+    document.getElementById('ins-goal').onchange=e=>{
+      settings.weeklyGoal=Math.min(99,Math.max(1,parseInt(e.target.value)||5));
+      saveData(); openInsights();
+    };
   }
   document.getElementById('insights').addEventListener('click',openInsights);
   insightsModal.addEventListener('click',e=>{ if(e.target===insightsModal) insightsModal.classList.remove('open'); });
@@ -616,6 +722,8 @@
     document.getElementById('m-stars').value=item.stars||0;
     document.getElementById('m-due').value=item.due||'';
     document.getElementById('m-note').value=item.note||'';
+    document.getElementById('m-tags').value=(item.tags||[]).join(', ');
+    document.getElementById('m-priority').checked=!!item.priority;
     if(id){
       document.getElementById('m-status').value=statusOf(item);
       document.getElementById('m-delete').classList.remove('hidden');
@@ -648,9 +756,11 @@
     const status=document.getElementById('m-status').value;
     const due=document.getElementById('m-due').value;       // '' or 'YYYY-MM-DD'
     const note=document.getElementById('m-note').value.trim();
+    const tags=document.getElementById('m-tags').value.split(',').map(s=>s.trim()).filter(Boolean);
+    const priority=document.getElementById('m-priority').checked;
 
-    // due/note always set (incl. empty) so editing can clear them
-    const payload={t:text, link:link||'', stars:stars||0, due:due||'', note:note||''};
+    // due/note/tags/priority always set (incl. empty) so editing can clear them
+    const payload={t:text, link:link||'', stars:stars||0, due:due||'', note:note||'', tags:tags, priority:priority};
 
     if(editing){
       const prev=statusOf(MODEL_ITEM(editing)||{});
@@ -758,7 +868,7 @@
     closeAuthModal();
   }
 
-  function localSnapshot(){ return {custom,edits,topicEdits,order,activity,state}; }
+  function localSnapshot(){ return {custom,edits,topicEdits,order,activity,settings,state}; }
   function isEmptySnapshot(d){
     if(!d) return true;
     return !Object.keys(d.custom||{}).length && !Object.keys(d.edits||{}).length
@@ -772,8 +882,9 @@
     topicEdits = d.topicEdits || {};
     order  = d.order  || {};
     activity = d.activity || {};
+    settings = d.settings || {};
     state  = d.state  || {};
-    try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order,activity})); }catch(e){}
+    try{ localStorage.setItem(DATA_KEY, JSON.stringify({custom,edits,topicEdits,order,activity,settings})); }catch(e){}
     try{ localStorage.setItem(STATE_KEY, JSON.stringify(state)); }catch(e){}
     applyingRemote=true; render(); applyingRemote=false;
   }

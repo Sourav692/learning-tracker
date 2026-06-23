@@ -335,6 +335,38 @@ footer .reset:hover{text-decoration:underline}
 .mbar-track b{display:block;height:100%;border-radius:10px;transition:width .6s}
 .mbar-n{font-family:'Space Mono',monospace;font-size:.74rem;color:var(--muted);min-width:46px;text-align:right}
 
+/* ---- TAGS + PRIORITY ---- */
+.checkline{display:flex;align-items:center;gap:9px;font-size:.92rem;color:var(--ink);cursor:pointer;margin-bottom:6px}
+.checkline input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+.tagbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.tagchip{background:var(--panel);border:1px solid var(--line);color:var(--muted);font-family:'Outfit';font-size:.78rem;font-weight:500;padding:6px 12px;border-radius:20px;cursor:pointer;transition:.15s}
+.tagchip:hover{color:var(--ink);border-color:var(--faint)}
+.tagchip.active{background:var(--accent3);border-color:var(--accent3);color:#08201f}
+.tagchip.prio.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.tagchip.clear{color:var(--faint);border-style:dashed}
+.tagchip.clear:hover{color:var(--accent);border-color:var(--accent)}
+.itags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.itag{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--accent3);background:rgba(60,198,194,.12);padding:2px 8px;border-radius:20px}
+.prio-flag{color:var(--accent);margin-right:6px;font-size:.9rem}
+.item.st-done .prio-flag,.item.st-done .itag{opacity:.55}
+
+/* ---- GOALS + GAMIFICATION ---- */
+.goal-row{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.goal-bar{flex:1;height:10px;background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.goal-bar b{display:block;height:100%;background:linear-gradient(90deg,var(--done),#3cc6c2);border-radius:10px;transition:width .6s}
+.goal-num{font-family:'Space Mono',monospace;font-size:.78rem;color:var(--muted);white-space:nowrap}
+.goal-num input{width:44px;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-family:'Space Mono',monospace;font-size:.78rem;padding:3px 6px;text-align:center;color-scheme:dark}
+.lvl-bar{height:6px;background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:4px}
+.lvl-bar b{display:block;height:100%;background:repeating-linear-gradient(45deg,var(--accent2) 0 8px,#e69b1f 8px 16px);border-radius:10px;transition:width .6s}
+.lvl-cap{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--faint);margin-top:6px}
+.badge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.badge-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center;opacity:.5;filter:grayscale(.6);transition:.2s}
+.badge-card.got{opacity:1;filter:none;border-color:var(--accent2)}
+.badge-ic{font-size:1.7rem;line-height:1}
+.badge-nm{font-family:'Outfit';font-weight:600;font-size:.82rem;margin-top:6px;color:var(--ink)}
+.badge-ht{font-size:.66rem;color:var(--muted);margin-top:3px}
+@media (max-width:560px){ .badge-grid{grid-template-columns:repeat(2,1fr)} }
+
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px;border:2px solid var(--bg)}
 ::-webkit-scrollbar-thumb:hover{background:var(--faint)}
@@ -424,3 +456,36 @@ footer .reset:hover{text-decoration:underline}
   .home-banner{height:150px}
   .tracks{margin-top:34px}
 }
+
+/* =========================================================================
+   TOUCH + RESPONSIVE
+   ========================================================================= */
+/* On touch devices there is no hover, so always reveal row/topic actions + grips */
+@media (hover:none){
+  .row-actions,.topic-actions{opacity:1}
+  .sec-head .drag-grip,.topic-head .drag-grip,.item .drag-grip{opacity:.55}
+}
+/* focus-visible affordance for keyboard users */
+.drag-grip:focus-visible,.mini-btn:focus-visible,.btn:focus-visible,.track-card:focus-visible{outline:2px solid var(--accent3);outline-offset:2px}
+.kbd-lift{box-shadow:0 0 0 2px var(--accent3) inset}
+
+@media (max-width:640px){
+  .wrap{padding:0 14px 90px}
+  .controls{gap:8px;padding:10px 0}
+  .search{min-width:100%;order:-1}
+  .btn{padding:9px 12px;font-size:.82rem}
+  .sec-head{padding:16px 16px;gap:10px}
+  .sec-title{font-size:1.12rem}
+  .sec-body{padding:4px 12px 14px}
+  .sec-meta{gap:8px}
+  .sec-meta .minibar{width:50px}
+  .topic-head{gap:8px;padding:11px 12px}
+  .item{gap:9px;padding:9px 8px}
+  .fld-row{flex-direction:column;gap:0}
+  .modal{padding:14px;align-items:flex-start;padding-top:32px}
+  .modal-card{padding:22px 18px}
+  .ins-stats{grid-template-columns:1fr 1fr}
+  .mbar-t{width:46%}
+}
+/* hide completed items when the board opts in */
+.board-hide-done .item.st-done{display:none}
