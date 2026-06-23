@@ -127,8 +127,29 @@
   }
   const NEXT = { todo: 'prog', prog: 'done', done: 'todo' };
 
+  function MODEL_ITEM(id){ for(const sec of MODEL){ for(const top of sec.topics){ const f=top.items.find(x=>x._id===id); if(f) return f; } } return null; }
+  function logCompletion(n){ const k=ymd(new Date()); activity[k]=(activity[k]||0)+(n||1); }
+
   function escapeHtml(s){return (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
   function escapeAttr(s){return (s||'').replace(/"/g,'&quot;');}
+
+  // relative label + urgency class for a due date (YYYY-MM-DD)
+  function dueInfo(due, st){
+    const today=new Date(); today.setHours(0,0,0,0);
+    const d=new Date(due+'T00:00:00'); if(isNaN(d)) return null;
+    const diff=Math.round((d-today)/86400000);
+    let label;
+    if(diff===0) label='Today';
+    else if(diff===1) label='Tomorrow';
+    else if(diff===-1) label='1d overdue';
+    else if(diff<0) label=(-diff)+'d overdue';
+    else label='in '+diff+'d';
+    let cls='';
+    if(st==='done') cls='done';
+    else if(diff<0) cls='overdue';
+    else if(diff<=3) cls='soon';
+    return {label, cls};
+  }
 
   function renderItem(item) {
     if (item.group) return `<div class="grp-label">${escapeHtml(item.t)}</div>`;
@@ -140,13 +161,18 @@
       : escapeHtml(item.t);
     if (item.stars) txt += `<span class="stars">${'★'.repeat(item.stars)}</span>`;
     if (item.badge === 'udemy') txt += `<span class="badge udemy">Udemy</span>`;
-    return `<div class="${cls.join(' ')}" data-id="${escapeAttr(item._id)}" data-status="${st}" data-text="${escapeAttr((item.t+' '+(item.link||'')).toLowerCase())}">
+    if (item.due) {
+      const di=dueInfo(item.due, st);
+      if (di) txt += `<span class="due ${di.cls}" title="Due ${escapeAttr(item.due)}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>${di.label}</span>`;
+    }
+    const noteHtml = item.note ? `<div class="inote">${escapeHtml(item.note)}</div>` : '';
+    return `<div class="${cls.join(' ')}" data-id="${escapeAttr(item._id)}" data-status="${st}" data-text="${escapeAttr((item.t+' '+(item.link||'')+' '+(item.note||'')).toLowerCase())}">
       <span class="drag-grip" title="Drag to reorder">⠿</span>
       <div class="cbox" role="checkbox" tabindex="0" aria-label="cycle status" title="Click to cycle: To do → In progress → Done">
         <svg class="ic-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
         <span class="ic-prog"></span>
       </div>
-      <div class="itxt">${txt}</div>
+      <div class="itxt">${txt}${noteHtml}</div>
       <div class="row-actions">
         <button class="mini-btn edit" title="Edit">✎</button>
         <button class="mini-btn del" title="Delete">✕</button>
@@ -232,6 +258,7 @@
         const id=row.dataset.id, cur=row.dataset.status, nxt=NEXT[cur]||'prog';
         state[id]=nxt; row.dataset.status=nxt;
         row.classList.remove('st-todo','st-prog','st-done'); row.classList.add('st-'+nxt);
+        if(nxt==='done' && cur!=='done'){ logCompletion(); saveData(); }
         saveState(); refreshSection(row.closest('.section')); updateDash(); applyFilter();
       };
       box.addEventListener('click',cycle);
@@ -475,6 +502,71 @@
     reader.readAsText(f);
   });
 
+  // ---- INSIGHTS (streaks, activity heatmap, per-module progress) ----
+  const insightsModal=document.getElementById('insightsmodal');
+  function computeStreaks(){
+    const total=Object.values(activity).reduce((a,b)=>a+(b||0),0);
+    let cur=0, d=new Date(); d.setHours(0,0,0,0);
+    if(!activity[ymd(d)]) d.setDate(d.getDate()-1); // today may still be empty
+    while(activity[ymd(d)]>0){ cur++; d.setDate(d.getDate()-1); }
+    const keys=Object.keys(activity).filter(k=>activity[k]>0).sort();
+    let longest=0, run=0, prev=null;
+    keys.forEach(k=>{
+      if(prev){ const diff=Math.round((new Date(k+'T00:00:00')-new Date(prev+'T00:00:00'))/86400000); run = diff===1?run+1:1; }
+      else run=1;
+      if(run>longest) longest=run; prev=k;
+    });
+    return {current:cur, longest, total};
+  }
+  function heatmapHtml(weeks){
+    weeks=weeks||18;
+    const today=new Date(); today.setHours(0,0,0,0);
+    const end=new Date(today); end.setDate(end.getDate()+(6-end.getDay())); // Saturday of this week
+    const start=new Date(end); start.setDate(start.getDate()-(weeks*7-1)); // aligns to a Sunday
+    let maxC=1; Object.values(activity).forEach(v=>{ if(v>maxC) maxC=v; });
+    const level=c=>{ if(!c) return 0; const r=c/maxC; return r>.75?4:r>.5?3:r>.25?2:1; };
+    const cur=new Date(start); let cols='';
+    for(let w=0; w<weeks; w++){
+      let col='';
+      for(let dow=0; dow<7; dow++){
+        const k=ymd(cur), c=activity[k]||0, future=cur>today;
+        col+=`<i class="hm ${future?'fut':'lvl'+level(c)}" title="${k}: ${c} done"></i>`;
+        cur.setDate(cur.getDate()+1);
+      }
+      cols+=`<div class="hm-col">${col}</div>`;
+    }
+    return `<div class="hm-grid">${cols}</div>`;
+  }
+  function moduleBarsHtml(){
+    return MODEL.map((sec,i)=>{
+      const {total,done}=sectionStats(sec);
+      const pct=total?Math.round(done/total*100):0;
+      return `<div class="mbar"><span class="mbar-t">${escapeHtml(sec.title)}</span>`
+        +`<span class="mbar-track"><b style="width:${pct}%;background:${dotColor(i)}"></b></span>`
+        +`<span class="mbar-n">${done}/${total}</span></div>`;
+    }).join('');
+  }
+  function insStat(num,lbl){ return `<div class="ins-stat"><div class="ins-num">${escapeHtml(num)}</div><div class="ins-lbl">${escapeHtml(lbl)}</div></div>`; }
+  function openInsights(){
+    const s=computeStreaks(), o=totals();
+    document.getElementById('insights-body').innerHTML=
+      '<h3>Insights</h3>'
+      +'<div class="ins-stats">'
+        +insStat(s.current+(s.current===1?' day':' days'),'Current streak')
+        +insStat(s.longest+(s.longest===1?' day':' days'),'Longest streak')
+        +insStat(o.done+' / '+o.total,'Items done')
+        +insStat(String(s.total),'Completions logged')
+      +'</div>'
+      +'<div class="ins-section"><div class="ins-label">Activity · last 18 weeks</div>'+heatmapHtml(18)
+        +'<div class="hm-legend">Less <i class="hm lvl0"></i><i class="hm lvl1"></i><i class="hm lvl2"></i><i class="hm lvl3"></i><i class="hm lvl4"></i> More</div></div>'
+      +'<div class="ins-section"><div class="ins-label">Progress by module</div>'+moduleBarsHtml()+'</div>'
+      +'<div class="modal-actions"><span style="flex:1"></span><button class="btn primary" id="ins-close">Done</button></div>';
+    insightsModal.classList.add('open');
+    document.getElementById('ins-close').onclick=()=>insightsModal.classList.remove('open');
+  }
+  document.getElementById('insights').addEventListener('click',openInsights);
+  insightsModal.addEventListener('click',e=>{ if(e.target===insightsModal) insightsModal.classList.remove('open'); });
+
   // ---- ADD / EDIT MODAL ----
   const modal=document.getElementById('modal');
   let editing=null; // _id when editing, null when adding
@@ -522,6 +614,8 @@
     document.getElementById('m-text').value=item.t||'';
     document.getElementById('m-link').value=item.link||'';
     document.getElementById('m-stars').value=item.stars||0;
+    document.getElementById('m-due').value=item.due||'';
+    document.getElementById('m-note').value=item.note||'';
     if(id){
       document.getElementById('m-status').value=statusOf(item);
       document.getElementById('m-delete').classList.remove('hidden');
@@ -552,13 +646,18 @@
     const link=document.getElementById('m-link').value.trim();
     const stars=parseInt(document.getElementById('m-stars').value)||0;
     const status=document.getElementById('m-status').value;
+    const due=document.getElementById('m-due').value;       // '' or 'YYYY-MM-DD'
+    const note=document.getElementById('m-note').value.trim();
 
-    const payload={t:text}; if(link)payload.link=link; if(stars)payload.stars=stars;
+    // due/note always set (incl. empty) so editing can clear them
+    const payload={t:text, link:link||'', stars:stars||0, due:due||'', note:note||''};
 
     if(editing){
+      const prev=statusOf(MODEL_ITEM(editing)||{});
       // record an edit override on existing id (built-in or custom)
       edits[editing]=Object.assign({}, edits[editing], payload);
       state[editing]=status;
+      if(status==='done' && prev!=='done') logCompletion();
     } else {
       // append to custom[module][topic]
       if(!custom[section]) custom[section]={};
@@ -570,7 +669,7 @@
       const sec=MODEL.find(s=>s.title===section);
       const top=sec&&sec.topics.find(t=>t.title===topic);
       const newId=top?top.items[top.items.length-1]._id:null;
-      if(newId) state[newId]=status;
+      if(newId){ state[newId]=status; if(status==='done') logCompletion(); }
     }
     saveData(); saveState(); render(); closeEditor();
   });
@@ -584,7 +683,7 @@
   document.getElementById('m-delete').addEventListener('click',()=>{ if(editing){ deleteItem(editing); closeEditor(); } });
   document.getElementById('m-cancel').addEventListener('click',closeEditor);
   modal.addEventListener('click',e=>{ if(e.target===modal) closeEditor(); });
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(modal.classList.contains('open')) closeEditor(); if(tmodal.classList.contains('open')) closeTopicEditor(); } });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(modal.classList.contains('open')) closeEditor(); if(tmodal.classList.contains('open')) closeTopicEditor(); if(insightsModal.classList.contains('open')) insightsModal.classList.remove('open'); if(authModal.classList.contains('open')) closeAuthModal(); } });
   document.getElementById('add-global').addEventListener('click',()=>openEditor(null));
 
   // ===== Cloud sync + Google authentication =====

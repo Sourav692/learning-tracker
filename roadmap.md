@@ -41,8 +41,11 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
   `tracker_state`, owner-only Row-Level Security policies (`supabase/schema.sql`).
 - ✅ **Local-first fallback** — fully usable logged out; cloud sync layers on after
   sign-in (seeds cloud from local on first login, else cloud wins).
-- ⬜ Data **export / import** (JSON, Markdown, CSV) + manual backup/restore.
-- ⬜ **PWA**: web manifest + service worker (installable, offline-capable).
+- ✅ Data **export / import** (JSON) + manual backup/restore — Export/Import buttons
+  on the tracker; backup carries `{custom, edits, topicEdits, order, activity, state}`.
+  *(Markdown/CSV export still ⬜.)*
+- ✅ **PWA**: `manifest.json` + `sw.js` (app-shell cache, offline-capable, installable);
+  registered on all pages, `icon.svg` marquee mark.
 - ⬜ Full **mobile-responsive** layout pass.
 - ⬜ **Accessibility**: keyboard-accessible drag-reorder, ARIA on custom
   checkboxes/menus, focus management in modals.
@@ -50,9 +53,10 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
 
 ## 2. Learning-specific features
 
-- ⬜ **Due dates & scheduling** per item; "in progress since" / staleness.
+- ✅ **Due dates** per item with overdue / due-soon pills (stored in `edits[id]`).
+  *(Calendar reminders / "in progress since" staleness still ⬜.)*
+- ✅ **Notes** per item (free text, shown under the item, searchable).
 - ⬜ **Reminders & notifications** (email / push) for due or stalled items.
-- ⬜ **Notes & reflections** per item (markdown: takeaways, snippets, links).
 - ⬜ **Time tracking** — estimated vs. actual hours; weekly totals.
 - ⬜ **Spaced-repetition / review queue** to resurface completed material.
 - ⬜ **Resource enrichment** — auto-fetch title/favicon/duration, classify type
@@ -61,9 +65,11 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
 
 ## 3. Insights & motivation
 
-- ⬜ **Analytics dashboard** — completion velocity, time-to-done, per-section trends.
-- ⬜ **Activity heatmap** (GitHub-style streak calendar).
-- ⬜ **Goals & streaks** — weekly goals, streak counter.
+- ✅ **Insights modal** — current/longest streak, items-done, completions logged.
+- ✅ **Activity heatmap** (GitHub-style, last 18 weeks) driven by an `activity`
+  completion log (date → count), synced in the data blob.
+- ✅ **Per-module progress** bars in the Insights view.
+- ⬜ **Goals** — weekly goals / targets (streak counter shipped above).
 - ⬜ **Gamification** — badges / XP / levels.
 - ⬜ **Weekly digest** email ("finished this week / slipping").
 
@@ -86,11 +92,12 @@ Status legend: ✅ done · 🚧 in progress · ⬜ planned.
 
 ## Suggested sequence
 
-1. ✅ Refactor → ✅ Auth + RLS  *(this iteration)*
-2. ⬜ Export/import + PWA  *(durability, no backend change)*
-3. ⬜ Due dates + notes  *(core learning value)*
-4. ⬜ Analytics + streaks  *(engagement)*
-5. ⬜ Sharing + templates  *(growth)*
+1. ✅ Refactor → ✅ Auth + RLS
+2. ✅ Export/import + PWA  *(durability)*
+3. ✅ Due dates + notes  *(core learning value)*
+4. ✅ Analytics + streaks + heatmap  *(engagement)*
+5. ⬜ Mobile-responsive + accessibility pass  *(polish — now public)*
+6. ⬜ Sharing + templates  *(growth)*
 
 > **Note:** Auth uses Google OAuth, which requires the app to be hosted over
 > http/https. See `SUPABASE_SETUP.md` for the one-time Supabase + Google Cloud setup.

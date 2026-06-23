@@ -88,10 +88,18 @@
         </select>
       </label>
       <label class="fld">
+        <span>Due date <em>(optional)</em></span>
+        <input id="m-due" type="date">
+      </label>
+      <label class="fld">
         <span>Stars (0–6)</span>
         <input id="m-stars" type="number" min="0" max="6" value="0">
       </label>
     </div>
+    <label class="fld">
+      <span>Notes <em>(optional)</em></span>
+      <textarea id="m-note" rows="3" placeholder="Key takeaways, snippets, reminders…"></textarea>
+    </label>
     <div class="modal-actions">
       <button class="btn ghost" id="m-delete">Delete</button>
       <span style="flex:1"></span>
@@ -121,6 +129,11 @@
 <!-- AUTH / ACCOUNT MODAL (contents rendered by app.js) -->
 <div class="modal" id="authmodal">
   <div class="modal-card" id="auth-body"></div>
+</div>
+
+<!-- INSIGHTS MODAL (contents rendered by app.js) -->
+<div class="modal" id="insightsmodal">
+  <div class="modal-card insights-card" id="insights-body"></div>
 </div>
 
 <!-- Config, seed data, Supabase client, then app logic -->
