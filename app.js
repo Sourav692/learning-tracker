@@ -1030,7 +1030,9 @@
 
   function initCloud(){
     if(!cloudConfigured()){ setPill('local','Local only'); return; }
-    sb=window.supabase.createClient(SUPABASE_URL.startsWith('http')?SUPABASE_URL:'https://'+SUPABASE_URL, SUPABASE_ANON_KEY);
+    // Reuse the single client created by auth.js (the sign-in gate) when present,
+    // so the page has exactly one Supabase client / auth session.
+    sb=(window.LT_AUTH && window.LT_AUTH.client) || window.supabase.createClient(SUPABASE_URL.startsWith('http')?SUPABASE_URL:'https://'+SUPABASE_URL, SUPABASE_ANON_KEY);
     setPill('off','Sign in to sync');
     sb.auth.getSession().then(({data})=>{ if(data && data.session) onSignedIn(data.session.user); });
     sb.auth.onAuthStateChange((event,session)=>{
