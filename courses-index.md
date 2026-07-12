@@ -2,7 +2,7 @@
 
 Master index of scraped Udemy course curriculums. Each row links to the course on Udemy and to the topic markdown file that holds its full curriculum.
 
-**Total: 30 courses across 7 topic files.**
+**Total: 33 courses across 8 topic files.**
 
 | # | Course | Curriculum File | Udemy Link |
 |---|---|---|---|
@@ -36,6 +36,9 @@ Master index of scraped Udemy course curriculums. Each row links to the course o
 | 28 | Claude Code - The Practical Guide | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/claude-code-the-practical-guide/) |
 | 29 | The Complete Claude Code & Claude Cowork Masterclass [2026] | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/claude-aiagents-cowork-masterclass/) |
 | 30 | AI Coder: Complete Claude Code & Coding Agents Course | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/) |
+| 31 | Databricks Certified Generative AI Engineer Associate | [`databricks-genai-engineer.md`](databricks-genai-engineer.md) | [Udemy](https://www.udemy.com/course/databricks-certified-generative-ai-engineer-associate-lessons/) |
+| 32 | MLflow for MLOps & LLMOps: Master MLflow with Databricks | [`databricks-genai-engineer.md`](databricks-genai-engineer.md) | [Udemy](https://www.udemy.com/course/mlflow-for-mlops-llmops-master-mlflow-with-databricks/) |
+| 33 | Crack Databricks Generative AI Engineer Associate Exam | [`databricks-genai-engineer.md`](databricks-genai-engineer.md) | [Udemy](https://www.udemy.com/course/crack-databricks-generative-ai-engineer-associate-exam/) |
 
 ## By topic
 
@@ -46,3 +49,4 @@ Master index of scraped Udemy course curriculums. Each row links to the course o
 - [`ai-engineering.md`](ai-engineering.md) — 4 courses
 - [`artificial-intelligence.md`](artificial-intelligence.md) — 1 course
 - [`claude-code.md`](claude-code.md) — 6 courses
+- [`databricks-genai-engineer.md`](databricks-genai-engineer.md) — 3 courses

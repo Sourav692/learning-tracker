@@ -120,6 +120,23 @@ Keep **Agent Engineer §18 (Codex interop), §19 Advanced (26 lessons), §20 Nic
 
 ---
 
+## Do the Udemy courses add anything? (optional top-ups)
+
+**Short answer: no new *Claude Code* material.** These 4 cover Claude Code — the tool — end-to-end, and the 6 Udemy courses mostly duplicate that (often diluted with Cursor/Copilot/Codex, OpenAI Agents SDK, and Cowork tangents). The only real gap is **building software *around* Claude** (the API/SDK layer) plus two team-workflow integrations. Pull these from Udemy **only if you need them** — full curriculums and a de-duplicated 6-course watch order are in [`claude-code-roadmap.md`](claude-code-roadmap.md).
+
+| Gap in the 4 | Why it's missing | Best Udemy source | Priority |
+|---|---|---|:--:|
+| **Anthropic API** — Python SDK, streaming, vision, structured outputs, prompt caching, batch, extended thinking | All 4 teach *using the CLI*, not *coding against the API* | [Claude AI Masterclass](https://www.udemy.com/course/claude-ai-masterclass/) §7 | **High** — if you'll build apps/scripts on Claude |
+| **Claude Agent SDK** — production agents, multi-tool, orchestration | Same — no programmatic agent-building | [Claude AI Masterclass](https://www.udemy.com/course/claude-ai-masterclass/) §3; [AI Coder](https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/) Wk3 ("Driving Claude Code Programmatically with the Agent SDK") | **High** — for agent developers |
+| **Claude Code in CI/CD** — headless in a pipeline | The 4 teach green-CI as a *concept* (AI Hero), not wiring CC into a pipeline | [Claude AI Masterclass](https://www.udemy.com/course/claude-ai-masterclass/) §2 (Integrating Claude Code into CI/CD, Pt 1–3) | Medium |
+| **Jira issue → PR** | The 4 cover GitHub (Code4Startup M05), not Jira | [AI Coder](https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/) Wk2 (Jira MCP → PR) | Low — just another MCP |
+
+**Deliberately *not* added** (non–Claude-Code, or already covered here): Claude Cowork & personal-agent automation · Claude in Excel/PowerPoint/Chrome-for-research · prompt-engineering 101 · OpenAI Agents SDK. Code4Startup's Phase-9 track already gives you n8n / business automation, so those Udemy project courses add nothing here.
+
+> **Verdict:** keep this a 4-course roadmap. Add only the **API + Agent SDK** top-up (one section of Claude AI Masterclass) *if and when* you move from *using* Claude Code to *building on* Claude.
+
+---
+
 ## Recommended sequence (most people)
 
 1. **ByteByteAI** — 2-day framing (context → agentic → multi-agent). *(Phases 2, 6 mental models)*
