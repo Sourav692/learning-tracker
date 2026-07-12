@@ -92,7 +92,7 @@ window.LEARNING_DATA = [
       {
         "title": "Claude Code",
         "items": [
-          { "t": "AI Coder: Complete Claude Code & Coding Agents Course", "link": "https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/?couponCode=CP260518SUMMXIN", "stars": 6, "tags": ["udemy"] },
+          { "t": "AI Coder: Complete Claude Code & Coding Agents Course", "link": "https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/?couponCode=PMNVD2025", "stars": 6, "tags": ["udemy"] },
           { "t": "The Complete Claude Code & Claude Cowork Masterclass [2026]", "link": "https://www.udemy.com/course/claude-aiagents-cowork-masterclass/?couponCode=PMNVD2025", "stars": 6, "tags": ["udemy"] },
           { "t": "Claude Code - The Practical Guide", "link": "https://www.udemy.com/course/claude-code-the-practical-guide/?couponCode=PMNVD2025", "stars": 5, "tags": ["udemy"] },
           { "t": "Claude - Master Claude Cowork, Claude Code, Skills & Plugins", "link": "https://www.udemy.com/course/claude-code-cowork-course/?couponCode=PMNVD2025", "stars": 5 },

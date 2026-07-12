@@ -2,7 +2,7 @@
 
 Master index of scraped Udemy course curriculums. Each row links to the course on Udemy and to the topic markdown file that holds its full curriculum.
 
-**Total: 24 courses across 6 topic files.**
+**Total: 30 courses across 7 topic files.**
 
 | # | Course | Curriculum File | Udemy Link |
 |---|---|---|---|
@@ -30,6 +30,12 @@ Master index of scraped Udemy course curriculums. Each row links to the course o
 | 22 | Full stack generative and Agentic AI with python | [`ai-engineering.md`](ai-engineering.md) | [Udemy](https://www.udemy.com/course/full-stack-ai-with-python/) |
 | 23 | AI A-Z [2026]: Agentic AI, Gen AI, Prompt Engineering and RL | [`artificial-intelligence.md`](artificial-intelligence.md) | [Udemy](https://www.udemy.com/course/artificial-intelligence-az/) |
 | 24 | Production AI Agents with LangChain + LangGraph [2026] | [`agentic-ai.md`](agentic-ai.md) | [Udemy](https://www.udemy.com/course/production-ai-agents/) |
+| 25 | Mastering Claude Code & AI Agents [2026] | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/master-claude-code/) |
+| 26 | Claude AI Masterclass: Claude Code, MCP, Agents & Automation | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/claude-ai-masterclass/) |
+| 27 | Claude Code Fast-Track - Solve Anything, Automate Everything | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/claude-code-fast-track/) |
+| 28 | Claude Code - The Practical Guide | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/claude-code-the-practical-guide/) |
+| 29 | The Complete Claude Code & Claude Cowork Masterclass [2026] | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/claude-aiagents-cowork-masterclass/) |
+| 30 | AI Coder: Complete Claude Code & Coding Agents Course | [`claude-code.md`](claude-code.md) | [Udemy](https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/) |
 
 ## By topic
 
@@ -39,4 +45,4 @@ Master index of scraped Udemy course curriculums. Each row links to the course o
 - [`rag.md`](rag.md) — 1 course
 - [`ai-engineering.md`](ai-engineering.md) — 4 courses
 - [`artificial-intelligence.md`](artificial-intelligence.md) — 1 course
-
+- [`claude-code.md`](claude-code.md) — 6 courses
