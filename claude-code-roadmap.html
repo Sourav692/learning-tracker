@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code — Udemy Roadmap</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>:root{--bg:#0E1420;--panel:#17202E;--panel-hi:#1E2A3B;--line:#26344A;--ink:#E7ECF4;--dim:#95A1B5;--faint:#5E6B80;--teal:#34D6C1;--amber:#F4A93C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--teal)}
+.topbar{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#17202E,#0E1420);position:sticky;top:0;z-index:5}
+.topbar .in{max-width:920px;margin:0 auto;padding:16px 28px}
+.crumbs{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.crumb{color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:20px;padding:5px 11px;transition:all .2s}
+.crumb:hover{border-color:var(--teal);color:var(--teal)}
+.doc{max-width:920px;margin:0 auto;padding:34px 28px 72px}
+.doc h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.5vw,36px);font-weight:700;letter-spacing:-.02em;margin:0 0 18px;line-height:1.15}
+.doc h2{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);letter-spacing:-.01em}
+.doc h3{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;margin:24px 0 8px;color:var(--teal)}
+.doc h4{font-size:12px;font-weight:600;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.06em;font-family:'JetBrains Mono',monospace;color:var(--amber)}
+.doc p{margin:0 0 14px}
+.doc a{text-decoration:none;border-bottom:1px solid rgba(52,214,193,.35);word-break:break-word}
+.doc a:hover{border-bottom-color:var(--teal)}
+.doc strong{color:#fff;font-weight:600}
+.doc em{color:var(--dim)}
+.doc code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--panel-hi);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--teal)}
+.doc pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;margin:0 0 16px}
+.doc pre code{background:none;border:none;padding:0;color:var(--ink)}
+.doc ul,.doc ol{margin:0 0 14px;padding-left:22px}
+.doc li{margin:5px 0}
+.doc blockquote{margin:0 0 16px;padding:10px 16px;border-left:3px solid var(--teal);background:rgba(52,214,193,.08);border-radius:0 8px 8px 0}
+.doc blockquote p{margin:0;color:var(--dim)}
+.doc hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+.tbl{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:12.5px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel-hi);font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--ink);white-space:nowrap}
+.doc td{color:var(--dim)}
+.doc tbody tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+@media(max-width:640px){.doc{padding:24px 18px 56px}}
+</style>
+<meta name="theme-color" content="#0E1420">
+</head>
+<body>
+<div class="topbar"><div class="in"><nav class="crumbs" aria-label="Breadcrumb">
+  <a class="crumb" href="tracker/index.html">🎪 Learning plan</a>
+  <a class="crumb" href="tracker/topics/claude-agent-sdk-claude-code-and-agent-skills.html">← Claude track</a>
+</nav></div></div>
+<main class="doc">
+<h1>Claude Code Final Roadmap</h1>
+<p>Goal: learn Claude Code without watching the same setup, <code>CLAUDE.md</code>, MCP, skills, hooks, and agent videos across six Udemy courses.</p>
+<p>Source: <a href="claude-code.md"><code>claude-code.md</code></a>, scraped 2026-07-11.</p>
+<p>Rule: for each topic, watch the primary source only. Use the optional source only when you are actively building that exact project.</p>
+<hr />
+<h2>Course Roles</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Course</th>
+<th>Use it for</th>
+<th>Do not use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Claude Code - The Practical Guide</strong></td>
+<td>Main spine. Watch this first. It covers setup, sessions, context, permissions, <code>CLAUDE.md</code>, plan mode, MCP, subagents, skills, commands, hooks, plugins, feedback loops, Ralph, and remote/cloud usage in 3h 11m.</td>
+<td>Rewatching the same topics elsewhere.</td>
+</tr>
+<tr>
+<td><strong>AI Coder: Complete Claude Code &amp; Coding Agents Course</strong></td>
+<td>Professional engineering workflows: Jira/GitHub/MCP, large codebases, remote/cloud sandboxes, Agent SDK, agent teams, orchestration, deployment.</td>
+<td>Week 1 and basic Claude Code setup after you finish the Practical Guide.</td>
+</tr>
+<tr>
+<td><strong>Claude AI Masterclass</strong></td>
+<td>MCP buildout, Claude Agent SDK/API, CI/security/browser/office integrations.</td>
+<td>Its Claude Code setup/fundamentals section, which duplicates the Practical Guide.</td>
+</tr>
+<tr>
+<td><strong>Mastering Claude Code &amp; AI Agents [2026]</strong></td>
+<td>Optional project reps for apps, slash commands, plugins, and agent builds.</td>
+<td>Core setup/fundamentals if you already did the Practical Guide.</td>
+</tr>
+<tr>
+<td><strong>Claude Code Fast-Track</strong></td>
+<td>Optional automation projects: n8n, website, phone remote, lead scraping, YouTube/content workflows.</td>
+<td>General intro/setup.</td>
+</tr>
+<tr>
+<td><strong>Complete Claude Code &amp; Claude Cowork Masterclass</strong></td>
+<td>Optional Cowork and personal-agent automation workflows.</td>
+<td>Claude Code Foundations / app / agent sections, which duplicate Practical Guide + Mastering.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>Non-Udemy Courses (Cohorts &amp; Self-Paced)</h2>
+<p>Four Claude Code courses that are <strong>not on Udemy</strong>. Two are live cohorts, two are self-paced.
+Treat these as the pattern/project spine and depth layer — the Udemy phases below stay the core
+watch order. Full curriculums for all four are captured in <a href="claude-code.md"><code>claude-code.md</code></a>
+(the two self-paced from saved pages, the two cohorts from their live course pages).</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Course</th>
+<th>Platform · Format</th>
+<th>Instructor</th>
+<th>Link</th>
+<th>Where it fits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Claude Code Mastery — Levels 1–3</strong></td>
+<td>Code4Startup · self-paced video (3 levels, 11 modules, 100 lessons)</td>
+<td>Code4Startup</td>
+<td>see level links below</td>
+<td>Project reps across Phases 1–7; full curriculum in <code>claude-code.md</code></td>
+</tr>
+<tr>
+<td><strong>AI Coding for Real Engineers</strong> (you may know it as "Claude Code for Real Engineers")</td>
+<td>AI Hero · ~2-week async cohort + live office hours (waitlist)</td>
+<td>Matt Pocock</td>
+<td><a target="_blank" rel="noopener" href="https://www.aihero.dev/cohorts/ai-coding-for-real-engineers-m0k0w">aihero.dev/cohorts/ai-coding-for-real-engineers-m0k0w</a></td>
+<td>Advanced patterns: steering, planning, feedback loops, <strong>Ralph</strong>, human-in-the-loop → Phases 2, 3, 5; full curriculum in <code>claude-code.md</code></td>
+</tr>
+<tr>
+<td><strong>Build with Claude Code</strong></td>
+<td>ByteByteAI · 2-day live intensive (waitlist)</td>
+<td>John Kim (Staff SWE, Meta)</td>
+<td><a target="_blank" rel="noopener" href="https://bytebyteai.com/c/build-with-claude-code">bytebyteai.com/c/build-with-claude-code</a></td>
+<td>Context engineering, agentic engineering (skills/MCP), multi-agent orchestration → Phases 2, 4, 5, 9; full curriculum in <code>claude-code.md</code></td>
+</tr>
+<tr>
+<td><strong>Agent Engineer</strong> (formerly "Master Claude Code")</td>
+<td>masterclaudecode.com (platform: agenticcoding.school) · self-paced, lifetime, always-updated (21 modules, 158 lessons)</td>
+<td>Ray Amjad</td>
+<td><a target="_blank" rel="noopener" href="https://masterclaudecode.com">masterclaudecode.com</a></td>
+<td>Granular, always-current reference for every phase; full curriculum in <code>claude-code.md</code></td>
+</tr>
+<tr>
+<td><strong>▶ Which of these 4 to pick + study map</strong></td>
+<td>Companion decision doc · coverage matrix + de-duplicated 11-phase plan</td>
+<td>—</td>
+<td><a href="claude-code-roadmap-cohort.html">claude-code-roadmap-cohort.md</a></td>
+<td>Answers "which is best," "do I need all 4," and maps all four into one non-overlapping path</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Code4Startup — Claude Code Mastery, per-level links:</strong>
+- Level 1 — <a target="_blank" rel="noopener" href="https://code4startup.com/courses/claude-code-mastery-level-1/">code4startup.com/courses/claude-code-mastery-level-1</a> — fundamentals, advanced hacks, other LLMs, MCP
+- Level 2 — <a target="_blank" rel="noopener" href="https://code4startup.com/courses/claude-code-mastery-level-2/">code4startup.com/courses/claude-code-mastery-level-2</a> — pro workflows (GitHub), UI design, subagents, context engineering
+- Level 3 — <a target="_blank" rel="noopener" href="https://code4startup.com/courses/claude-code-mastery-level-3/">code4startup.com/courses/claude-code-mastery-level-3</a> — Agile BMAD, business/productivity automation, full end-to-end SaaS build</p>
+<p>How to use them without duplicating the Udemy spine:
+- <strong>AI Hero</strong> is the best <em>advanced</em> companion — reach for it in Phase 5 (feedback loops / Ralph / autonomy) and for steering/planning depth in Phases 2–3.
+- <strong>ByteByteAI</strong> is a fast, opinionated 2-day framing of context → agentic → multi-agent; a good intensive if you prefer a live cohort over the Practical Guide's Phase 2/4/9 topics.
+- <strong>Code4Startup</strong> is project-first — use it for build reps (GitHub issue→PR, UI generation, SaaS build) alongside Phases 1–7, not as another theory pass.
+- <strong>Agent Engineer (masterclaudecode)</strong> is a huge always-updated catalog — use it as a 🔎 reference to look up one specific feature/command, not an end-to-end watch.</p>
+<hr />
+<h2>Phase 0 - Install And First Run</h2>
+<p>Outcome: Claude Code runs in a real repo and you understand the basic edit/review loop.</p>
+<p>Watch:
+- <strong>Claude Code - The Practical Guide</strong>
+- Section 1: <code>1-8</code>
+  - Welcome To This Course!
+  - Course Overview
+  - Claude Code Setup
+  - Claude Code in Different Terminals
+  - Using Bun
+  - Base Usage &amp; IDE Integration
+  - A Glimpse At The Claude Desktop App
+  - Configuring Claude Code</p>
+<p>Skip duplicates:
+- Mastering Claude Code section 1 lectures <code>1-7</code>
+- Claude AI Masterclass section 2 lectures <code>1-4</code>
+- Claude Code Fast-Track sections <code>1-2</code>
+- Cowork Masterclass section 6 lectures <code>1-4</code>
+- AI Coder Week 2 lectures <code>1-3</code></p>
+<p>Build:
+- Open <code>learning-tracker</code> with Claude Code.
+- Ask it to explain <code>app.js</code>, <code>data.js</code>, and how local state works.</p>
+<hr />
+<h2>Phase 1 - Daily Claude Code Workflow</h2>
+<p>Outcome: you can use Claude Code safely for normal coding work.</p>
+<p>Watch:
+- <strong>Claude Code - The Practical Guide</strong>
+- Section 1: <code>9-18</code>
+  - Choosing AI Models
+  - Understanding Sessions &amp; Context
+  - When To Start New Sessions &amp; Making Sense Of Compaction
+  - Core Features You May Not Know Yet
+  - Advanced Permissions Management
+  - Running Claude Code via Docker Sandboxes
+  - Using Claude Code's Native Sandboxing
+  - Undoing Actions &amp; The Importance of Version Control Systems
+  - Commands, Shortcuts &amp; Settings Cheat Sheet
+  - Course Resources &amp; Community</p>
+<p>Skip duplicates:
+- AI Coder Week 2 lectures <code>7-11</code>
+- Claude AI Masterclass section 2 lectures <code>5-12</code>
+- AI Coder Week 1 lectures <code>15-27</code>, unless you specifically want Cursor/Copilot/Codex comparisons.</p>
+<p>Build:
+- Use Claude Code to make one small improvement in this repo.
+- Require it to show a plan, edit files, and run a verification command before you accept the work.</p>
+<hr />
+<h2>Phase 2 - Context Engineering And <code>CLAUDE.md</code></h2>
+<p>Outcome: you can steer Claude instead of re-explaining your project every session.</p>
+<p>Watch:
+- <strong>Claude Code - The Practical Guide</strong>
+- Section 2: <code>1-8</code>
+  - Module Introduction
+  - Making Sense of Prompt &amp; Context Engineering
+  - Prompt Engineering In Action &amp; Working with Specs
+  - Prompt &amp; Context Engineering Recommendation
+  - Initializing Claude Projects
+  - Crafting Great CLAUDE.MD Files
+  - CLAUDE.md vs "Auto Memory"
+  - Leveraging Plan Mode</p>
+<p>Optional, only if context windows still feel confusing:
+- <strong>AI Coder</strong>, Week 1 lectures <code>9-14</code></p>
+<p>Skip duplicates:
+- Mastering Claude Code section 3 lectures <code>1-2</code>
+- Cowork Masterclass section 7 lectures <code>1-2</code>
+- Claude AI Masterclass section 9, until you hit real context-window pain.</p>
+<p>Build:
+- Create or refine a <code>CLAUDE.md</code> for this repo.
+- Include stack, commands, file map, testing expectations, and edit boundaries.</p>
+<hr />
+<h2>Phase 3 - Built-In Tools, MCP Basics, And Subagents</h2>
+<p>Outcome: you know when to use native tools, MCP, and subagents.</p>
+<p>Watch:
+- <strong>Claude Code - The Practical Guide</strong>
+- Section 2: <code>9-13</code>
+  - Using Claude Code's Built-in Tools
+  - Using MCP Servers &amp; More On Permissions
+  - Understanding Subagents
+  - Creating &amp; Using A Custom Subagent
+  - Encouraging Agent Usage</p>
+<p>For deeper MCP, watch once:
+- <strong>Claude AI Masterclass</strong>
+- Section 6: <code>1-5</code>
+  - Introduction to MCP + Connecting Claude to Tools
+  - Setting Up MCP Servers in Claude Desktop
+  - Running MCP Servers in Claude Code
+  - Create Custom MCP Server Part 1
+  - Create Custom MCP Server Part 2</p>
+<p>Skip duplicates:
+- AI Coder Week 2 lectures <code>12-18</code> for MCP/skills/plugin theory.
+- Mastering Claude Code section 4 lectures <code>4-5</code>.
+- Cowork Masterclass section 8 lectures <code>4-5</code>.</p>
+<p>Build:
+- Add one MCP server you will actually use.
+- Create one <code>reviewer</code> subagent and have it review a Claude Code diff.</p>
+<hr />
+<h2>Phase 4 - Skills, Slash Commands, Hooks, And Plugins</h2>
+<p>Outcome: you can package repeatable workflows instead of prompting from scratch.</p>
+<p>Watch:
+- <strong>Claude Code - The Practical Guide</strong>
+- Section 2: <code>14-23</code>
+  - Introducing Agent Skills
+  - Adding Custom Skills
+  - Using Agent Skills as Commands
+  - Enhancing Skills &amp; Adding Third-Party Skills
+  - Iterating On The Demo App
+  - On Custom Commands
+  - Building &amp; Using Custom Commands
+  - Using Screenshots For Prompting With Feedback
+  - Understanding &amp; Using Hooks
+  - Installing &amp; Using Plugins</p>
+<p>Optional project reps, pick only one:
+- <strong>Mastering Claude Code</strong>, section 2 lectures <code>3-20</code> if you want extra skills/slash/plugin practice.
+- <strong>Cowork Masterclass</strong>, section 6 lectures <code>6-23</code> if you want the same idea in a Cowork-heavy style.</p>
+<p>Skip duplicates:
+- Do not watch both optional project reps.
+- Skip Claude AI Masterclass section 2 lectures <code>13-17</code> unless you need its hook examples.</p>
+<p>Build:
+- Create one project slash command, for example <code>/scrape-course-outline</code>.
+- Create one skill folder for a workflow you repeat, such as "summarize scraped course curriculum."
+- Add one hook that runs a safe verification command after JS/CSS changes.</p>
+<hr />
+<h2>Phase 5 - Feedback Loops, Ralph, And Autonomy</h2>
+<p>Outcome: Claude can build, verify, inspect failures, and continue with bounded autonomy.</p>
+<p>Watch:
+- <strong>Claude Code - The Practical Guide</strong>
+- Section 2: <code>24-27</code>
+  - Creating Feedback Loops by Granting Browser Access
+  - Providing Feedback via Automated Tests
+  - Running Claude Code In A (Ralph) Loop
+  - Using Claude Code Web (Cloud)</p>
+<p>Optional, if you want a concrete implementation:
+- <strong>Mastering Claude Code</strong>, section 3 lectures <code>8-9</code>
+  - Implement AI Feedback Loops using Ralph Loop Plugin</p>
+<p>Skip duplicates:
+- AI Coder Week 2 lecture <code>11</code>, unless you skipped the Practical Guide Ralph lecture.
+- Repeated "YOLO mode" demos from AI Coder Week 1/2 are not required.</p>
+<p>Build:
+- Give Claude a real backlog item in <code>roadmap.md</code>.
+- Require: plan, implement, run verification, inspect failure, fix, summarize.</p>
+<hr />
+<h2>Phase 6 - Real Engineering Workflow With GitHub, Jira, And Large Codebases</h2>
+<p>Outcome: you can use Claude Code like an engineering teammate, not just a coding autocomplete.</p>
+<p>Watch:
+- <strong>AI Coder</strong>
+- Week 2 lectures <code>19-30</code>
+  - Building with Claude Code, Jira, MCP &amp; Plugins Workflow
+  - Connecting Claude Code to Jira MCP Server &amp; GitHub Repository
+  - Setting Up GitHub MCP Server &amp; Featured Dev Plugin
+  - Claude Code Autonomy: From Jira Issue to PR
+  - Claude Code Builds a Full Next.js App from a Jira Ticket
+  - Debugging Strategies for Claude Code
+  - Building a SaaS Platform
+  - Writing <code>claude.md</code> and Creating Custom Skills
+  - Setting Up Jira Tickets
+  - Building Features with Claude Code, Jira, and FastAPI
+  - Testing the AI Legal Doc Generator
+  - Final PR Merge, Full SaaS Demo</p>
+<p>Skip duplicates:
+- Fast-Track section 11 "Synchronizing Claude Code with Github" unless you only need a quick GitHub sync demo.
+- Claude AI Masterclass section 2 lectures <code>18-20</code> unless CI/CD is your immediate target.</p>
+<p>Build:
+- Turn one tracker feature into a GitHub issue.
+- Have Claude Code work from the issue to a diff.
+- Review with your <code>reviewer</code> subagent before accepting.</p>
+<hr />
+<h2>Phase 7 - Remote, Cloud, Sandboxes, And Large-Codebase Practices</h2>
+<p>Outcome: you can run Claude Code safely outside your local happy path.</p>
+<p>Watch:
+- <strong>AI Coder</strong>
+- Week 3 lectures <code>8-18</code>
+  - Claude Code Sandboxing and Cloud Execution
+  - Remote Execution &amp; Cloud Sandboxes
+  - Claude Code Sandbox &amp; GitHub Integration
+  - 5 Ways to Run Claude Code Remotely
+  - Third-Party Cloud Sandboxes
+  - Cloud Sandbox Recap
+  - Large Codebases with Claude Code, Codex &amp; Sprites.dev
+  - Best Practices for Large Team Codebases
+  - Driving Claude Code Programmatically with Claude Agent SDK
+  - Claude Cowork demo
+  - OpenClaw demo</p>
+<p>Skip duplicates:
+- AI Coder Week 3 lectures <code>1-7</code> (sub-agents, hooks, slash commands, plugins) — already covered in Phases 3-4.
+- Practical Guide section 3 remote/mobile lectures if you already watched this AI Coder block.
+- Fast-Track section 10 phone remote unless mobile control is specifically useful to you.</p>
+<p>Build:
+- Document a safe "remote run" policy in <code>CLAUDE.md</code>.
+- Include when autonomous mode is allowed, which commands are safe, and when human approval is mandatory.</p>
+<hr />
+<h2>Phase 8 - Claude Agent SDK And API Integration</h2>
+<p>Outcome: you can build code around Claude instead of only using the Claude Code CLI.</p>
+<p>Watch:
+- <strong>Claude AI Masterclass</strong>
+- Section 3 lectures <code>1-5</code>
+  - Claude Agent SDK: Build Production Agents Part 1
+  - Claude Agent SDK: Build Production Agents Part 2
+  - Building a Multi-Tool Agent from Scratch
+  - Google ADK + Claude
+  - Multi-Agent Orchestration</p>
+<p>Then watch:
+- <strong>Claude AI Masterclass</strong>
+- Section 7 lectures <code>1-13</code>
+  - Anthropic Python SDK
+  - Streaming
+  - Vision
+  - PDFs/CSVs/large files
+  - Structured outputs
+  - Cost optimization
+  - Prompt caching
+  - Batch processing
+  - Extended thinking</p>
+<p>Skip duplicates:
+- Mastering Claude Code section 4 lectures <code>6-14</code>, because those are OpenAI Agents SDK focused.
+- Cowork Masterclass section 8 lectures <code>6-14</code>, same reason.</p>
+<p>Build:
+- Build a small script that reads your tracker data and produces a weekly learning summary.
+- Keep Claude Code as the implementation assistant, but use the SDK/API in the app/script itself.</p>
+<hr />
+<h2>Phase 9 - Multi-Agent Orchestration</h2>
+<p>Outcome: you can split work across specialized agents and judge when orchestration is worth the overhead.</p>
+<p>Watch:
+- <strong>AI Coder</strong>
+- Week 3 lectures <code>19-30</code>
+  - Claude Code Agent Teams
+  - Setting Up Agent Teams
+  - Multi-Agent Team Build
+  - GSD spec-driven design
+  - Trading platform deep dive
+  - GSD vs Claude Agent Teams
+  - Gastown orchestration
+  - Parallel agents
+  - Orchestrator comparison
+  - Final deployment
+  - Course recap</p>
+<p>Skip duplicates:
+- Mastering Claude Code section 4 lectures <code>15-20</code>.
+- Cowork Masterclass section 8 lectures <code>15-20</code>.</p>
+<p>Build:
+- Run a three-role workflow on this repo:
+  - planner agent creates implementation plan
+  - builder agent edits
+  - reviewer agent checks the diff and test evidence</p>
+<hr />
+<h2>Phase 10 - Optional Specializations</h2>
+<p>Only do these after the core path, and only if the workflow is relevant.</p>
+<h3>Claude Cowork / Personal Agent Automation</h3>
+<p>Watch:
+- <strong>Complete Claude Code &amp; Claude Cowork Masterclass</strong>
+- Section 2 for Cowork, skills, plugins, Gmail, Excel, PowerPoint workflows.
+- Sections 10-14 for personal agent architecture and automation blueprints.</p>
+<p>Skip:
+- Sections 6-8, because they duplicate Claude Code foundations, app building, and AI agents.</p>
+<h3>n8n / Business Automation</h3>
+<p>Watch:
+- <strong>Claude Code Fast-Track</strong>
+- Section 9 only.</p>
+<p>Optional:
+- Section 7 or 8 if you specifically want lead scraping/outreach.</p>
+<p>Skip:
+- Fast-Track sections 1-2 setup.</p>
+<h3>Website / Stripe / Security Project</h3>
+<p>Watch:
+- <strong>Claude Code Fast-Track</strong>
+- Section 6 only.</p>
+<p>Skip:
+- Mastering section 3 if you choose this website project.</p>
+<h3>Office / Browser Workflows</h3>
+<p>Watch:
+- <strong>Claude AI Masterclass</strong>
+- Section 5 only.</p>
+<p>Optional:
+- Cowork Masterclass sections 4-5 if Excel/PowerPoint is a major use case.</p>
+<hr />
+<h2>Final Watch Order</h2>
+<p>Do this in order:</p>
+<ol>
+<li><strong>Practical Guide</strong>: all 3 sections.</li>
+<li><strong>Claude AI Masterclass</strong>: section 6 only for MCP depth.</li>
+<li><strong>AI Coder</strong>: Week 2 lectures <code>19-30</code>.</li>
+<li><strong>AI Coder</strong>: Week 3 lectures <code>8-30</code>.</li>
+<li><strong>Claude AI Masterclass</strong>: sections 3 and 7 for Agent SDK/API.</li>
+<li>Pick exactly one optional specialization from Phase 10.</li>
+</ol>
+<p>Approximate required load:
+- Core Claude Code: <strong>54 lectures</strong>
+- MCP/API/SDK depth: <strong>23 lectures</strong>
+- Professional engineering + orchestration: <strong>35 lectures</strong>
+- Optional specialization: <strong>1 focused block</strong></p>
+<p>This avoids the large duplicated blocks:
+- AI Coder Week 1
+- Mastering sections 1-2
+- Claude AI Masterclass section 2
+- Fast-Track sections 1-2
+- Cowork Masterclass sections 6-8</p>
+<hr />
+<h2>Completion Checklist</h2>
+<ul>
+<li>☐ Run Claude Code confidently in <code>learning-tracker</code>.</li>
+<li>☐ Maintain a useful <code>CLAUDE.md</code>.</li>
+<li>☐ Use plan mode for non-trivial work.</li>
+<li>☐ Create one slash command.</li>
+<li>☐ Create one skill.</li>
+<li>☐ Add one hook.</li>
+<li>☐ Configure one MCP server.</li>
+<li>☐ Build one custom MCP server or tool integration.</li>
+<li>☐ Use a reviewer subagent on a real diff.</li>
+<li>☐ Ship one GitHub issue using Claude Code end to end.</li>
+<li>☐ Run a remote/cloud/sandboxed Claude Code workflow safely.</li>
+<li>☐ Build one SDK/API script.</li>
+<li>☐ Complete one capstone.</li>
+</ul>
+<hr />
+<h2>Capstone</h2>
+<p>Build this after Phase 9:</p>
+<p><strong>Claude-powered learning tracker assistant</strong></p>
+<p>It should:
+- read tracker data
+- identify the next best learning item
+- detect stale or duplicated courses
+- produce a weekly summary
+- use a Claude Code slash command
+- use one skill
+- use one reviewer subagent
+- use one MCP/tool integration
+- run a verification step before writing final output</p>
+<p>This capstone uses the whole stack without requiring you to watch duplicate course material.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Plan by Topic — Study Tracker</title>
+<meta name="description" content="Topic-first view of the AI Engineering tracker: every track, its sub-topics, and all source links.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tracker.css">
+<meta name="theme-color" content="#0E1420">
+</head>
+<body>
+<header class="hdr">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a class="crumb" href="../files/fde-agentic-engineering-tracker.html">🎪 FDE Agentic Engineering Tracker</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb current" aria-current="page">Learning plan by topic</span>
+    </nav>
+    <p class="eyebrow">TOPIC-FIRST LEARNING PLAN</p>
+    <h1 class="h1">Study by <em>topic</em>, not by course</h1>
+    <p class="sub">The full AI Engineering tracker, reorganized into <strong>tracks</strong> you can study one at a time —
+      each with its sub-topics, resources, and a Reference section holding every original link. This view renders live
+      from the tracker's own data, so it always stays in sync. Open a track to see its dedicated study page.</p>
+    <div class="stat-row" id="stat-row"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="track-grid" id="hub"></section>
+  <p class="foot">Entry point: <a href="../files/fde-agentic-engineering-tracker.html">FDE Agentic Engineering Tracker</a> ·
+    Interactive checklist: <a href="../ai-engineering.html">AI Engineering tracker</a> ·
+    Track pages live at <code>topics/&lt;slug&gt;.html</code>. Only <strong>Claude Code</strong> has a curated,
+    phase-wise plan today; every track lists its resources and preserves all source links.</p>
+</main>
+
+<script src="../data.js"></script>
+<script src="tracker.js"></script>
+<script>LT_TRACKER.renderHub("hub");</script>
+</body>
+</html>

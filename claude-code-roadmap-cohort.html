@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code — Cohort & Self-Paced Study Map</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>:root{--bg:#0E1420;--panel:#17202E;--panel-hi:#1E2A3B;--line:#26344A;--ink:#E7ECF4;--dim:#95A1B5;--faint:#5E6B80;--teal:#34D6C1;--amber:#F4A93C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--teal)}
+.topbar{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#17202E,#0E1420);position:sticky;top:0;z-index:5}
+.topbar .in{max-width:920px;margin:0 auto;padding:16px 28px}
+.crumbs{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+.crumb{color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:20px;padding:5px 11px;transition:all .2s}
+.crumb:hover{border-color:var(--teal);color:var(--teal)}
+.doc{max-width:920px;margin:0 auto;padding:34px 28px 72px}
+.doc h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.5vw,36px);font-weight:700;letter-spacing:-.02em;margin:0 0 18px;line-height:1.15}
+.doc h2{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600;margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line);letter-spacing:-.01em}
+.doc h3{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;margin:24px 0 8px;color:var(--teal)}
+.doc h4{font-size:12px;font-weight:600;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.06em;font-family:'JetBrains Mono',monospace;color:var(--amber)}
+.doc p{margin:0 0 14px}
+.doc a{text-decoration:none;border-bottom:1px solid rgba(52,214,193,.35);word-break:break-word}
+.doc a:hover{border-bottom-color:var(--teal)}
+.doc strong{color:#fff;font-weight:600}
+.doc em{color:var(--dim)}
+.doc code{font-family:'JetBrains Mono',monospace;font-size:.85em;background:var(--panel-hi);border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--teal)}
+.doc pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto;margin:0 0 16px}
+.doc pre code{background:none;border:none;padding:0;color:var(--ink)}
+.doc ul,.doc ol{margin:0 0 14px;padding-left:22px}
+.doc li{margin:5px 0}
+.doc blockquote{margin:0 0 16px;padding:10px 16px;border-left:3px solid var(--teal);background:rgba(52,214,193,.08);border-radius:0 8px 8px 0}
+.doc blockquote p{margin:0;color:var(--dim)}
+.doc hr{border:none;border-top:1px solid var(--line);margin:30px 0}
+.tbl{overflow-x:auto;margin:0 0 18px;border:1px solid var(--line);border-radius:10px}
+.doc table{border-collapse:collapse;width:100%;font-size:12.5px}
+.doc th,.doc td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+.doc th{background:var(--panel-hi);font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--ink);white-space:nowrap}
+.doc td{color:var(--dim)}
+.doc tbody tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+@media(max-width:640px){.doc{padding:24px 18px 56px}}
+</style>
+<meta name="theme-color" content="#0E1420">
+</head>
+<body>
+<div class="topbar"><div class="in"><nav class="crumbs" aria-label="Breadcrumb">
+  <a class="crumb" href="tracker/index.html">🎪 Learning plan</a>
+  <a class="crumb" href="tracker/topics/claude-agent-sdk-claude-code-and-agent-skills.html">← Claude track</a>
+</nav></div></div>
+<main class="doc">
+<h1>Claude Code — Cohort &amp; Self-Paced Study Map (4 Courses)</h1>
+<p>A decision guide + de-duplicated study map for the <strong>four non-Udemy Claude Code courses</strong>:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Course</th>
+<th>Platform · Format</th>
+<th>Instructor</th>
+<th>Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Agent Engineer</strong> (formerly "Master Claude Code")</td>
+<td>masterclaudecode.com · self-paced, lifetime, always-updated</td>
+<td>Ray Amjad</td>
+<td>21 modules · 158 lessons</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Claude Code Mastery — Levels 1–3</strong></td>
+<td>Code4Startup · self-paced video</td>
+<td>Code4Startup</td>
+<td>3 levels · 11 modules · 100 lessons</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Build with Claude Code</strong></td>
+<td>ByteByteAI · 2-day live intensive (waitlist; next cohort Jun 18–19, 2026)</td>
+<td>John Kim (Staff SWE, Meta)</td>
+<td>2 sessions · ~8–10 hrs</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>AI Coding for Real Engineers</strong> ("Claude Code for Real Engineers")</td>
+<td>AI Hero · 2-week async cohort + office hours (waitlist)</td>
+<td>Matt Pocock</td>
+<td>Pre-course + 6 daily modules</td>
+</tr>
+</tbody>
+</table></div>
+<p>Full curriculums for all four are in <a href="claude-code.md"><code>claude-code.md</code></a>. Source refreshed 2026-07-12.</p>
+<hr />
+<h2>TL;DR — the two questions you asked</h2>
+<p><strong>1. Which one is best / covers <em>all</em> Claude Code concepts?</strong></p>
+<blockquote>
+<p><strong>Agent Engineer (masterclaudecode.com).</strong> It is the only one of the four that covers essentially every Claude Code feature and command end-to-end — setup, fundamentals, CLAUDE.md, MCP, skills, commands, hooks, plugins, subagents, 1M context, Chrome, remote/automation, Codex interop, plus a huge "Advanced / Niche Features" catalog — and it is continuously updated. If you watch exactly one course to "know all of Claude Code," watch this one.</p>
+<p>Its one weakness: it's a <strong>reference catalog, not a guided build</strong>. It shows you every feature but doesn't march you through shipping a real product. That gap is exactly what the other three fill.</p>
+</blockquote>
+<p><strong>2. Do you have to cover all 4?</strong></p>
+<blockquote>
+<p><strong>No.</strong> They overlap heavily on the basics (setup, CLAUDE.md, MCP, skills, subagents). Watching all four cover-to-cover means sitting through the same fundamentals ~4 times. But each course owns a <strong>distinct layer that the others barely touch</strong>, so the smart move is: <strong>1 spine + 3 targeted layers</strong>, skipping the overlap. The study map below tells you which course to use for each topic and what to skip.</p>
+</blockquote>
+<p><strong>The one-line role of each course:</strong>
+- <strong>Agent Engineer</strong> → the <em>completeness spine</em> and feature reference. Look up any feature here.
+- <strong>ByteByteAI</strong> → the <em>mental-model bootcamp</em>: context engineering, agentic engineering, multi-agent architecture. Fast and opinionated.
+- <strong>AI Hero</strong> → the <em>senior-engineer discipline</em> layer: planning, feedback loops, Ralph/AFK autonomy, human-in-the-loop judgment.
+- <strong>Code4Startup</strong> → the <em>build-reps</em> layer: GitHub issue→PR, UI generation, BMAD, business automation, and a full end-to-end SaaS build.</p>
+<hr />
+<h2>Coverage matrix</h2>
+<p>★ = best / primary source · ✓ = covered well · ~ = light or partial · — = not covered</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Concept</th>
+<th style="text-align: center;">Agent Engineer</th>
+<th style="text-align: center;">Code4Startup</th>
+<th style="text-align: center;">ByteByteAI</th>
+<th style="text-align: center;">AI Hero</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Setup &amp; install</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">~</td>
+</tr>
+<tr>
+<td>Core fundamentals (sessions, context, permissions, shortcuts, settings.json)</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">~</td>
+</tr>
+<tr>
+<td>CLAUDE.md / memory files</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Context engineering (mental model)</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">★</td>
+</tr>
+<tr>
+<td>Planning &amp; spec (plan mode, PRDs, decomposition, tracer bullets)</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">★</td>
+</tr>
+<tr>
+<td>MCP (install, custom, <em>when not to use</em>)</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">~</td>
+</tr>
+<tr>
+<td>Skills (creation, types, args, forked, composability)</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Slash / custom commands</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>Hooks (lifecycle, notification, pre-commit)</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Plugins</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>Subagents</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Multi-agent orchestration (worktrees, agent teams, parallel)</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">~</td>
+</tr>
+<tr>
+<td>Feedback loops · Ralph / AFK autonomy · human-in-the-loop</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">★</td>
+</tr>
+<tr>
+<td>Browser automation (/chrome, Claude in Chrome)</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>Remote / mobile / desktop / scheduled automation</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>1M context-window strategies</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Other LLMs / Claude Code Router (Kimi, OpenRouter, Groq)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>UI design tooling (Stitch, UX Pilot, Figma MCP, Shadcn MCP)</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>Codex interop (plugin, consult skill, MCP)</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>GitHub issue → PR → merge workflow</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">~</td>
+</tr>
+<tr>
+<td>Agile BMAD method</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>Business automation (marketing agents, n8n, Remotion)</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+<tr>
+<td>Full end-to-end SaaS build (Supabase, Stripe, auth, billing)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">~</td>
+</tr>
+<tr>
+<td>Agentic-engineering "five pillars" / scaling</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr>
+<td>Advanced / niche feature catalog (ultraplan, /advisor, LSP, output styles, sandboxing…)</td>
+<td style="text-align: center;">★</td>
+<td style="text-align: center;">~</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Read of the matrix:</strong> Agent Engineer holds the most ★/✓ by a wide margin (it "owns" ~13 topics) → the completeness winner. Code4Startup owns the six <em>build/unique-tooling</em> rows (other LLMs, UI, GitHub, BMAD, business automation, SaaS build). ByteByteAI and AI Hero are narrow but deep on the <em>how-to-work-well</em> layer (agentic architecture; planning + feedback loops + autonomy).</p>
+<hr />
+<h2>Choose your path</h2>
+<p><strong>If you want just ONE course:</strong> Agent Engineer. Supply your own project to build alongside it.</p>
+<p><strong>If you want the best overall outcome (recommended):</strong> use all four, de-duplicated —
+1. <strong>ByteByteAI</strong> first as a 2-day conceptual on-ramp (context → agentic → multi-agent).
+2. <strong>AI Hero</strong> for the professional discipline (planning, feedback loops, Ralph, human-in-the-loop).
+3. <strong>Agent Engineer</strong> as your always-open reference — look up any feature you hit, and mine the Advanced/Niche catalog.
+4. <strong>Code4Startup</strong> for build reps — do only the project tracks you actually care about (GitHub, UI, BMAD, SaaS).</p>
+<p><strong>If you learn best by building:</strong> Code4Startup as the spine, Agent Engineer as the reference. Skip most lecture-style theory.</p>
+<p><strong>If you want a fast, time-boxed cohort experience:</strong> ByteByteAI (2 days) + AI Hero (2 weeks) and treat the two self-paced courses as reference only.</p>
+<p>You do <strong>not</strong> need to complete all 4 end-to-end. The value is in stacking the <em>unique layers</em>, not re-watching shared fundamentals four times.</p>
+<hr />
+<h2>The study map (de-duplicated, by concept)</h2>
+<p><strong>How to read each row:</strong> watch the <strong>▶ Primary</strong>, pull only the listed <strong>➕ Add</strong> bits from other courses, <strong>⏭ Skip</strong> the duplicate coverage, then do the <strong>🔨 Build</strong>. A "—" means nothing is needed in that column.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th style="text-align: center;">Phase</th>
+<th>Focus</th>
+<th>▶ Primary — watch this</th>
+<th>➕ Add — pull only these bits</th>
+<th>⏭ Skip — duplicates</th>
+<th>🔨 Build</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>0</strong></td>
+<td>Decide &amp; set up</td>
+<td>Agent Engineer §1–2 (Introduction, Set Up &amp; Workflows) — <em>or</em> Code4Startup L1·M01 for a project-first install</td>
+<td>—</td>
+<td>ByteByteAI "Installation"; AI Hero "Pre-course" setup</td>
+<td>Run Claude Code in <code>learning-tracker</code>; do the edit → review loop</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td>Core fundamentals</td>
+<td>Agent Engineer §3 <em>The Fundamentals</em> (17 lessons: sessions, /clear, /rewind, model, permissions, /context, slash commands, bash mode, settings.json)</td>
+<td>Code4Startup L1·M02 <em>Advanced hacks</em> (5-hour-window trick, status line, template)</td>
+<td>Fundamentals inside ByteByteAI / AI Hero</td>
+<td>—</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td>Context engineering &amp; CLAUDE.md</td>
+<td>ByteByteAI <em>Context Engineering</em> (finite memory, "fresh &amp; condensed," Second Brain, lazy loading)</td>
+<td>AI Hero <em>Steering</em> (AGENTS.md, progressive disclosure, token-efficient patterns); Agent Engineer §6 <em>CLAUDE.md</em> (8 lessons: hierarchical, conditions, Memory.md)</td>
+<td>Code4Startup "Context and Memory"</td>
+<td>Write/refine a <code>CLAUDE.md</code> (stack, commands, file map, edit boundaries)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td>Planning &amp; spec discipline</td>
+<td>AI Hero <em>Planning</em> (Plan/Execute/Clear, decomposition, PRDs, tracer bullets, multi-phase) — strongest of the four</td>
+<td>Agent Engineer §4–5 (Planning Mode, Spec Developer)</td>
+<td>—</td>
+<td>Write a PRD, decompose it, validate with a tracer bullet</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td>MCP</td>
+<td>Agent Engineer §7 <em>MCP Servers</em> (servers, connectors, MCP search, code mode)</td>
+<td>Code4Startup L1·M04 (Context7, Playwright — real installs); ByteByteAI <em>when NOT to use MCP</em> (token cost, signal-to-noise)</td>
+<td>—</td>
+<td>Install one MCP server you'll actually use</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td>Skills, commands, hooks, plugins</td>
+<td>Agent Engineer §13 Skills (14 lessons) + §14 Plugins + §15 Shortcuts + §16 Hooks</td>
+<td>Code4Startup L1·M02 (command/hook/status-line reps); AI Hero pre-commit + quality-bar skills; ByteByteAI hook lifecycle + notification hooks + composability</td>
+<td>—</td>
+<td>One slash command, one skill, one verification hook</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td>Subagents &amp; multi-agent orchestration</td>
+<td>ByteByteAI <em>Parallel Development</em> (worktrees, subagents vs Agent Teams, notification hooks, Five Pillars)</td>
+<td>Agent Engineer §11 (forked subagents, /batch, dynamic workflows) + §12 1M Context (scout/worker/synthesizer); Code4Startup L2·M07 (orchestrating subagents)</td>
+<td>—</td>
+<td>Run a planner → builder → reviewer subagent workflow</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>7</strong></td>
+<td>Feedback loops, Ralph &amp; autonomy</td>
+<td>AI Hero <em>Feedback Loops</em> + <em>AFK Agents</em> (green CI, test categorization, Ralph supervised vs AFK, sandboxing, human-in-the-loop) — best of the four</td>
+<td>ByteByteAI self-correcting chain (build → screenshot → detect → fix → verify); Agent Engineer /loop, Monitor tool, headless/background</td>
+<td>—</td>
+<td>Backlog item: plan → implement → verify → inspect failure → fix → summarize</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>8</strong></td>
+<td>Browser, remote &amp; automation</td>
+<td>Agent Engineer §8 (Claude in Chrome), §9–10 (Web/Desktop, Slack/GitHub apps), §17 (Telegram, Discord, remote, scheduled)</td>
+<td>ByteByteAI <code>/chrome</code> for automated visual regression</td>
+<td>none — largely unique to Agent Engineer</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h3>Phase 9 — Build reps &amp; projects (Code4Startup track)</h3>
+<p>Do only the tracks relevant to your goals — these are Code4Startup's unique, hands-on value.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Track</th>
+<th style="text-align: center;">Where</th>
+<th>What you get</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GitHub pro workflow</td>
+<td style="text-align: center;">L2·M05</td>
+<td>issue → PR review → merge</td>
+</tr>
+<tr>
+<td>UI design</td>
+<td style="text-align: center;">L2·M06</td>
+<td>Stitch, UX Pilot, Figma MCP, Shadcn MCP/registry</td>
+</tr>
+<tr>
+<td>Other LLMs / router</td>
+<td style="text-align: center;">L1·M03</td>
+<td>Claude Code Router, OpenRouter, Groq/Kimi <em>(only course covering this)</em></td>
+</tr>
+<tr>
+<td>Agile BMAD</td>
+<td style="text-align: center;">L3·M09</td>
+<td>Analyst → PM/PRD → Architect → sharding → dev/test</td>
+</tr>
+<tr>
+<td>Business automation</td>
+<td style="text-align: center;">L3·M10</td>
+<td>marketing agents, n8n-mcp, Remotion</td>
+</tr>
+<tr>
+<td>Full end-to-end SaaS build</td>
+<td style="text-align: center;">L3·M11</td>
+<td>Supabase auth, Stripe, credits, pricing, subscription, billing, image API <em>(flagship capstone)</em></td>
+</tr>
+</tbody>
+</table></div>
+<h3>Phase 10 — Reference &amp; niche (ongoing)</h3>
+<p>Keep <strong>Agent Engineer §18 (Codex interop), §19 Advanced (26 lessons), §20 Niche Features (23 lessons)</strong> open as a <strong>look-up catalog</strong>, not a linear watch — reach for it when you hit ultraplan, /advisor, /code-review, output styles, LSP, sandboxing, worktrees, /handoff, etc.</p>
+<hr />
+<h2>Do the Udemy courses add anything? (optional top-ups)</h2>
+<p><strong>Short answer: no new <em>Claude Code</em> material.</strong> These 4 cover Claude Code — the tool — end-to-end, and the 6 Udemy courses mostly duplicate that (often diluted with Cursor/Copilot/Codex, OpenAI Agents SDK, and Cowork tangents). The only real gap is <strong>building software <em>around</em> Claude</strong> (the API/SDK layer) plus two team-workflow integrations. Pull these from Udemy <strong>only if you need them</strong> — full curriculums and a de-duplicated 6-course watch order are in <a href="claude-code-roadmap.html"><code>claude-code-roadmap.md</code></a>.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Gap in the 4</th>
+<th>Why it's missing</th>
+<th>Best Udemy source</th>
+<th style="text-align: center;">Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Anthropic API</strong> — Python SDK, streaming, vision, structured outputs, prompt caching, batch, extended thinking</td>
+<td>All 4 teach <em>using the CLI</em>, not <em>coding against the API</em></td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/claude-ai-masterclass/">Claude AI Masterclass</a> §7</td>
+<td style="text-align: center;"><strong>High</strong> — if you'll build apps/scripts on Claude</td>
+</tr>
+<tr>
+<td><strong>Claude Agent SDK</strong> — production agents, multi-tool, orchestration</td>
+<td>Same — no programmatic agent-building</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/claude-ai-masterclass/">Claude AI Masterclass</a> §3; <a target="_blank" rel="noopener" href="https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/">AI Coder</a> Wk3 ("Driving Claude Code Programmatically with the Agent SDK")</td>
+<td style="text-align: center;"><strong>High</strong> — for agent developers</td>
+</tr>
+<tr>
+<td><strong>Claude Code in CI/CD</strong> — headless in a pipeline</td>
+<td>The 4 teach green-CI as a <em>concept</em> (AI Hero), not wiring CC into a pipeline</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/claude-ai-masterclass/">Claude AI Masterclass</a> §2 (Integrating Claude Code into CI/CD, Pt 1–3)</td>
+<td style="text-align: center;">Medium</td>
+</tr>
+<tr>
+<td><strong>Jira issue → PR</strong></td>
+<td>The 4 cover GitHub (Code4Startup M05), not Jira</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/">AI Coder</a> Wk2 (Jira MCP → PR)</td>
+<td style="text-align: center;">Low — just another MCP</td>
+</tr>
+<tr>
+<td><strong>Content &amp; social-media automation</strong> — AI-influencer/product images, YouTube Shorts auto-generate &amp; post</td>
+<td>Code4Startup's Remotion <em>renders</em> videos and its marketing agents do <em>analytics</em> — neither is an image-gen or auto-posting content pipeline</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/claude-code-fast-track/">Claude Code Fast-Track</a> §3–4</td>
+<td style="text-align: center;">Low — only if content ops is your use case</td>
+</tr>
+<tr>
+<td><strong>Lead-gen, outreach &amp; CRM</strong> — lead scraper, LinkedIn + email outreach, personal CRM</td>
+<td>Code4Startup M10 is <em>marketing agents / n8n</em>, not lead scraping, cold outreach, or CRM</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/claude-code-fast-track/">Claude Code Fast-Track</a> §7–8</td>
+<td style="text-align: center;">Low — niche sales/GTM vertical</td>
+</tr>
+<tr>
+<td><strong>Google ADK + Claude</strong> — cross-framework agent building</td>
+<td>Adjacent to the Agent-SDK gap, but a distinct <em>non-Anthropic</em> agent framework none of the 4 touch</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/claude-ai-masterclass/">Claude AI Masterclass</a> §3</td>
+<td style="text-align: center;">Low — only if you use Google ADK</td>
+</tr>
+<tr>
+<td><strong>Disciplined debugging</strong> — error-analysis → fix pipelines as a <em>method</em></td>
+<td>Partly covered — Agent Engineer has <code>/debug</code> and AI Hero has feedback loops, but neither teaches a structured debugging discipline</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/claude-ai-masterclass/">Claude AI Masterclass</a> §2 · <a target="_blank" rel="noopener" href="https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/">AI Coder</a> Wk2</td>
+<td style="text-align: center;">Low <em>(partial)</em></td>
+</tr>
+<tr>
+<td><strong>Large team / enterprise-codebase practices</strong></td>
+<td>Partly covered — AI Hero covers "preparing your codebase for agents"; AI Coder adds large-team / enterprise specifics</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/">AI Coder</a> Wk3</td>
+<td style="text-align: center;">Low <em>(partial)</em></td>
+</tr>
+<tr>
+<td><strong>Third-party cloud sandboxes</strong> — Sprites.dev, "5 ways to run remotely"</td>
+<td>Mostly covered — Agent Engineer covers remote/web/desktop + sandboxing; only the third-party sandbox providers are new</td>
+<td><a target="_blank" rel="noopener" href="https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/">AI Coder</a> Wk3</td>
+<td style="text-align: center;">Low <em>(partial)</em></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Deliberately <em>not</em> added</strong> (non–Claude-Code, or already covered here): Claude Cowork &amp; personal-agent automation (SOUL.md / Obsidian / Karpathy-wiki blueprints) · Claude in Excel/PowerPoint incl. DCF/LBO modeling · Claude in Chrome for research-at-scale · prompt-engineering 101 · OpenAI Agents SDK · Cursor/Copilot/Codex vibe-coding. Code4Startup's Phase-9 track already gives you n8n and <em>marketing</em> automation — the Fast-Track rows above are only the pieces it does <strong>not</strong> cover (content pipelines, lead-gen/CRM).</p>
+<blockquote>
+<p><strong>Verdict:</strong> the core stays the <strong>4-course roadmap</strong>, and the only top-up most people should plan for is the <strong>High-priority API + Agent SDK</strong> section of Claude AI Masterclass — pull it <em>if and when</em> you move from <em>using</em> Claude Code to <em>building on</em> Claude. The remaining rows are <strong>Low-priority, niche project pipelines</strong> (content/social, lead-gen/CRM, cross-framework agents): add them only if that exact workflow is your goal.</p>
+</blockquote>
+<hr />
+<h2>Recommended sequence (most people)</h2>
+<ol>
+<li><strong>ByteByteAI</strong> — 2-day framing (context → agentic → multi-agent). <em>(Phases 2, 6 mental models)</em></li>
+<li><strong>AI Hero</strong> — planning, feedback loops, Ralph, human-in-the-loop. <em>(Phases 3, 7)</em></li>
+<li><strong>Agent Engineer</strong> — fundamentals pass + keep open as reference for every feature. <em>(Phases 0–1, 4–5, 8, 10)</em></li>
+<li><strong>Code4Startup</strong> — pick 1–3 build tracks that match your goals. <em>(Phase 9)</em></li>
+</ol>
+<p>This covers <strong>100% of Claude Code concepts</strong> while watching each shared topic <strong>once</strong>.</p>
+<hr />
+<h2>Minimum vs complete</h2>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Watch</th>
+<th>Roughly</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Know all concepts, one course</strong></td>
+<td>Agent Engineer (skim the Advanced/Niche catalog)</td>
+<td>1 course</td>
+</tr>
+<tr>
+<td><strong>Concepts + discipline, fast</strong></td>
+<td>ByteByteAI + AI Hero</td>
+<td>~2 wks + 2 days</td>
+</tr>
+<tr>
+<td><strong>Concepts + build a real product</strong></td>
+<td>Agent Engineer (reference) + Code4Startup L3 (SaaS build)</td>
+<td>1 spine + 1 project track</td>
+</tr>
+<tr>
+<td><strong>Completionist, de-duplicated</strong></td>
+<td>all 4, following the study map above</td>
+<td>full stack, no repeats</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2>Completion checklist</h2>
+<ul>
+<li>☐ Claude Code running confidently in <code>learning-tracker</code>.</li>
+<li>☐ A maintained <code>CLAUDE.md</code> (+ tried hierarchical / memory files).</li>
+<li>☐ Used plan mode + wrote one PRD and decomposed a feature.</li>
+<li>☐ Installed one MCP server; understand when <em>not</em> to use MCP.</li>
+<li>☐ Created one slash command, one skill, one hook.</li>
+<li>☐ Ran a planner → builder → reviewer subagent workflow.</li>
+<li>☐ Tried a worktree-based parallel / agent-team run.</li>
+<li>☐ Ran a Ralph / feedback loop with a green-CI safety net and human-in-the-loop control.</li>
+<li>☐ Used the Agent Engineer catalog to adopt at least 3 "niche" features.</li>
+<li>☐ (Optional) Shipped one end-to-end project from the Code4Startup track.</li>
+</ul>
+<hr />
+<h2>Capstone</h2>
+<p>Same capstone as the main roadmap, now cohort-flavored:</p>
+<p><strong>Claude-powered learning-tracker assistant</strong> that:
+- reads tracker data and picks the next best learning item,
+- detects stale or duplicated courses,
+- produces a weekly summary,
+- uses one slash command, one skill, one reviewer subagent, and one MCP/tool integration,
+- runs a verification step before writing output.</p>
+<p>Apply each course's layer: ByteByteAI's context/agentic design, AI Hero's feedback-loop discipline, Agent Engineer's features, and (optionally) Code4Startup's build patterns.</p>
+</main>
+</body>
+</html>
