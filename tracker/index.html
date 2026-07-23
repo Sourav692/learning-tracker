@@ -22,17 +22,22 @@
     </nav>
     <p class="eyebrow">TOPIC-FIRST LEARNING PLAN</p>
     <h1 class="h1">Study by <em>topic</em>, not by course</h1>
-    <p class="sub">The full AI Engineering tracker, reorganized into <strong>tracks</strong> you can study one at a time —
-      each with its sub-topics, resources, and a Reference section holding every original link. This view renders live
-      from the tracker's own data, so it always stays in sync. Open a track to see its dedicated study page.</p>
+    <p class="sub">The full AI Engineering tracker, grouped into collapsible <strong>sections</strong> — Certification,
+      Cohorts &amp; Bootcamps, the Core AI Engineering track, Forward Deployed Engineer Foundations, and Reference
+      &amp; Reading. Expand a section to browse its <strong>tracks</strong>; expand a track to see every topic it covers,
+      right here — no need to open the page. This view renders live from the tracker's own data, so it always stays in
+      sync.</p>
     <div class="stat-row" id="stat-row"></div>
+    <div class="hub-controls">
+      <button class="hub-ctrl" id="hub-expand" type="button">＋ Expand all</button>
+      <button class="hub-ctrl" id="hub-collapse" type="button">－ Collapse all</button>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
-  <section class="track-grid" id="hub"></section>
+  <section class="hub" id="hub"></section>
   <p class="foot">Entry point: <a href="../files/fde-agentic-engineering-tracker.html">FDE Agentic Engineering Tracker</a> ·
-    Interactive checklist: <a href="../ai-engineering.html">AI Engineering tracker</a> ·
     Track pages live at <code>topics/&lt;slug&gt;.html</code>. Only <strong>Claude Code</strong> has a curated,
     phase-wise plan today; every track lists its resources and preserves all source links.</p>
 </main>

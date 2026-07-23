@@ -64,6 +64,51 @@
     }
   };
 
+  // Hub sections — group the top-level tracks into a small number of study
+  // "sections" on the hub. Tracks are matched to a section by their slug (the
+  // same slugify() used for topic pages), so this layer is purely presentational
+  // and never touches data.js. Any track whose slug isn't listed here collects
+  // into a trailing "More Tracks" section, so nothing can ever disappear.
+  var HUB_SECTIONS = [
+    {
+      title: "🎯 Certification Track",
+      blurb: "Structured prep for the Anthropic Claude certifications — official courses, prep repos, and guides.",
+      slugs: ["anthropic-certification-prep"]
+    },
+    {
+      title: "🧑‍🏫 Cohorts & Bootcamps",
+      blurb: "Time-boxed cohorts, instructor-led programs, and multi-month bootcamps — the ones with sessions, assignments, and due dates.",
+      slugs: ["cohorts-bootcamps"]
+    },
+    {
+      title: "🧠 Core AI Engineering Track",
+      blurb: "The main build path: Claude & agent SDKs, LangChain/LangGraph, RAG & evals, agent memory, frameworks, theory, and hands-on projects.",
+      slugs: [
+        "core-ai-engineering-track",
+        "claude-agent-sdk-claude-code-and-agent-skills",
+        "langchain-langgraph",
+        "rag-evals-production",
+        "agentic-memory-context",
+        "agent-frameworks-builds",
+        "ai-engineering-projects",
+        "theory-math-for-core-llm-and-genai"
+      ]
+    },
+    {
+      title: "⚙️ Forward Deployed Engineer Foundations",
+      blurb: "Python depth, infrastructure, and DevOps (Docker, Kubernetes, Terraform) for shipping to production.",
+      slugs: ["forward-deployed-engineer-foundations"]
+    },
+    {
+      title: "📚 Reference & Reading",
+      blurb: "Books, newsletters, and blogs to revisit.",
+      slugs: [
+        "books-reading-list",
+        "newsletters-substacks-and-medium-blogs"
+      ]
+    }
+  ];
+
   function counts(sec) {
     var subs = (sec.topics || []).length, items = 0, links = 0;
     (sec.topics || []).forEach(function (tp) {
@@ -111,6 +156,56 @@
     return li;
   }
 
+  // Build one track as a collapsible <details> accordion. Collapsed, it shows the
+  // track title + counts; expanded, it lists every topic covered (as bullets) so
+  // you can see a track's scope without opening its dedicated page. `n` is the
+  // 1-based sequence number shown on the row.
+  function trackAccordion(sec, n) {
+    var c = counts(sec);
+    var slug = slugify(sec.title);
+    var acc = el("details", "track-acc");
+
+    // --- summary row (always visible) ---
+    var head = el("summary", "track-acc-head");
+    var caret = el("span", "ta-caret"); caret.setAttribute("aria-hidden", "true"); caret.textContent = "▸";
+    head.appendChild(caret);
+    head.appendChild(el("span", "tc-num", String(n).padStart(2, "0")));
+
+    var titleWrap = el("div", "ta-title-wrap");
+    titleWrap.appendChild(el("span", "tc-title", sec.title));
+    titleWrap.appendChild(el("span", "tc-meta",
+      c.subs + " sub-topics · " + c.items + " resources · " + c.links + " links"));
+    head.appendChild(titleWrap);
+
+    if (ENRICH[slug]) head.appendChild(el("span", "badge-ready", "Phase-wise plan ready"));
+    acc.appendChild(head);
+
+    // --- body (revealed on expand): bulleted topic list + link out ---
+    var body = el("div", "ta-body");
+    var topics = sec.topics || [];
+    if (topics.length) {
+      body.appendChild(el("p", "ta-topics-label", "Topics covered in this track"));
+      var ul = el("ul", "ta-topics");
+      topics.forEach(function (tp) {
+        var li = el("li", "ta-topic");
+        li.appendChild(el("span", "ta-topic-name", tp.title));
+        var cnt = (tp.items || []).length;
+        li.appendChild(el("span", "ta-topic-count", cnt + (cnt === 1 ? " item" : " items")));
+        ul.appendChild(li);
+      });
+      body.appendChild(ul);
+    } else {
+      body.appendChild(el("p", "ta-empty", "No topics added to this track yet."));
+    }
+
+    var open = el("a", "ta-open", "Open full track →");
+    open.href = "topics/" + slug + ".html";
+    body.appendChild(open);
+    acc.appendChild(body);
+
+    return acc;
+  }
+
   function renderHub(mountId) {
     var data = window.LEARNING_DATA || [];
     var mount = document.getElementById(mountId || "hub");
@@ -128,30 +223,75 @@
       statRow.appendChild(el("span", "stat alt", "Claude Code · phase-wise plan ready"));
     }
 
-    data.forEach(function (sec, i) {
-      var c = counts(sec);
+    // Index tracks by slug so sections can pull them in a defined order while
+    // preserving the original data.js order within each section.
+    var bySlug = {}, order = [];
+    data.forEach(function (sec) {
       var slug = slugify(sec.title);
-      var card = el("a", "track-card");
-      card.href = "topics/" + slug + ".html";
-
-      var top = el("div", "tc-top");
-      top.appendChild(el("span", "tc-num", String(i + 1).padStart(2, "0")));
-      var arw = el("span", "tc-arrow"); arw.setAttribute("aria-hidden", "true"); arw.textContent = "→";
-      top.appendChild(arw);
-      card.appendChild(top);
-
-      card.appendChild(el("div", "tc-title", sec.title));
-      card.appendChild(el("p", "tc-meta",
-        c.subs + " sub-topics · " + c.items + " resources · " + c.links + " links"));
-
-      var names = (sec.topics || []).map(function (t) { return t.title; });
-      var preview = names.slice(0, 3).join(" · ");
-      if (names.length > 3) preview += " · +" + (names.length - 3) + " more";
-      card.appendChild(el("p", "tc-preview", preview));
-
-      if (ENRICH[slug]) card.appendChild(el("span", "badge-ready", "Phase-wise plan ready"));
-      mount.appendChild(card);
+      bySlug[slug] = sec;
+      order.push(slug);
     });
+
+    var placed = {};   // slugs already assigned to a section
+    var n = 0;         // running track number across all sections
+
+    // Each section is itself a collapsible <details>, open by default, holding a
+    // stack of per-track accordions. Two levels of expand/collapse: section, then
+    // track (which reveals the bulleted topic list).
+    function renderSection(title, blurb, secs, opts) {
+      if (!secs.length) return;
+      var wrap = el("details", "hub-section");
+      if (opts && opts.open === true) wrap.setAttribute("open", "");
+
+      var head = el("summary", "hub-section-head");
+      var caret = el("span", "hs-caret"); caret.setAttribute("aria-hidden", "true"); caret.textContent = "▸";
+      head.appendChild(caret);
+      head.appendChild(el("h2", "hub-section-title", title));
+      head.appendChild(el("span", "hub-section-count",
+        secs.length + (secs.length === 1 ? " track" : " tracks")));
+      wrap.appendChild(head);
+
+      var inner = el("div", "hub-section-body");
+      if (blurb) inner.appendChild(el("p", "hub-section-blurb", blurb));
+      var list = el("div", "track-list");
+      secs.forEach(function (sec) { list.appendChild(trackAccordion(sec, ++n)); });
+      inner.appendChild(list);
+      wrap.appendChild(inner);
+      mount.appendChild(wrap);
+    }
+
+    HUB_SECTIONS.forEach(function (def) {
+      var secs = [];
+      def.slugs.forEach(function (slug) {
+        if (bySlug[slug] && !placed[slug]) { placed[slug] = 1; secs.push(bySlug[slug]); }
+      });
+      renderSection(def.title, def.blurb, secs);
+    });
+
+    // Anything not claimed by a section (e.g. new tracks added to data.js) still
+    // shows up, so tracks can never silently disappear from the hub.
+    var leftovers = order.filter(function (slug) { return !placed[slug]; })
+      .map(function (slug) { return bySlug[slug]; });
+    renderSection("🗂️ More Tracks", "Other tracks in your data not yet assigned to a section above.", leftovers);
+
+    wireHubControls(mount);
+  }
+
+  // Wire the Expand all / Collapse all buttons (if present) to every <details>
+  // in the hub — both section-level and track-level accordions.
+  function wireHubControls(mount) {
+    var expandBtn = document.getElementById("hub-expand");
+    var collapseBtn = document.getElementById("hub-collapse");
+    if (!expandBtn && !collapseBtn) return;
+    function setAll(open) {
+      var all = mount.querySelectorAll("details");
+      for (var i = 0; i < all.length; i++) {
+        if (open) all[i].setAttribute("open", "");
+        else all[i].removeAttribute("open");
+      }
+    }
+    if (expandBtn) expandBtn.addEventListener("click", function () { setAll(true); });
+    if (collapseBtn) collapseBtn.addEventListener("click", function () { setAll(false); });
   }
 
   function renderTopic(slug, mountId) {

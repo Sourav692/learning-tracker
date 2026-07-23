@@ -2,7 +2,7 @@
 // Users' own additions/edits/reorderings are layered on top of this at runtime.
 window.LEARNING_DATA = [
   {
-    "title": "🎓 Cohorts & Live Programs",
+    "title": "🎓 Cohorts & Bootcamps",
     "topics": [
       {
         "title": "Google GenAI Academy",
@@ -47,41 +47,12 @@ window.LEARNING_DATA = [
         ]
       },
       {
-        "title": "Build with Claude Code-ByteByteAI",
+        "title": "Bootcamps & Courses",
         "items": [
-          { "t": "Session 1", "badge": "prog", "due": "2026-06-24", "priority": true },
-          { "t": "Session 1 - Assignment", "due": "2026-06-26" },
-          { "t": "Session 2", "due": "2026-06-28" },
-          { "t": "Session 2 - Assignment", "due": "2026-07-01" }
-        ]
-      },
-      {
-        "title": "Claude Code for Real Engineers - AIHero",
-        "items": [
-          { "t": "0.1 Getting to know Claude Code" },
-          { "t": "Day 1 - Claude Code Fundamentals" },
-          { "t": "Day 2 - Steering" },
-          { "t": "Day 3 - Planning" },
-          { "t": "Day 4 - Feedback Loops" },
-          { "t": "Day 5 - Ralph" },
-          { "t": "Day 6 - Human in the Loop Pattern" }
-        ]
-      },
-      {
-        "title": "Master Claude Code - masterclaudecode.com",
-        "items": [
-          { "t": "Module 1 - 5", "badge": "prog", "due": "2026-06-24" },
-          { "t": "Module 6 - 10", "due": "2026-06-26" },
-          { "t": "Module 11 - 15", "due": "2026-06-28" },
-          { "t": "Module 16 - 21", "due": "2026-06-30" }
-        ]
-      },
-      {
-        "title": "Claude Code Mastery - From Zero to SuperHero_Code4Startup",
-        "items": [
-          { "t": "Level 1", "stars": 5 },
-          { "t": "Level 2", "stars": 6 },
-          { "t": "Level 3", "stars": 5 }
+          { "t": "AI Engineering from Scratch", "link": "https://aiengineeringfromscratch.com/" },
+          { "t": "AI Hero: A 12-Month Journey Taking You from Zero to Expert", "link": "https://www.udemy.com/course/ai-hero-a-12-month-journey-taking-you-from-zero-to-expert/?couponCode=CP260518SUMMXIN" },
+          { "t": "Certified AI Engineering Masterclass: From Zero to AI Hero", "link": "https://www.udemy.com/course/ai-engineering-masterclass-from-zero-to-ai-hero/?couponCode=CP260518SUMMXIN" },
+          { "t": "Data Science Academy", "link": "https://www.udemy.com/user/muhammad-usman-mallick-2/" }
         ]
       }
     ]
@@ -546,24 +517,6 @@ window.LEARNING_DATA = [
           { "t": "The Great Framework Showdown: Superpowers vs. BMAD vs. SpecKit vs. GSD", "link": "https://ai.plainenglish.io/the-great-framework-showdown-superpowers-vs-bmad-vs-speckit-vs-gsd-360983101c10" },
           { "t": "What Anthropic Didn’t Say About Opus 4.8: It’s Anthropic Absorbing Your Harness", "link": "https://medium.com/data-science-collective/what-anthropic-didnt-say-about-opus-4-8-it-s-anthropic-absorbing-your-harness-6d4ea10bf66d", "badge": "prog" }
         ]
-      }
-    ]
-  },
-  {
-    "title": "🛠️ Bootcamps & Certs and other saved links(Backlog)",
-    "topics": [
-      {
-        "title": "Bootcamps & Courses",
-        "items": [
-          { "t": "AI Engineering from Scratch", "link": "https://aiengineeringfromscratch.com/" },
-          { "t": "AI Hero: A 12-Month Journey Taking You from Zero to Expert", "link": "https://www.udemy.com/course/ai-hero-a-12-month-journey-taking-you-from-zero-to-expert/?couponCode=CP260518SUMMXIN" },
-          { "t": "Certified AI Engineering Masterclass: From Zero to AI Hero", "link": "https://www.udemy.com/course/ai-engineering-masterclass-from-zero-to-ai-hero/?couponCode=CP260518SUMMXIN" },
-          { "t": "Data Science Academy", "link": "https://www.udemy.com/user/muhammad-usman-mallick-2/" }
-        ]
-      },
-      {
-        "title": "GitHub",
-        "items": []
       }
     ]
   },

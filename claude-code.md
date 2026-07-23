@@ -621,7 +621,7 @@ Scraped course curriculums on **Claude Code** (Udemy via public curriculum API/p
 ## Claude Code Mastery — Levels 1–3 (Code4Startup)
 
 - **Platform:** Code4Startup — "Claude Code Mastery" (self-paced video). Not on Udemy.
-- **Source:** saved course pages in `CC_Tutorial/` (Level 1/2/3 sidebars), captured 2026-07-11.
+- **Source:** saved course pages in `html docs/` (Level 1/2/3 sidebars), captured 2026-07-11.
 - **Overview:** 3 levels · 11 modules (M01–M11) · 100 lessons. Project-based Claude Code course from fundamentals → pro workflows (GitHub, UI design, subagents, context engineering) → agentic/BMAD, business/productivity automation (marketing, n8n, Remotion), and a full end-to-end SaaS build. Durations in parentheses.
 
 ### Level 1 · M01 — Claude Code Introduction — _8 lessons_
@@ -751,7 +751,7 @@ Scraped course curriculums on **Claude Code** (Udemy via public curriculum API/p
 ## Agent Engineer (Master Claude Code) — masterclaudecode.com
 
 - **Platform:** masterclaudecode.com — "Agent Engineer" (formerly "Master Claude Code"), Ray Amjad. Self-paced video, lifetime access, continuously updated. Not on Udemy.
-- **Source:** saved course page `CC_Tutorial/001 Install Claude Code (MacOS)…html` (full course Outline), captured 2026-07-11.
+- **Source:** saved course page `html docs/001 Install Claude Code (MacOS)…html` (full course Outline), captured 2026-07-11.
 - **Overview:** 21 modules · 158 lessons. Extremely granular, always-updated reference covering Claude Code end-to-end: setup, fundamentals, planning/spec, CLAUDE.md, MCP, Claude in Chrome, web/desktop, subagents, 1M context, skills, plugins, shortcuts, hooks, automation, Codex interop, and a large "Advanced"/"Niche Features" catalog. Durations in parentheses.
 
 ### 1. Introduction — _2 lessons_
