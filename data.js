@@ -123,70 +123,6 @@ window.LEARNING_DATA = [
     ]
   },
   {
-    "title": "🤖 Claude - Agent SDK, Claude Code and Agent Skills",
-    "topics": [
-      {
-        "title": "Claude Code",
-        "items": [
-          { "t": "AI Coder: Complete Claude Code & Coding Agents Course", "link": "https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/?couponCode=PMNVD2025", "stars": 6, "tags": ["udemy"] },
-          { "t": "The Complete Claude Code & Claude Cowork Masterclass [2026]", "link": "https://www.udemy.com/course/claude-aiagents-cowork-masterclass/?couponCode=PMNVD2025", "stars": 6, "tags": ["udemy"] },
-          { "t": "Claude Code - The Practical Guide", "link": "https://www.udemy.com/course/claude-code-the-practical-guide/?couponCode=PMNVD2025", "stars": 5, "tags": ["udemy"] },
-          { "t": "Claude - Master Claude Cowork, Claude Code, Skills & Plugins", "link": "https://www.udemy.com/course/claude-code-cowork-course/?couponCode=PMNVD2025", "stars": 5 },
-          { "t": "How I Set Up Claude Code as My Investment Research Analyst", "link": "https://ai.shikshannivesh.com/p/how-i-set-up-claude-code-as-my-investment", "stars": 5 },
-          { "t": "Claude Code Fast-Track - Solve Anything, Automate Everything", "link": "https://www.udemy.com/course/claude-code-fast-track/?couponCode=PMNVD2025", "stars": 4, "tags": ["udemy"] },
-          { "t": "Claude AI Masterclass: Claude Code, MCP, Agents & Automation", "link": "https://www.udemy.com/course/claude-ai-masterclass/?couponCode=PMNVD2025", "stars": 4 },
-          { "t": "Mastering Claude Code & AI Agents [2026]", "link": "https://www.udemy.com/course/master-claude-code/?couponCode=PMNVD2025", "stars": 4, "tags": ["udemy"] },
-          { "t": "Claude Code Masterclass", "link": "https://www.udemy.com/course/claude-code-master-class/?couponCode=CP260518SUMMXIN", "tags": ["udemy"] },
-          { "t": "Claude Code Beginner to Pro: Agentic Coding for Developers", "link": "https://www.udemy.com/course/learn-claude-code/?couponCode=CM260427IN", "tags": ["udemy"] },
-          { "t": "CLAUDE CODE Full Course For Beginners (DATA DOMAIN Edition)", "link": "https://www.youtube.com/watch?v=TqC1qOfiVcQ", "tags": ["youtube"] },
-          { "t": "GitHub: claude-howto (Vibe Coding visual guide)", "link": "https://github.com/luongnv89/claude-howto", "tags": ["github"] },
-          { "t": "50 Claude Code Tips and Best Practices For Daily Use", "link": "https://x.com/CodevolutionWeb/status/2034683638382506063" },
-          { "t": "Ultimate Agentic AI DevOps with Claude Code", "link": "https://www.udemy.com/course/ultimate-agentic-ai-devops-with-claude-code/?couponCode=PMNVD2025", "tags": ["udemy"] },
-          { "t": "PreTutorial - Claude AI Mastery Program 2026", "link": "https://pretutorials.com/t/u/activeCourses", "stars": 6 }
-        ]
-      },
-      {
-        "title": "Agent Skills",
-        "items": [
-          { "t": "Extending AI with Agent Skills 2026", "link": "https://www.udemy.com/course/ai-agent-skills/?couponCode=CP260518SUMMXIN" },
-          { "t": "Introduction to agent skills - Anthropic Academy", "link": "https://anthropic.skilljar.com/introduction-to-agent-skills" },
-          { "t": "Agent Skills from Scratch", "link": "https://www.udemy.com/course/agents-skills/" },
-          { "t": "How to Build Your Own Claude Code Skill", "link": "https://www.freecodecamp.org/news/how-to-build-your-own-claude-code-skill/" },
-          { "t": "Discover The Best Agent Skills - Marketplace", "link": "https://mcpmarket.com/tools/skills" }
-        ]
-      },
-      {
-        "title": "Claude API & Agent SDK",
-        "items": [
-          { "t": "How to build AI Agents with Claude API in Python", "link": "https://www.udemy.com/course/how-to-build-ai-agents/?couponCode=CM2600504IN", "stars": 5 },
-          { "t": "Learn Google's Gemini and Anthropic's Claude API with Python", "link": "https://www.udemy.com/course/google-gemini-pro-vision-api-with-python/?couponCode=CM2600504IN", "stars": 5 },
-          { "t": "Getting Started with the Anthropic Claude Agent SDK (Python)", "link": "https://blog.namusanga.com/getting-started-with-anthropic-claude-agent-sdk-python-826a2216381d" },
-          { "t": "Claude Docs: Build a Tool-Using Agent", "link": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/build-a-tool-using-agent" },
-          { "t": "DataCamp: How to Use the Claude Agent SDK", "link": "https://www.datacamp.com/tutorial/how-to-use-claude-agent-sdk" },
-          { "t": "Claude Agent SDK [Full Workshop] — Thariq Shihipar, Anthropic", "link": "https://www.youtube.com/watch?v=TqC1qOfiVcQ" },
-          { "t": "Claude API - Building LLM-Powered Applications Masterclass", "link": "https://www.udemy.com/course/claude-api/?couponCode=PMNVD2025" },
-          { "t": "Build with Claude — Anthropic Academy", "link": "https://www.anthropic.com/learn/build-with-claude" }
-        ]
-      },
-      {
-        "title": "Claude Integrations",
-        "items": [
-          { "t": "Build a Shared Memory for Claude Desktop and Cursor", "link": "https://www.dailydoseofds.com/build-a-shared-memory-for-claude-desktop-and-cursor/" }
-        ]
-      },
-      {
-        "title": "Claude Cowork",
-        "items": [
-          { "t": "The Complete Claude Code & Claude Cowork Masterclass [2026]", "link": "https://www.udemy.com/course/claude-aiagents-cowork-masterclass/?couponCode=PMNVD2025", "stars": 6 },
-          { "t": "Claude - Master Claude Cowork, Claude Code, Skills & Plugins", "link": "https://www.udemy.com/course/claude-code-cowork-course/?couponCode=PMNVD2025", "stars": 5 },
-          { "t": "Claude Cowork - The Practical Guide", "link": "https://www.udemy.com/course/claude-cowork-the-practical-guide/?couponCode=PMNVD2025", "stars": 4 },
-          { "t": "Mastering Claude Cowork & AI Agents in 5 hours [2026]", "link": "https://www.udemy.com/course/mastering-claude-cowork-ai-agents/?couponCode=PMNVD2025" },
-          { "t": "Claude Cowork For Beginners: AI Automations and Workflows", "link": "https://www.udemy.com/course/learn-claude-cowork/?couponCode=PMNVD2025" }
-        ]
-      }
-    ]
-  },
-  {
     "title": "📊 RAG, Evals & Production",
     "topics": [
       {
@@ -592,6 +528,10 @@ window.LEARNING_DATA = [
           { "t": "pgvector vs Pinecone vs Weaviate vs Qdrant / Milvus / FAISS / Chroma / Astra / InMemory / Databricks Vector Search" },
           { "t": "Vector store vs. vector database; adding/updating documents in an existing store" },
           { "t": "Metadata filtering & hybrid search (BM25 + dense); reranking & MMR" },
+          { "t": "LangChain vector store + retriever pattern (FAISS, Chroma, Pinecone); OpenAI / Ollama / HuggingFace embeddings" },
+          { "t": "LangChain Indexing API — keep raw data in sync with the vector store (add / update / dedup)" },
+          { "t": "Parent Document Retriever (two-stage retrieval; InMemory & Postgres DocStore)" },
+          { "t": "Vectorless RAG (PageIndex) vs traditional vector RAG" },
           { "t": "Scaling, freshness, and cost of a vector store" }
         ]
       },
@@ -599,7 +539,9 @@ window.LEARNING_DATA = [
         "title": "Courses",
         "items": [
           { "t": "Vector Databases Fundamentals to Production [2026 Edition] — primary course; drives the phase plan", "link": "https://www.udemy.com/course/vector-databases-ai/", "tags": ["udemy"] },
-          { "t": "Ultimate RAG Bootcamp Using Langchain, LangGraph & Langsmith (vector/embedding parts: §6–9)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["udemy"] }
+          { "t": "Ultimate RAG Bootcamp Using Langchain, LangGraph & Langsmith (vector/embedding parts: §6–9)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["udemy"] },
+          { "t": "Advanced LangChain Techniques: Mastering RAG Applications (Indexing API, chunking, retrievers, reranking)", "link": "https://www.udemy.com/course/advanced-langchain-techniques-mastering-rag-applications/", "tags": ["udemy"] },
+          { "t": "Complete Agentic AI Bootcamp with LangGraph & LangChain — 'Vectorless RAG' section (PageIndex approach)", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025", "tags": ["udemy"] }
         ]
       },
       {
@@ -663,7 +605,16 @@ window.LEARNING_DATA = [
           { "t": "Named variants: RAPTOR, Self-RAG, CRAG (corrective), adaptive RAG — when each applies" },
           { "t": "Agentic RAG (retrieval as a tool the agent calls)" },
           { "t": "GraphRAG: entity / community graphs (incl. LightRAG) — when it beats vector RAG" },
+          { "t": "RAG with LangGraph: cyclic / stateful retrieval graphs (grade → retry → generate)" },
+          { "t": "Cache-Augmented Generation (CAG): preload the corpus into context / KV cache vs. retrieval — when it fits" },
           { "t": "RAG evaluation with ragas (faithfulness, context precision/recall)" }
+        ]
+      },
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Complete Agentic AI Bootcamp with LangGraph & LangChain — 'RAG with LangGraph' section", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Ultimate RAG Bootcamp — 'Cache RAG With LangGraph' section (CAG: What is CAG + Advanced CAG with LangGraph)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/?couponCode=PMNVD2025", "tags": ["udemy"] }
         ]
       },
       {
@@ -751,6 +702,16 @@ window.LEARNING_DATA = [
         ]
       },
       {
+        "title": "Courses & References",
+        "items": [
+          { "t": "AI Agents & Workflows: The Practical Guide (augmented LLM, tool use, workflows-vs-agents, HITL — from scratch)", "link": "https://www.udemy.com/course/ai-agents-workflows-the-practical-guide/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Complete Agentic AI Bootcamp with LangGraph & LangChain — §14 covers the whole pattern list (Prompt Chaining, Parallelization, Routing, Orchestrator-Worker, Evaluator-optimizer) + §12 ReAct + §16 Agentic/Corrective/Adaptive RAG", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "all-agentic-architectures — 35 runnable patterns (Reflection, ReAct, Planning, Self-Consistency, Agentic RAG…)", "link": "https://github.com/FareedKhan-dev/all-agentic-architectures", "tags": ["github"] },
+          { "t": "Agentic AI Design Patterns (Analytics Vidhya) — the 4 core patterns: Reflection, Tool Use, Planning/ReAct, Multi-Agent", "link": "https://courses.analyticsvidhya.com/courses/take/agentic-ai-system-architectures-and-design-patterns/lessons/62114823-agentic-ai-unleashing-the-future-of-autonomy" },
+          { "t": "Master Agentic Design Patterns — Educative", "link": "https://www.educative.io/module/P1vxGOtNzNBPX5PJY/10370001/4640179653312512" }
+        ]
+      },
+      {
         "title": "Projects",
         "items": [
           { "t": "Autonomous Blog Generation Agent (LangGraph DAG)", "link": "https://www.krishnaik.in/project/production-grade-content-generation-engine-with-langgraph-fastapi-and-uv", "tags": ["project"] },
@@ -815,6 +776,8 @@ window.LEARNING_DATA = [
           { "t": "Short-term (scratchpad / context) vs long-term memory" },
           { "t": "Memory types: episodic, semantic, procedural" },
           { "t": "Session / conversation memory vs persistent knowledge" },
+          { "t": "LangChain memory classes: ChatMessageHistory, ConversationBufferMemory, ConversationBufferWindowMemory, ConversationSummaryMemory" },
+          { "t": "Message history with RunnableWithMessageHistory & MessagesPlaceholder; save / load chat history" },
           { "t": "Vector-backed memory: retrieval, relevance + recency, consolidation" },
           { "t": "Writing, updating, summarizing & forgetting memory" },
           { "t": "State & checkpointing (LangGraph checkpointers / store)" },
@@ -822,6 +785,44 @@ window.LEARNING_DATA = [
           { "t": "Memory frameworks: mem0, Letta / MemGPT, Zep — tradeoffs" },
           { "t": "Evaluating memory: does recall actually raise task success?" },
           { "t": "Case study: how Hermes Agent (Nous) does persistent memory + autonomously-generated skills" }
+        ]
+      },
+      {
+        "title": "Concepts & Deep Dives",
+        "items": [
+          { "t": "A Practical Deep Dive Into Memory Optimization for Agentic Systems (Part A)", "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-15-with-implementation/#long-term-memory" },
+          { "t": "A Practical Deep Dive Into Memory Optimization for Agentic Systems (Part B)", "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-16-with-implementation/" },
+          { "t": "A Practical Deep Dive Into Memory Optimization for Agentic Systems (Part C)", "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-17-with-implementation/" },
+          { "t": "A Practical Deep Dive Into Memory for Agentic Systems (Part A)", "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-8-with-implementation/#in-part-9" },
+          { "t": "A Practical Deep Dive Into Memory for Agentic Systems (Part B)", "link": "https://www.dailydoseofds.com/ai-agents-crash-course-part-9-with-implementation/" },
+          { "t": "7 Steps to Mastering Memory in Agentic AI Systems", "link": "https://machinelearningmastery.com/7-steps-to-mastering-memory-in-agentic-ai-systems/" },
+          { "t": "Awesome-Memory-for-Agents", "link": "https://github.com/TsinghuaC3I/Awesome-Memory-for-Agents" }
+        ]
+      },
+      {
+        "title": "LangMem Series",
+        "items": [
+          { "t": "Managing Agentic Meomery with LangMem 1/5 — Introduction to Agentic Meomery(", "link": "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-1-5-introduction-to-agentic-meomery-0f6f48633e73)" },
+          { "t": "Managing Agentic Memory with LangMem 2/5 — Building Baseline Agent(", "link": "https://levelup.gitconnected.com/managing-agentic-memory-with-langmem-2-5-building-baseline-agent-4598bbd33236)" },
+          { "t": "Managing Agentic Meomery with LangMem 3/5 — Assistant Agent with Semantic Memory(", "link": "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-3-5-assistant-agent-with-semantic-memory-c3c76ddc7d98)" },
+          { "t": "Managing Agentic Meomery with LangMem 4/5 — Building Agent with Semantic & Episodic Memory(", "link": "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-4-5-building-agent-with-semantic-episodic-memory-f1c892df97b1)" },
+          { "t": "Building Agent with Semantic, Episodic & Procedural Memory", "link": "https://levelup.gitconnected.com/building-agent-with-semantic-episodic-procedural-memory-8f481aee9614" }
+        ]
+      },
+      {
+        "title": "Hands-on Builds",
+        "items": [
+          { "t": "How to Build Memory-Driven AI Agents with Short-Term, Long-Term, and Episodic Memory 🧠🤖", "link": "https://rajuhemanth456.medium.com/how-to-build-memory-driven-ai-agents-with-short-term-long-term-and-episodic-memory-98d5257f315d" },
+          { "t": "Hands-on Build an AI Agent With Human-like Memory(", "link": "https://www.dailydoseofds.com/p/hands-on-build-an-ai-agent-with-human-like-memory/)" },
+          { "t": "Hands-on Make RAG systems 32x memory efficient!", "link": "https://mail.google.com/mail/u/0/#search/Hands-on+Make+RAG+systems+32x+memory+efficient!/FMfcgzQdzctzLzSzRCTpQdwKFRxfXKdK" },
+          { "t": "Agent_Memory_Techniques", "link": "https://github.com/NirDiamant/Agent_Memory_Techniques" }
+        ]
+      },
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Full stack generative and Agentic AI with python - The Memory Layer", "link": "https://www.udemy.com/course/full-stack-ai-with-python/?couponCode=PMNVD2025" },
+          { "t": "Full stack generative and Agentic AI with python - The Graph Memory and Knowldge Graph", "link": "https://www.udemy.com/course/full-stack-ai-with-python/?couponCode=PMNVD2025" }
         ]
       },
       {
@@ -845,7 +846,25 @@ window.LEARNING_DATA = [
           { "t": "MCP clients: how agents and the lab SDKs consume servers" },
           { "t": "Auth & security: the MCP attack surface, scoping, sandboxing" },
           { "t": "The ecosystem: filesystem, GitHub, browser, database — and Databricks MCP (your domain)" },
+          { "t": "MCP server registries / marketplaces (Smithery AI) — discovering & installing prebuilt MCP servers" },
           { "t": "When MCP earns its keep vs. inline tools" }
+        ]
+      },
+      {
+        "title": "Choosing a protocol: MCP vs ACP vs A2A",
+        "items": [
+          { "t": "The three layers: MCP = model ↔ tools/data; ACP = REST-native agent description & invocation; A2A = agent ↔ agent at internet scale" },
+          { "t": "MCP (Anthropic): typed tool calls, servers/clients, close model-runtime integration — the tool-access layer" },
+          { "t": "ACP (IBM BeeAI → Linux Foundation): HTTP/REST + MIME-typed messages; lightweight manifest discovery; platform/web-native composition" },
+          { "t": "A2A (Google → Linux Foundation): peer agent messaging — Agent Cards, stateful Tasks, Artifacts, JSON-RPC/SSE, negotiation & streaming" },
+          { "t": "Discovery contrast: MCP server tool manifests · ACP manifests + registries · A2A /.well-known Agent Card + registries" },
+          { "t": "They compose, not compete: an A2A agent can use MCP for its own tools; pick by need (tool access vs REST composition vs internet-scale peers)" }
+        ]
+      },
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Complete Agentic AI Bootcamp with LangGraph & LangChain — §24 Model Context Protocol (components, communication, Claude Desktop demo, Smithery AI, building MCP servers & clients from scratch with LangChain)", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025", "tags": ["udemy"] }
         ]
       },
       {
@@ -853,6 +872,62 @@ window.LEARNING_DATA = [
         "items": [
           { "t": "MCP with AutoGen (Notion integration)", "link": "https://www.krishnaik.in/project/mcp-with-autogen-integrating-ai-agents-with-notion", "tags": ["project"] },
           { "t": "Medical Diagnosis App (FastMCP)", "link": "https://www.krishnaik.in/project/medical-diagnosis-app", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "ACP (Agent Communication Protocol)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "What ACP is: a REST-native, HTTP/JSON protocol to describe, discover & invoke agents (IBM BeeAI → Linux Foundation)" },
+          { "t": "Agent manifest / Agent Card: capabilities, endpoints, auth, MIME types & schemas" },
+          { "t": "REST messaging model: agents as HTTP endpoints; content-type / MIME-typed payloads" },
+          { "t": "Streaming & interactive sessions (optional websocket subprotocols)" },
+          { "t": "Extensibility & semantic content typing (structured or binary content, model-agnostic)" },
+          { "t": "Discovery patterns: inline manifests, registry-based, and well-known locations" },
+          { "t": "Auth & security: API keys, OAuth / OpenID Connect declared in the manifest" },
+          { "t": "ACP vs MCP vs A2A: REST-first agent composition vs tool access vs internet-scale peer messaging" },
+          { "t": "When ACP fits: lightweight REST composition & platform (BeeAI) integration" }
+        ]
+      },
+      {
+        "title": "Resources",
+        "items": [
+          { "t": "Agent Communication Protocol — official docs", "link": "https://agentcommunicationprotocol.dev/introduction/welcome", "tags": ["docs"] },
+          { "t": "ACP — Agent discovery (core concepts)", "link": "https://agentcommunicationprotocol.dev/core-concepts/agent-discovery", "tags": ["docs"] },
+          { "t": "IBM BeeAI Platform", "link": "https://research.ibm.com/projects/bee-ai-platform", "tags": ["docs"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "A2A (Agent2Agent Protocol)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "What A2A is: open protocol for agent-to-agent interoperability at internet scale (Google → Linux Foundation)" },
+          { "t": "Agent Card: JSON capability advertisement at /.well-known/agent-card.json; JWS signing (RFC 8785)" },
+          { "t": "Task: the stateful unit of work — lifecycle (submitted → working → input-required → completed / failed / canceled)" },
+          { "t": "Message & Parts: conversation turns for inputs / clarifications; multi-turn input-required flows" },
+          { "t": "Artifact: immutable task outputs (documents, JSON, images) vs. transient messages" },
+          { "t": "Transport & bindings: JSON-RPC 2.0 over HTTPS (default); gRPC / WebSocket; SSE streaming" },
+          { "t": "Discovery: well-known URI, registries / catalogs, direct config; supportedInterfaces negotiation" },
+          { "t": "Auth & security: securitySchemes (OAuth / OIDC / bearer / API key), in-task auth, TLS 1.3, least-privilege scopes" },
+          { "t": "Push notifications (webhooks) & long-running tasks; end-to-end flow (discover → send → stream → artifacts)" },
+          { "t": "A2A vs MCP: peer agent messaging vs model↔tool access — and how they compose" }
+        ]
+      },
+      {
+        "title": "Resources",
+        "items": [
+          { "t": "A2A specification (normative data model)", "link": "https://github.com/a2aproject/A2A/blob/main/docs/specification.md", "tags": ["docs"] },
+          { "t": "Google: A2A — a new era of agent interoperability", "link": "https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/", "tags": ["docs"] },
+          { "t": "A2A key concepts", "link": "https://google-a2a.github.io/A2A/topics/key-concepts/", "tags": ["docs"] },
+          { "t": "Codelab: Intro to A2A (Purchasing Concierge)", "link": "https://codelabs.developers.google.com/intro-a2a-purchasing-concierge", "tags": ["project"] }
         ]
       }
     ]
@@ -872,6 +947,15 @@ window.LEARNING_DATA = [
         ]
       },
       {
+        "title": "Courses & References",
+        "items": [
+          { "t": "Complete Agentic AI Bootcamp with LangGraph & LangChain — §27 Multi-Agent Travel Assistant + §26 sub-agents; §12 shared state & agent memory; §10 & §15 HITL; §18 Guardrails", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "AI Agents & Workflows: The Practical Guide (multi-agent system, universal vs specialized, HITL, security)", "link": "https://www.udemy.com/course/ai-agents-workflows-the-practical-guide/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "all-agentic-architectures — multi-agent patterns: Supervisor, Blackboard, Debate, STORM, Dry-Run approval", "link": "https://github.com/FareedKhan-dev/all-agentic-architectures", "tags": ["github"] },
+          { "t": "Agentic AI Design Patterns (Analytics Vidhya) — Multi-Agent Pattern + best practices", "link": "https://courses.analyticsvidhya.com/courses/take/copy-of-agentic-ai-system-architectures-and-design-patterns/lessons/65704730-course-introduction" }
+        ]
+      },
+      {
         "title": "Projects",
         "items": [
           { "t": "AI GitHub PR Code Reviewer (multi-agent)", "link": "https://www.krishnaik.in/project/lfnm", "tags": ["project"] },
@@ -886,12 +970,28 @@ window.LEARNING_DATA = [
       {
         "title": "Topics",
         "items": [
-          { "t": "Context engineering as the real discipline" },
-          { "t": "The harness = tools + memory + filesystem + sub-agents + context mgmt" },
-          { "t": "deepagents: planning todo tool, sub-agent delegation, skills, memory, harness profiles, backends" },
-          { "t": "Deep research agents: long-horizon, multi-source synthesis" },
-          { "t": "Durable / long-running agents & checkpointing" },
-          { "t": "Computer use & browser agents (powers Cowork; a major 2026 pattern)" }
+          { "t": "The raw-model problem: why a bare LLM isn't enough; the harness closes the gap" },
+          { "t": "The harness = 6 core components: loop architecture, tools, context, environment, memory, observability" },
+          { "t": "The conversation loop: bare loop, system prompt as first primitive, mapping the gaps" },
+          { "t": "Context engineering as the real discipline (input, memory & skills context; progressive disclosure)" },
+          { "t": "deepagents: planning todo tool, sub-agent delegation, skills (SKILL.md), memory, harness profiles, backends" },
+          { "t": "The file-system / environment layer: FS abstraction, Git versioning, durable memory via AGENTS.md" },
+          { "t": "The code-execution & sandbox layers: safe tool execution (Docker / UV sandboxes)" },
+          { "t": "Deep research agents: orchestrator → researcher → editor; long-horizon, multi-source synthesis; research-plan → run-researcher → run-editor tools" },
+          { "t": "Durable / long-running (long-horizon) agents & checkpointing; time travel / replay" },
+          { "t": "Observability, evaluation & harness optimization (traces, feedback loops)" },
+          { "t": "Computer use & browser agents (powers Cowork; a major 2026 pattern)" },
+          { "t": "Decomposing a real-world harness: Claude Code" }
+        ]
+      },
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Agentic Harness Engineering: Harness Design for AI Engineers — the definitive harness course (6 core components; loop, file-system/env, code-exec, sandbox, memory, context-mgmt, long-horizon, observability layers; decomposes Claude Code)", "link": "https://www.udemy.com/course/agentic-harness-engineering/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "AI Engineer Agentic Track: The Complete Agent & MCP Course (Ed Donner) — Wk4 Deep Agents (harness for long-running tasks, SKILL.md, file system + to-do, sub-agents); Wk2 Deep Research Agent; Wk6 the agent harness + MCP capstone", "link": "https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Deep Agent — Multi Agent RAG with Gemini & LangChain — multi-agent deep finance researcher from scratch (shared DeepAgentState, ls/read/write file tools, orchestrator/researcher/editor); LangChain's Deep Agent (backend + sub-agents); production deploy", "link": "https://www.udemy.com/course/deep-agent/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "The Complete Agentic AI Engineering Masterclass (2026) — ADK multi-agent patterns, HITL long-running ops, context engineering (sessions & memory), observability + open-source Deep Research Agent project", "link": "https://www.udemy.com/course/agentic-ai-engineering-design-build-deploy-agents/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Complete Agentic AI Bootcamp with LangGraph & LangChain — §26 Building Deep Agents With LangChain (customization, backends, deep agents vs Claude SDK, context engineering & its types, skills, sub-agents)", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025", "tags": ["udemy"] }
         ]
       }
     ]
@@ -909,6 +1009,65 @@ window.LEARNING_DATA = [
           { "t": "Claude Code in CI & automation; non-interactive runs" },
           { "t": "Cowork & computer use as the non-developer surface (awareness)" },
           { "t": "Operator depth past your Claude Certified Architect cert" }
+        ]
+      },
+      {
+        "title": "Claude Code",
+        "items": [
+          { "t": "AI Coder: Complete Claude Code & Coding Agents Course", "link": "https://www.udemy.com/course/ai-coder-from-vibe-coder-to-agentic-engineer/?couponCode=PMNVD2025", "stars": 6, "tags": ["udemy"] },
+          { "t": "The Complete Claude Code & Claude Cowork Masterclass [2026]", "link": "https://www.udemy.com/course/claude-aiagents-cowork-masterclass/?couponCode=PMNVD2025", "stars": 6, "tags": ["udemy"] },
+          { "t": "Claude Code - The Practical Guide", "link": "https://www.udemy.com/course/claude-code-the-practical-guide/?couponCode=PMNVD2025", "stars": 5, "tags": ["udemy"] },
+          { "t": "Claude - Master Claude Cowork, Claude Code, Skills & Plugins", "link": "https://www.udemy.com/course/claude-code-cowork-course/?couponCode=PMNVD2025", "stars": 5 },
+          { "t": "How I Set Up Claude Code as My Investment Research Analyst", "link": "https://ai.shikshannivesh.com/p/how-i-set-up-claude-code-as-my-investment", "stars": 5 },
+          { "t": "Claude Code Fast-Track - Solve Anything, Automate Everything", "link": "https://www.udemy.com/course/claude-code-fast-track/?couponCode=PMNVD2025", "stars": 4, "tags": ["udemy"] },
+          { "t": "Claude AI Masterclass: Claude Code, MCP, Agents & Automation", "link": "https://www.udemy.com/course/claude-ai-masterclass/?couponCode=PMNVD2025", "stars": 4 },
+          { "t": "Mastering Claude Code & AI Agents [2026]", "link": "https://www.udemy.com/course/master-claude-code/?couponCode=PMNVD2025", "stars": 4, "tags": ["udemy"] },
+          { "t": "Claude Code Masterclass", "link": "https://www.udemy.com/course/claude-code-master-class/?couponCode=CP260518SUMMXIN", "tags": ["udemy"] },
+          { "t": "Claude Code Beginner to Pro: Agentic Coding for Developers", "link": "https://www.udemy.com/course/learn-claude-code/?couponCode=CM260427IN", "tags": ["udemy"] },
+          { "t": "CLAUDE CODE Full Course For Beginners (DATA DOMAIN Edition)", "link": "https://www.youtube.com/watch?v=TqC1qOfiVcQ", "tags": ["youtube"] },
+          { "t": "GitHub: claude-howto (Vibe Coding visual guide)", "link": "https://github.com/luongnv89/claude-howto", "tags": ["github"] },
+          { "t": "50 Claude Code Tips and Best Practices For Daily Use", "link": "https://x.com/CodevolutionWeb/status/2034683638382506063" },
+          { "t": "Ultimate Agentic AI DevOps with Claude Code", "link": "https://www.udemy.com/course/ultimate-agentic-ai-devops-with-claude-code/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "PreTutorial - Claude AI Mastery Program 2026", "link": "https://pretutorials.com/t/u/activeCourses", "stars": 6 }
+        ]
+      },
+      {
+        "title": "Agent Skills",
+        "items": [
+          { "t": "Extending AI with Agent Skills 2026", "link": "https://www.udemy.com/course/ai-agent-skills/?couponCode=CP260518SUMMXIN" },
+          { "t": "Introduction to agent skills - Anthropic Academy", "link": "https://anthropic.skilljar.com/introduction-to-agent-skills" },
+          { "t": "Agent Skills from Scratch", "link": "https://www.udemy.com/course/agents-skills/" },
+          { "t": "How to Build Your Own Claude Code Skill", "link": "https://www.freecodecamp.org/news/how-to-build-your-own-claude-code-skill/" },
+          { "t": "Discover The Best Agent Skills - Marketplace", "link": "https://mcpmarket.com/tools/skills" }
+        ]
+      },
+      {
+        "title": "Claude API & Agent SDK",
+        "items": [
+          { "t": "How to build AI Agents with Claude API in Python", "link": "https://www.udemy.com/course/how-to-build-ai-agents/?couponCode=CM2600504IN", "stars": 5 },
+          { "t": "Learn Google's Gemini and Anthropic's Claude API with Python", "link": "https://www.udemy.com/course/google-gemini-pro-vision-api-with-python/?couponCode=CM2600504IN", "stars": 5 },
+          { "t": "Getting Started with the Anthropic Claude Agent SDK (Python)", "link": "https://blog.namusanga.com/getting-started-with-anthropic-claude-agent-sdk-python-826a2216381d" },
+          { "t": "Claude Docs: Build a Tool-Using Agent", "link": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/build-a-tool-using-agent" },
+          { "t": "DataCamp: How to Use the Claude Agent SDK", "link": "https://www.datacamp.com/tutorial/how-to-use-claude-agent-sdk" },
+          { "t": "Claude Agent SDK [Full Workshop] — Thariq Shihipar, Anthropic", "link": "https://www.youtube.com/watch?v=TqC1qOfiVcQ" },
+          { "t": "Claude API - Building LLM-Powered Applications Masterclass", "link": "https://www.udemy.com/course/claude-api/?couponCode=PMNVD2025" },
+          { "t": "Build with Claude — Anthropic Academy", "link": "https://www.anthropic.com/learn/build-with-claude" }
+        ]
+      },
+      {
+        "title": "Claude Integrations",
+        "items": [
+          { "t": "Build a Shared Memory for Claude Desktop and Cursor", "link": "https://www.dailydoseofds.com/build-a-shared-memory-for-claude-desktop-and-cursor/" }
+        ]
+      },
+      {
+        "title": "Claude Cowork",
+        "items": [
+          { "t": "The Complete Claude Code & Claude Cowork Masterclass [2026]", "link": "https://www.udemy.com/course/claude-aiagents-cowork-masterclass/?couponCode=PMNVD2025", "stars": 6 },
+          { "t": "Claude - Master Claude Cowork, Claude Code, Skills & Plugins", "link": "https://www.udemy.com/course/claude-code-cowork-course/?couponCode=PMNVD2025", "stars": 5 },
+          { "t": "Claude Cowork - The Practical Guide", "link": "https://www.udemy.com/course/claude-cowork-the-practical-guide/?couponCode=PMNVD2025", "stars": 4 },
+          { "t": "Mastering Claude Cowork & AI Agents in 5 hours [2026]", "link": "https://www.udemy.com/course/mastering-claude-cowork-ai-agents/?couponCode=PMNVD2025" },
+          { "t": "Claude Cowork For Beginners: AI Automations and Workflows", "link": "https://www.udemy.com/course/learn-claude-cowork/?couponCode=PMNVD2025" }
         ]
       },
       {
@@ -948,7 +1107,7 @@ window.LEARNING_DATA = [
           { "t": "Regression suites & CI gates for nondeterministic systems" },
           { "t": "Agent-specific eval: trajectory, tool-call correctness, task success" },
           { "t": "Hallucination / grounding / faithfulness metrics" },
-          { "t": "Red-teaming & adversarial evals" },
+          { "t": "Red-teaming & adversarial evals (PyRIT toolkit + attack taxonomy — see Security track for depth)" },
           { "t": "Tooling: LangSmith, Braintrust, promptfoo, DeepEval, ragas" },
           { "t": "Synthetic data generation for eval sets" },
           { "t": "Trace replay & failure harnesses (replay prod traces to catch regressions)" }
@@ -980,6 +1139,17 @@ window.LEARNING_DATA = [
         ]
       },
       {
+        "title": "Courses",
+        "items": [
+          { "t": "Docker for the Absolute Beginner (Hands-On, DevOps) — containers, CLI, images, Compose, storage/networking, registry, orchestration intro", "link": "https://www.udemy.com/course/learn-docker/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Full-Stack GenAI with Python — 'Mastering Docker for Developers' (Dockerfile, multi-stage builds, Compose, ECS/ECR deploy)", "link": "https://www.udemy.com/course/full-stack-ai-with-python/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Kubernetes for the Absolute Beginners (Hands-On) — architecture, Pods/ReplicaSets/Deployments, Services, rolling updates, K8s on GKE/EKS/AKS", "link": "https://www.udemy.com/course/learn-kubernetes/", "tags": ["udemy"] },
+          { "t": "Terraform for the Absolute Beginners with Labs — IaC, HCL, providers/variables/state, remote state, modules, Terraform on AWS", "link": "https://www.udemy.com/course/terraform-for-the-absolute-beginners/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "GitHub Actions — The Complete Guide — workflows/events, artifacts, env vars & secrets, execution control, container jobs, custom actions, security", "link": "https://www.udemy.com/course/github-actions-the-complete-guide/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Observability with Grafana & Prometheus — telemetry types, Prometheus install + PromQL + Node Exporter, Grafana dashboards/panels, alerts & notifications", "link": "https://www.udemy.com/course/grafana-prometheus-loki-alloy-tempo/?couponCode=PMNVD2025", "tags": ["udemy"] }
+        ]
+      },
+      {
         "title": "Projects",
         "items": [
           { "t": "MLOps Jenkins Shared Library CI/CD", "link": "https://www.krishnaik.in/project/nknk", "tags": ["project"] },
@@ -1001,7 +1171,8 @@ window.LEARNING_DATA = [
         "items": [
           { "t": "Serving & inference: latency, throughput, batching" },
           { "t": "LLM gateways & model routing (fallbacks, multi-provider, load balancing)" },
-          { "t": "Observability & tracing (LangSmith, OpenTelemetry-GenAI)" },
+          { "t": "LLM gateway implementations: Portkey, TensorZero, Bifrost — config/TOML, virtual keys, unified tool-calling, gateway + MCP, benchmarked routing" },
+          { "t": "Observability & tracing (LangSmith, OpenTelemetry-GenAI, Pydantic Logfire)" },
           { "t": "Prompt / agent versioning & deploys" },
           { "t": "Caching: prompt & semantic (Redis / semantic cache store)" },
           { "t": "Rate limiting: token buckets, provider limits, backoff, queueing, concurrency" },
@@ -1009,7 +1180,14 @@ window.LEARNING_DATA = [
           { "t": "CI/CD for prompts & agents; SLOs for nondeterministic systems" },
           { "t": "Deployment strategies: canary, rollback, feature flags; circuit breakers, HA / disaster recovery" },
           { "t": "Drift & regression monitoring in production" },
-          { "t": "Self-hosted / on-prem model serving: vLLM, GPU, containers (Docker), autoscaling — ties to your VPC moat" }
+          { "t": "Self-hosted model serving (infra lens): vLLM, GPU, containers (Docker), autoscaling — the runtime/serving side of on-prem (compliance & Private Link framing live in the Security track)" }
+        ]
+      },
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Complete Agentic AI Bootcamp with LangGraph & LangChain — 'LLM Gateways' section (understanding & implementation)", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "AI Security Bootcamp — LLM Gateways (Portkey, TensorZero, Bifrost) + Observability (LangSmith, Pydantic Logfire) + Redis caching / rate limiting", "link": "https://www.udemy.com/course/ai-security-bootcamp-guardrailsllm-gatewaysobservability/?couponCode=PMNVD2025", "tags": ["udemy"] }
         ]
       },
       {
@@ -1030,9 +1208,18 @@ window.LEARNING_DATA = [
           { "t": "Data governance, PII, secrets handling; data-poisoning awareness" },
           { "t": "Tool / permission sandboxing" },
           { "t": "Guardrails: input/output filtering, PII redaction" },
-          { "t": "On-prem / VPC / Private Link deployment (already yours — formalize it)" },
+          { "t": "Guardrail frameworks: NeMo Guardrails, Guardrails AI (Hub, validators, OnFailAction, Guard object, streaming), AWS Bedrock Guardrails (content filters, confidence-vs-threshold, denied topics, versioning, cost vs OSS)" },
+          { "t": "Red-teaming with PyRIT: targets/scorers/converters; jailbreaks (PAIR, Crescendo, TAP, Many-Shot); encoding/obfuscation; multi-turn orchestrators; XPIA cross-prompt injection; Skeleton Key; automated scorers; multimodal attacks; fuzzing & bulk scanning" },
+          { "t": "On-prem / VPC / Private Link deployment (compliance & data-residency lens; already yours — formalize it. Serving/runtime infra lives in the LLMOps track)" },
           { "t": "Model risk, audit & compliance in regulated verticals" },
           { "t": "Tenant isolation & multi-tenant safety" }
+        ]
+      },
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Complete Agentic AI Bootcamp with LangGraph & LangChain — 'Guardrails' section (input/output safety)", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "AI Security Bootcamp — NeMo / Guardrails AI / AWS Bedrock Guardrails + PyRIT red-teaming (attack taxonomy, red-team dashboard)", "link": "https://www.udemy.com/course/ai-security-bootcamp-guardrailsllm-gatewaysobservability/?couponCode=PMNVD2025", "tags": ["udemy"] }
         ]
       }
     ]
@@ -1045,7 +1232,7 @@ window.LEARNING_DATA = [
         "items": [
           { "t": "Why safety is commercial, not just ethical" },
           { "t": "Core concepts: RLHF, Constitutional AI, responsible scaling — at a literate level" },
-          { "t": "How safety shows up in deployment: refusals, misuse, guardrails" },
+          { "t": "How safety shows up in deployment: refusals, misuse (conceptual — the hands-on guardrail implementation lives in the Security track)" },
           { "t": "Being able to discuss it in an Anthropic interview loop" }
         ]
       }
@@ -1076,6 +1263,7 @@ window.LEARNING_DATA = [
         "items": [
           { "t": "TypeScript fundamentals for a Python-first engineer" },
           { "t": "React + Next.js essentials" },
+          { "t": "Streamlit for rapid Python-native agent/LLM demo UIs (the fastest path to a working front-end for LangGraph builds)" },
           { "t": "Streaming UIs: SSE, token streaming, tool-call rendering" },
           { "t": "FastAPI backends & clean API design" },
           { "t": "Auth: OAuth, M2M (you've touched this on Databricks Apps)" },
@@ -1624,6 +1812,223 @@ window.LEARNING_DATA = [
         "title": "Guides & Walkthroughs",
         "items": [
           { "t": "Claude Certified Architect: Foundations Certification Prep Guide", "link": "https://dynamicbalaji.medium.com/claude-certified-architect-foundations-certification-preparation-guide-c70546b51f51", "tags": ["medium"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "LangChain Fundamentals",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "What LangChain is; the ecosystem (langchain / langgraph / langsmith) & when to use it" },
+          { "t": "Chat models, prompts & prompt templates" },
+          { "t": "LCEL (LangChain Expression Language): piping runnables, invoke / stream / batch" },
+          { "t": "Output parsers & structured output (Pydantic, TypedDict, dataclasses)" },
+          { "t": "Chains: sequential & parallel composition" },
+          { "t": "Messages & message types; conversation state basics" },
+          { "t": "Tools in LangChain (defining & calling) — foundations for agents" },
+          { "t": "Document loaders & text splitters (recursive char, char, HTML header, JSON) — intro; deep-dive in RAG track" },
+          { "t": "Memory basics (chat history) & streaming responses" },
+          { "t": "LCEL configurable fields; conditional logic, branching & merging" },
+          { "t": "Custom chains: RunnableLambda / RunnablePassthrough & the @chain decorator" },
+          { "t": "Chain types: LLMChain, SimpleSequentialChain, SequentialChain, Router / Transform / Math chains" },
+          { "t": "Document summarization chains: Stuff, Map-Reduce & Refine — summarizing documents longer than the context window" },
+          { "t": "Legacy chain → LCEL / Runnable migration" },
+          { "t": "Callbacks (custom callback handlers)" },
+          { "t": "Caching LLM responses" },
+          { "t": "LangServe — deploy runnables & chains as an API" },
+          { "t": "LangChain + Google Gemini integration (multimodal, streaming, safety settings)" },
+          { "t": "LangChain + HuggingFace integration" },
+          { "t": "Jupyter AI & coding companions (awareness)" },
+          { "t": "LangChain v1 updates & middleware (before_model / after_model) — overview" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "LangChain fundamentals hands-on (Ultimate RAG Bootcamp §13)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["course"] },
+          { "t": "LangChain Essentials — Python (LangChain Academy)", "link": "https://academy.langchain.com/courses/langchain-essentials-python", "tags": ["course"] },
+          { "t": "Introduction to LangChain (Python) — LangChain Academy", "link": "https://academy.langchain.com/courses/foundation-introduction-to-langchain-python", "tags": ["course"] },
+          { "t": "Complete Agentic AI Bootcamp with LangGraph and Langchain (LangChain Hands-On, LCEL, LangServe sections)", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/", "tags": ["course"] },
+          { "t": "Advanced LangChain Techniques: Mastering RAG Applications (LCEL deep dive)", "link": "https://www.udemy.com/course/advanced-langchain-techniques-mastering-rag-applications/", "tags": ["course"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Tool-Calling AI Agent with LangChain",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Tool / function calling: single, parallel, forced" },
+          { "t": "Creating custom tools & binding tools to an LLM" },
+          { "t": "Pre-built tools: Tavily, DuckDuckGo, Wikipedia, PubMed search" },
+          { "t": "Passing tool-call results back to the LLM; multi-step tool use" },
+          { "t": "The ReAct agent in LangChain (reason → act → observe loop)" },
+          { "t": "Agent with a custom RAG-tool (retrieval as a callable tool)" },
+          { "t": "Agent middleware: before_model / after_model, human-in-the-loop, summarization" },
+          { "t": "Dynamic agents (runtime-configured behavior)" },
+          { "t": "Guardrails: LangChain guardrails & NeMo Guardrails" },
+          { "t": "Agent observability with LangFuse (traces, sessions)" },
+          { "t": "Agent Chat UI (front-end for LangGraph agents)" },
+          { "t": "Conversational & custom agents; prompt selection for agents" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Tool creation for RAG agents (Ultimate RAG Bootcamp §13, §16)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["course"] },
+          { "t": "Introduction to LangChain (Python) — Create/Advanced/Production agents (LangChain Academy)", "link": "https://academy.langchain.com/courses/foundation-introduction-to-langchain-python", "tags": ["course"] },
+          { "t": "Email Assistant agent (LangChain Academy, Module 3)", "link": "https://academy.langchain.com/courses/foundation-introduction-to-langchain-python", "tags": ["course"] },
+          { "t": "Notion ReAct Planner Agent", "link": "https://www.krishnaik.in/project/notion-react-planner-agent", "tags": ["project"] },
+          { "t": "Candidate Interview & Evaluation Agent", "link": "https://www.krishnaik.in/project/automated-candidate-interview-evaluation-system", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "LangGraph Fundamentals",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Why LangGraph: graphs vs chains; when autonomy needs a graph" },
+          { "t": "State, nodes & edges; building a simple graph" },
+          { "t": "State schema with Pydantic / dataclasses; data validation" },
+          { "t": "Conditional edges & routing in LangGraph" },
+          { "t": "Chains & tools/tool-node integration inside a graph" },
+          { "t": "Checkpointing & durable execution; persistent state" },
+          { "t": "Streaming (astream / stream events)" },
+          { "t": "Debugging with LangGraph Studio & LangSmith" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Build simple graphs & LLM-powered chatbot (Ultimate RAG Bootcamp §14)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["course"] },
+          { "t": "LangGraph Essentials — Python (LangChain Academy)", "link": "https://academy.langchain.com/courses/langgraph-essentials-python", "tags": ["course"] },
+          { "t": "Introduction to LangGraph — Python (LangChain Academy)", "link": "https://academy.langchain.com/courses/intro-to-langgraph", "tags": ["course"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "AI Agents with LangGraph",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "ReAct agent architecture in LangGraph (build & implement)" },
+          { "t": "Tools & tool-node integration for agents" },
+          { "t": "Agent with memory; multi-tool chatbot" },
+          { "t": "Streaming techniques (astream, stream events)" },
+          { "t": "Supervisor & hierarchical multi-agent workflows" },
+          { "t": "Reliable agents: retries, error handling, durable execution" },
+          { "t": "Observability & debugging (LangSmith, LangGraph Studio)" },
+          { "t": "Deep agents: planning, sub-agent delegation, harness (bridge to Deep Agents track)" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Agents architecture & multi-agent RAG (Ultimate RAG Bootcamp §15–18)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["course"] },
+          { "t": "Advanced LangGraph: Workflows, Multi-Agents, Deep Agents", "link": "https://www.udemy.com/course/advanced-langgraph-workflows-multi-agents-deep-agents/", "tags": ["course"] },
+          { "t": "Complete Agentic AI Bootcamp with LangGraph and Langchain", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/", "tags": ["course"] },
+          { "t": "Building Reliable Agents (LangChain Academy)", "link": "https://academy.langchain.com/courses/building-reliable-agents", "tags": ["course"] },
+          { "t": "Building Stateful Agentic AI with LangGraph and Llama 3", "link": "https://www.krishnaik.in/project/building-stateful-agentic-ai-with-langgraph-and-llama-3", "tags": ["project"] },
+          { "t": "Autonomous Blog Generation Agent (LangGraph + FastAPI)", "link": "https://www.krishnaik.in/project/production-grade-content-generation-engine-with-langgraph-fastapi-and-uv", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "DSPy",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Programmatic prompting: declare behavior, don't hand-write prompts" },
+          { "t": "Signatures (typed input → output specs)" },
+          { "t": "Modules (Predict, ChainOfThought, ReAct) & composition" },
+          { "t": "Optimizers / compilers (teleprompters): bootstrapping few-shot, MIPRO" },
+          { "t": "Metric-driven optimization: define a metric, let DSPy tune the program" },
+          { "t": "When DSPy beats hand-prompting (and when it's overkill)" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "DSPy docs & tutorials (reference — no owned course yet)", "link": "https://dspy.ai/", "tags": ["reference"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "CrewAI",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Role-based crews: agents, tasks, tools" },
+          { "t": "Sequential vs hierarchical process" },
+          { "t": "Delegation & collaboration between agents" },
+          { "t": "Tools & memory in CrewAI" },
+          { "t": "When to pick CrewAI over LangGraph / raw loops" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "CrewAI Document Assistant & multi-agent analyst (Advanced RAG: Build & Deploy §9)", "link": "https://www.udemy.com/course/advanced-rag-build-deploy-production-genai-apps/", "tags": ["course"] },
+          { "t": "CrewAI docs (reference)", "link": "https://docs.crewai.com/", "tags": ["reference"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "PydanticAI",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Type-safe agents: why validation-first matters" },
+          { "t": "Structured & validated outputs (Pydantic models as the contract)" },
+          { "t": "Dependency injection & typed context" },
+          { "t": "Tools & function calling in PydanticAI" },
+          { "t": "Model-agnostic design; when PydanticAI fits" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Gen AI Clothing Store (Pydantic AI)", "link": "https://www.krishnaik.in/project/gen-ai-powered-clothing-store-with-pydantic-ai", "tags": ["project"] },
+          { "t": "PydanticAI docs (reference)", "link": "https://ai.pydantic.dev/", "tags": ["reference"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "AutoGen",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Conversable agents & the AutoGen model" },
+          { "t": "Group chat & multi-agent collaboration" },
+          { "t": "Model client setup (OpenAI / Gemini)" },
+          { "t": "Microsoft Agent Framework: task specialists & aggregation" },
+          { "t": "When AutoGen fits vs CrewAI / LangGraph" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "AutoGen + MS Agent Framework multi-agent (Advanced RAG: Build & Deploy §9)", "link": "https://www.udemy.com/course/advanced-rag-build-deploy-production-genai-apps/", "tags": ["course"] },
+          { "t": "AutoGen Data Analyzer GPT", "link": "https://www.krishnaik.in/project/autogen-data-analyzer-gpt-build-an-ai-powered-data-analysis-system", "tags": ["project"] },
+          { "t": "Microsoft AutoGen docs (reference)", "link": "https://microsoft.github.io/autogen/", "tags": ["reference"] }
         ]
       }
     ]

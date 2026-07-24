@@ -2,7 +2,7 @@
 
 Master index of scraped Udemy course curriculums. Each row links to the course on Udemy and to the topic markdown file that holds its full curriculum.
 
-**Total: 17 courses across 5 topic files.**
+**Total: 30 courses across 9 topic files.**
 
 | # | Course | Curriculum File | Udemy Link |
 |---|---|---|---|
@@ -23,6 +23,19 @@ Master index of scraped Udemy course curriculums. Each row links to the course o
 | 15 | Generative AI with Context: RAG, CAG & KAG Applications | [`rag.md`](rag.md) | [Udemy](https://www.udemy.com/course/generative-ai-with-context-rag-cag-kag-applications/) |
 | 16 | Neo4j: Cypher, GDS, GraphQL, LLM, Knowledge Graphs for RAG | [`graph-rag.md`](graph-rag.md) | [Udemy](https://www.udemy.com/course/knowledge-graph-with-neo4j-cypher-gds/) |
 | 17 | Graph Databases: Neo4j, RDF, Knowledge Graphs & GraphRAG | [`graph-rag.md`](graph-rag.md) | [Udemy](https://www.udemy.com/course/graph-databases-neo4j-rdf-knowledge-graphs-graphrag/) |
+| 18 | Complete Agentic AI Bootcamp With LangGraph and Langchain | [`agentic-ai.md`](agentic-ai.md) | [Udemy](https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/) |
+| 19 | Complete Generative AI Course With Langchain and Huggingface | [`generative-ai.md`](generative-ai.md) | [Udemy](https://www.udemy.com/course/complete-generative-ai-course-with-langchain-and-huggingface/) |
+| 20 | AI Security Bootcamp — Guardrails, LLM Gateways, Observability | [`ai-security.md`](ai-security.md) | [Udemy](https://www.udemy.com/course/ai-security-bootcamp-guardrailsllm-gatewaysobservability/) |
+| 21 | AI Engineer Agentic Track: The Complete Agent & MCP Course (Ed Donner) | [`agentic-ai.md`](agentic-ai.md) | [Udemy](https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/) |
+| 22 | Deep Agent - Multi Agent RAG with Gemini and Langchain | [`agentic-ai.md`](agentic-ai.md) | [Udemy](https://www.udemy.com/course/deep-agent/) |
+| 23 | The Complete Agentic AI Engineering Masterclass (2026) | [`agentic-ai.md`](agentic-ai.md) | [Udemy](https://www.udemy.com/course/agentic-ai-engineering-design-build-deploy-agents/) |
+| 24 | Agentic Harness Engineering: Harness Design for AI Engineers | [`agentic-ai.md`](agentic-ai.md) | [Udemy](https://www.udemy.com/course/agentic-harness-engineering/) |
+| 25 | Terraform for the Absolute Beginners with Labs | [`devops.md`](devops.md) | [Udemy](https://www.udemy.com/course/terraform-for-the-absolute-beginners/) |
+| 26 | Full stack generative and Agentic AI with python (Docker section only) | [`devops.md`](devops.md) | [Udemy](https://www.udemy.com/course/full-stack-ai-with-python/) |
+| 27 | Docker for the Absolute Beginner - Hands On - DevOps | [`devops.md`](devops.md) | [Udemy](https://www.udemy.com/course/learn-docker/) |
+| 28 | Kubernetes for the Absolute Beginners - Hands-on | [`devops.md`](devops.md) | [Udemy](https://www.udemy.com/course/learn-kubernetes/) |
+| 29 | Observability with Grafana, Prometheus, Loki, Alloy & Tempo (Grafana + Prometheus only) | [`devops.md`](devops.md) | [Udemy](https://www.udemy.com/course/grafana-prometheus-loki-alloy-tempo/) |
+| 30 | GitHub Actions - The Complete Guide | [`devops.md`](devops.md) | [Udemy](https://www.udemy.com/course/github-actions-the-complete-guide/) |
 
 ### By topic
 
@@ -31,3 +44,7 @@ Master index of scraped Udemy course curriculums. Each row links to the course o
 - **[vector-databases.md](vector-databases.md)** — 1 course
 - **[rag.md](rag.md)** — 4 courses
 - **[graph-rag.md](graph-rag.md)** — 2 courses
+- **[agentic-ai.md](agentic-ai.md)** — 5 courses
+- **[generative-ai.md](generative-ai.md)** — 1 course
+- **[ai-security.md](ai-security.md)** — 1 course
+- **[devops.md](devops.md)** — 6 courses

@@ -34,7 +34,7 @@
   // Phase plan mirrors claude-code-roadmap-cohort.md (the de-duplicated study map
   // across the 4 non-Udemy courses) — NOT the Udemy claude-code-roadmap.md.
   var ENRICH = {
-    "claude-agent-sdk-claude-code-and-agent-skills": {
+    "claude-code-operator-mastery": {
       title: "Curated, phase-wise study plan (cohort study map)",
       body: "This plan follows the de-duplicated cohort & self-paced study map across the four non-Udemy courses — Agent Engineer, Code4Startup, ByteByteAI, and AI Hero — so you watch each concept once. Each phase links to its primary course; both full roadmaps (rendered) are below.",
       docs: [
@@ -228,6 +228,292 @@
       ]
     };
 
+    // === Guided Learning Path + framework tracks ===
+    // Course-link map. ✅ = scraped course (rag.md/graph-rag.md); ➕ = course link already
+    // in data.js (LangChain/LangGraph Udemy + LangChain Academy); 🔎 = external reference.
+    var LU = {
+      urb:    "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", // scraped
+      advp:   "https://www.udemy.com/course/advanced-rag-build-deploy-production-genai-apps/",          // scraped
+      lc:     "https://www.udemy.com/course/langchain/",                                                 // LangChain- Agentic AI Engineering
+      advlg:  "https://www.udemy.com/course/advanced-langgraph-workflows-multi-agents-deep-agents/",
+      bootcamp:"https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/",
+      lcv1prod:"https://www.udemy.com/course/langchain-ai-agent-projects/",
+      internals:"https://www.udemy.com/course/agentic-ai-internals/",
+      // LangChain Academy
+      acLc:   "https://academy.langchain.com/courses/langchain-essentials-python",
+      acLg:   "https://academy.langchain.com/courses/langgraph-essentials-python",
+      acIntro:"https://academy.langchain.com/courses/intro-to-langgraph",
+      acReliable:"https://academy.langchain.com/courses/building-reliable-agents",
+      acObs:  "https://academy.langchain.com/courses/intro-to-langsmith",
+      // Framework docs (reference)
+      dspy:   "https://dspy.ai/",
+      crewaiDocs:"https://docs.crewai.com/",
+      pydDocs:"https://ai.pydantic.dev/",
+      autogenDocs:"https://microsoft.github.io/autogen/"
+    };
+
+    ENRICH["langchain-fundamentals"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Step 1 of the guided path — the LangChain building blocks everything else sits on. ✅ = scraped course (rag.md); ➕ = course already linked in your tracker (LangChain Udemy / LangChain Academy).",
+      phases: [
+        ["1", "Ecosystem & setup", "What LangChain / LangGraph / LangSmith are and when to use each; environment & project setup.", [["➕ LangChain Essentials — LangChain Academy", LU.acLc], ["➕ LangChain — Agentic AI Engineering", LU.lc]]],
+        ["2", "Models, prompts & LCEL", "Chat models, prompt templates, and LCEL — piping runnables with invoke / stream / batch.", [["✅ Ultimate RAG Bootcamp §13 (LangChain v1 hands-on)", LU.urb], ["➕ LangChain Essentials — LangChain Academy", LU.acLc]]],
+        ["3", "Output parsers & structured output", "Output parsers; structured output with Pydantic, TypedDict and dataclasses.", [["✅ Ultimate RAG Bootcamp §13", LU.urb], ["➕ LangChain — Agentic AI Engineering", LU.lc]]],
+        ["4", "Chains & messages", "Sequential & parallel chains; message types; basic conversation state.", [["➕ LangChain — Agentic AI Engineering", LU.lc], ["➕ LangChain Essentials — LangChain Academy", LU.acLc]]],
+        ["5", "Tools, retrievers & memory (intro)", "Defining tools, retriever basics (deep-dive in the RAG track), chat-history memory, streaming, and a first look at middleware.", [["✅ Ultimate RAG Bootcamp §13 (tools, middleware)", LU.urb], ["➕ LangChain — Agentic AI Engineering", LU.lc]]]
+      ]
+    };
+
+    ENRICH["tool-calling-ai-agent-with-langchain"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Build a real tool-calling agent in LangChain — the bridge from chains to agents. Do this after Agent Fundamentals (concepts) so the loop makes sense. ✅ = scraped course; ➕ = course linked in your tracker.",
+      phases: [
+        ["1", "Tool calling foundations", "Function/tool calling — single, parallel, forced; structured tool schemas & argument validation.", [["✅ Ultimate RAG Bootcamp §13 (tools in LangChain)", LU.urb], ["➕ LangChain — Agentic AI Engineering", LU.lc]]],
+        ["2", "Custom & pre-built tools", "Create custom tools & bind to an LLM; pre-built tools (Tavily, DuckDuckGo, Wikipedia, PubMed); pass tool results back to the LLM.", [["➕ LangChain — Agentic AI Engineering", LU.lc], ["✅ Ultimate RAG Bootcamp §13", LU.urb]]],
+        ["3", "ReAct agent in LangChain", "The reason→act→observe loop; building a ReAct agent; an agent with a custom RAG-tool.", [["✅ Ultimate RAG Bootcamp §15–16 (ReAct, RAG tools)", LU.urb], ["➕ LangChain — Agentic AI Engineering", LU.lc]]],
+        ["4", "Middleware & conversational agents", "Agent middleware (before_model / after_model), human-in-the-loop, summarization; conversational & custom agents.", [["✅ Ultimate RAG Bootcamp §13 (middleware)", LU.urb], ["➕ Deploy LangChain v1 Agent Projects to Production", LU.lcv1prod]]]
+      ]
+    };
+
+    ENRICH["langgraph-fundamentals"] = {
+      title: "Curated, phase-wise study plan",
+      body: "The graph model behind durable, stateful agents. ✅ = scraped course; ➕ = course linked in your tracker (LangChain Academy / Udemy).",
+      phases: [
+        ["1", "Why graphs; first graph", "Graphs vs chains; state, nodes & edges; build & run a simple graph.", [["➕ Introduction to LangGraph — LangChain Academy", LU.acIntro], ["✅ Ultimate RAG Bootcamp §14 (LangGraph basics)", LU.urb]]],
+        ["2", "State schema & validation", "State schema with dataclasses & Pydantic; data validation across nodes.", [["✅ Ultimate RAG Bootcamp §14", LU.urb], ["➕ LangGraph Essentials — LangChain Academy", LU.acLg]]],
+        ["3", "Routing, tools & control flow", "Conditional edges & routers; chains inside a graph; tool-node integration.", [["✅ Ultimate RAG Bootcamp §14", LU.urb], ["➕ LangGraph Essentials — LangChain Academy", LU.acLg]]],
+        ["4", "Checkpointing & streaming", "Checkpointing, durable execution & persistent state; streaming (astream / stream events); debugging with LangGraph Studio & LangSmith.", [["➕ Advanced LangGraph: Workflows, Multi-Agents, Deep Agents", LU.advlg], ["➕ Intro to Agent Observability — LangChain Academy", LU.acObs]]]
+      ]
+    };
+
+    ENRICH["ai-agents-with-langgraph"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Assemble production-grade agents on LangGraph. Leads into Agentic RAG (Advanced RAG & GraphRAG track) and the Deep Agents track. ✅ = scraped course; ➕ = course linked in your tracker.",
+      phases: [
+        ["1", "ReAct agent architecture", "Build the ReAct agent in LangGraph; tools & tool-node integration.", [["✅ Ultimate RAG Bootcamp §15 (Agents architecture)", LU.urb], ["➕ Advanced LangGraph…", LU.advlg]]],
+        ["2", "Memory & multi-tool agents", "Agent with memory; multi-tool chatbot; streaming techniques.", [["✅ Ultimate RAG Bootcamp §15", LU.urb], ["➕ Complete Agentic AI Bootcamp with LangGraph & LangChain", LU.bootcamp]]],
+        ["3", "Multi-agent workflows", "Supervisor & hierarchical multi-agent workflows; agent handoff.", [["✅ Ultimate RAG Bootcamp §18 (Multi-Agents)", LU.urb], ["➕ Advanced LangGraph…", LU.advlg]]],
+        ["4", "Reliable & observable agents", "Retries, error handling, durable execution; observability & debugging (LangSmith, Studio).", [["➕ Building Reliable Agents — LangChain Academy", LU.acReliable], ["✅ Ultimate RAG Bootcamp §15 (debugging)", LU.urb]]],
+        ["5", "Toward deep agents", "Planning, sub-agent delegation, skills & harness — bridge to the Deep Agents & Harness Engineering track.", [["➕ Advanced LangGraph: … Deep Agents", LU.advlg], ["➕ Deploy LangChain v1 Agent Projects to Production", LU.lcv1prod]]]
+      ]
+    };
+
+    ENRICH["dspy"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Alternative framework — programmatic prompting & optimization. 🔎 Reference-only: no owned/scraped course yet; driven by the official DSPy docs. Flagged as a coverage gap if you want a course later.",
+      phases: [
+        ["1", "Concept & signatures", "Why programmatic prompting; declaring behavior with typed signatures instead of hand-written prompts.", [["🔎 DSPy docs — Signatures", LU.dspy]]],
+        ["2", "Modules & composition", "Predict, ChainOfThought, ReAct modules and composing them into programs.", [["🔎 DSPy docs — Modules", LU.dspy]]],
+        ["3", "Optimizers & metrics", "Teleprompters/compilers (bootstrap few-shot, MIPRO); metric-driven optimization; when DSPy beats hand-prompting.", [["🔎 DSPy docs — Optimizers", LU.dspy]]]
+      ]
+    };
+
+    ENRICH["crewai"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Alternative framework — role-based multi-agent crews. ✅ = scraped course (Advanced RAG: Build & Deploy §9 has a CrewAI section); 🔎 = official docs.",
+      phases: [
+        ["1", "Crews, agents & tasks", "Role-based crews; defining agents, tasks and tools.", [["✅ CrewAI Document Assistant — Advanced RAG: Build & Deploy §9", LU.advp], ["🔎 CrewAI docs", LU.crewaiDocs]]],
+        ["2", "Process & delegation", "Sequential vs hierarchical process; delegation & collaboration between agents; memory.", [["✅ CrewAI multi-agent analyst — Advanced RAG: Build & Deploy §9", LU.advp], ["🔎 CrewAI docs", LU.crewaiDocs]]],
+        ["3", "When to choose CrewAI", "CrewAI vs LangGraph vs raw loops — pick the right tier.", [["🔎 CrewAI docs", LU.crewaiDocs]]]
+      ]
+    };
+
+    ENRICH["pydanticai"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Alternative framework — type-safe, validation-first agents. Project-backed (krishnaik build); 🔎 = official docs.",
+      phases: [
+        ["1", "Type-safe agents", "Validation-first agents; structured & validated outputs with Pydantic models as the contract.", [["🔎 PydanticAI docs", LU.pydDocs]]],
+        ["2", "Tools & dependencies", "Dependency injection & typed context; tools & function calling; model-agnostic design.", [["🔎 PydanticAI docs", LU.pydDocs]]],
+        ["3", "Build", "Ship a typed agent end-to-end.", [["🛠️ Gen AI Clothing Store (Pydantic AI)", "https://www.krishnaik.in/project/gen-ai-powered-clothing-store-with-pydantic-ai"]]]
+      ]
+    };
+
+    ENRICH["autogen"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Alternative framework — conversable agents & group chat (incl. Microsoft Agent Framework). ✅ = scraped course (Advanced RAG: Build & Deploy §9); 🔎 = official docs.",
+      phases: [
+        ["1", "Conversable agents", "The AutoGen model; conversable agents; model client setup (OpenAI / Gemini).", [["✅ Microsoft AutoGen — Advanced RAG: Build & Deploy §9", LU.advp], ["🔎 AutoGen docs", LU.autogenDocs]]],
+        ["2", "Group chat & multi-agent", "Group chat, multi-agent collaboration, research-team patterns.", [["✅ AutoGen research team — Advanced RAG: Build & Deploy §9", LU.advp], ["🔎 AutoGen docs", LU.autogenDocs]]],
+        ["3", "Microsoft Agent Framework", "Task-specialist agents & aggregating specialist responses; when AutoGen fits vs CrewAI / LangGraph.", [["✅ MS Agent Framework — Advanced RAG: Build & Deploy §9", LU.advp]]]
+      ]
+    };
+
+    // Memory & state — a systems-design track, not a single-course one. Phases are
+    // built from the curated agent-memory reading in this track (scraped Nov 2026):
+    // the DailyDoseofDS AI-Agents crash-course memory parts, MLMastery's 7-steps,
+    // NirDiamant's runnable notebooks, the LangMem series, and the Awesome-Memory
+    // reference — reordered into a taxonomy → short-term → long-term → optimization
+    // → LangGraph/LangMem → frameworks → eval arc that covers the topic checklist.
+    // 📘 = DailyDoseofDS reading · 💻 = runnable notebooks · 📝 = LangMem series ·
+    // 📄 = article · 🎓 = Udemy course · 📚 = reference list.
+    var MEM = {
+      dd8:   "https://www.dailydoseofds.com/ai-agents-crash-course-part-8-with-implementation/#in-part-9",
+      dd9:   "https://www.dailydoseofds.com/ai-agents-crash-course-part-9-with-implementation/",
+      dd15:  "https://www.dailydoseofds.com/ai-agents-crash-course-part-15-with-implementation/#long-term-memory",
+      dd16:  "https://www.dailydoseofds.com/ai-agents-crash-course-part-16-with-implementation/",
+      dd17:  "https://www.dailydoseofds.com/ai-agents-crash-course-part-17-with-implementation/",
+      mlm7:  "https://machinelearningmastery.com/7-steps-to-mastering-memory-in-agentic-ai-systems/",
+      awesome:"https://github.com/TsinghuaC3I/Awesome-Memory-for-Agents",
+      amt:   "https://github.com/NirDiamant/Agent_Memory_Techniques",
+      lm1:   "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-1-5-introduction-to-agentic-meomery-0f6f48633e73",
+      lm2:   "https://levelup.gitconnected.com/managing-agentic-memory-with-langmem-2-5-building-baseline-agent-4598bbd33236",
+      lm3:   "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-3-5-assistant-agent-with-semantic-memory-c3c76ddc7d98",
+      lm4:   "https://levelup.gitconnected.com/managing-agentic-meomery-with-langmem-4-5-building-agent-with-semantic-episodic-memory-f1c892df97b1",
+      lm5:   "https://levelup.gitconnected.com/building-agent-with-semantic-episodic-procedural-memory-8f481aee9614",
+      humanlike:"https://rajuhemanth456.medium.com/how-to-build-memory-driven-ai-agents-with-short-term-long-term-and-episodic-memory-98d5257f315d",
+      udemy: "https://www.udemy.com/course/full-stack-ai-with-python/?couponCode=PMNVD2025"
+    };
+
+    ENRICH["memory-state"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Memory is a systems-design problem, not a bigger context window. This plan sequences the curated agent-memory reading already in this track into a build arc: taxonomy → short-term → long-term → optimization → LangGraph state & LangMem → frameworks → evaluation. Work top-to-bottom; each phase names its primary source. 📘 DailyDoseofDS reading · 💻 runnable notebooks · 📝 LangMem series · 📄 article · 🎓 Udemy · 📚 reference.",
+      phases: [
+        ["1", "Why memory & the memory taxonomy", "Memory as architecture (not a property of the model); memory vs. knowledge vs. tools; short-term vs. long-term; the four types — working, episodic, semantic, procedural. When memory beats RAG.", [["📄 7 Steps to Mastering Memory — steps 1–3", MEM.mlm7], ["📘 Memory for Agentic Systems (Part A)", MEM.dd8], ["💻 Agent Memory Techniques — overview", MEM.amt]]],
+        ["2", "Short-term & conversation memory", "Scratchpad/context vs. persistence; session vs. persistent knowledge; LangChain memory classes (Buffer, Window, Summary, Summary-Buffer, Token-Buffer); message history with RunnableWithMessageHistory & MessagesPlaceholder; save/load chat history.", [["💻 Agent Memory Techniques §1–5 (short-term)", MEM.amt], ["🎓 Full-Stack GenAI — The Memory Layer", MEM.udemy]]],
+        ["3", "Long-term & vector-backed memory", "Vector-store, entity, episodic & semantic memory; retrieval by relevance + recency; consolidation; writing, updating, summarizing & forgetting memory across sessions.", [["💻 Agent Memory Techniques §6–11 + §20–22 (long-term, retrieval, cross-session)", MEM.amt], ["📘 Memory for Agentic Systems (Part B)", MEM.dd9], ["📄 Memory-Driven AI Agents (short/long/episodic)", MEM.humanlike]]],
+        ["4", "Memory optimization & the context budget", "The context window as a constrained resource: cost, latency, attention degradation; compaction, hierarchical layers, temporal memory, forgetting & decay; memory-aware retrieval as an explicit tool inside the agent loop.", [["📘 Memory Optimization (Parts A–C)", MEM.dd15], ["📘 Memory Optimization (Part B)", MEM.dd16], ["💻 Agent Memory Techniques §12–19 (cognitive architectures)", MEM.amt]]],
+        ["5", "State, checkpointing & LangMem", "LangGraph checkpointers & the store; durable/persistent state across runs; hot-path vs. background memory formation; building agents with semantic → episodic → procedural memory using LangMem.", [["📝 LangMem 1–2 (intro + baseline agent)", MEM.lm1], ["📝 LangMem 3 (semantic memory)", MEM.lm3], ["📝 LangMem 4–5 (episodic + procedural)", MEM.lm4], ["📘 Memory Optimization (Part C — LangGraph)", MEM.dd17]]],
+        ["6", "Memory frameworks & graph memory", "Production memory systems and their tradeoffs — mem0, Letta / MemGPT, Zep, Graphiti; graph memory & knowledge graphs as a memory substrate; file-based memory (AGENTS.md / CLAUDE.md).", [["💻 Agent Memory Techniques §24–27 (Graphiti, mem0, Letta, Zep)", MEM.amt], ["🎓 Full-Stack GenAI — Graph Memory & Knowledge Graph", MEM.udemy]]],
+        ["7", "Evaluation & production", "Does recall actually raise task success? Retrieval-specific metrics; benchmarks (LoCoMo, LongMemEval, MemoryAgentBench); production patterns; case study — how the Hermes Agent (Nous) does persistent memory + autonomously-generated skills.", [["💻 Agent Memory Techniques §28–30 (eval, benchmarks, production)", MEM.amt], ["📄 7 Steps to Mastering Memory — step 7", MEM.mlm7], ["📚 Awesome-Memory-for-Agents (benchmarks & surveys)", MEM.awesome]]]
+      ]
+    };
+
+    // Agentic patterns tracks (Phase 04 & 05). Phases are built from the coverage
+    // analysis in agentic-patterns-coverage-findings.md across four sources (scraped
+    // Nov 2026): the Complete Agentic AI Bootcamp (LangGraph+LangChain, full 27-section
+    // scrape in agentic-ai.md), AI Agents & Workflows: The Practical Guide, the
+    // FareedKhan all-agentic-architectures repo (35 patterns), and the Analytics-Vidhya
+    // Agentic Design Patterns course. 🎓 = Udemy · 💻 = runnable repo · 📘 = AV course.
+    var AP = {
+      bootcamp: "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025",
+      practical:"https://www.udemy.com/course/ai-agents-workflows-the-practical-guide/?couponCode=PMNVD2025",
+      repo:     "https://github.com/FareedKhan-dev/all-agentic-architectures",
+      av1:      "https://courses.analyticsvidhya.com/courses/take/agentic-ai-system-architectures-and-design-patterns/lessons/62114823-agentic-ai-unleashing-the-future-of-autonomy",
+      av2:      "https://courses.analyticsvidhya.com/courses/take/copy-of-agentic-ai-system-architectures-and-design-patterns/lessons/65704730-course-introduction",
+      educative:"https://www.educative.io/module/P1vxGOtNzNBPX5PJY/10370001/4640179653312512"
+    };
+
+    ENRICH["workflow-agent-patterns"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Build one capable agent from first principles, then learn each workflow/agent pattern once. Sequenced foundation → deterministic workflows → autonomous-agent loops → advanced/self-improving → judgment. The Bootcamp's §14 \"Different Workflows In LangGraph\" covers almost the whole pattern list in one place; the 35-pattern repo is the deep catalog. 🎓 = Udemy course · 💻 = runnable repo · 📘 = Analytics Vidhya course. Full coverage table: ../../agentic-patterns-coverage-findings.html.",
+      phases: [
+        ["1", "Foundations: workflows vs agents & the augmented LLM", "When autonomy is worth the unpredictability; the augmented LLM (tool use + retrieval + memory) as the base building block; tool calling from scratch (single / parallel / forced) and structured outputs.", [["🎓 Practical Guide — augmented LLM & tool use from scratch", AP.practical], ["🎓 Bootcamp §9 (AI Agents vs Agentic AI), §10 & §12 (tools, ToolNode)", AP.bootcamp], ["📘 Agentic Design Patterns — Tool-Use Pattern", AP.av1]]],
+        ["2", "Deterministic workflows: chaining, routing, parallelization", "Prompt chaining (decompose into fixed steps); routing / classification (send input down the right path); parallelization by sectioning & voting.", [["🎓 Bootcamp §14 — Prompt Chaining, Routing, Parallelization", AP.bootcamp], ["💻 all-agentic-architectures — Self-Consistency #6, Ensemble #10, Adaptive routing #14", AP.repo], ["🎓 Practical Guide — multi-step & multi-model workflows", AP.practical]]],
+        ["3", "Orchestration workflows: orchestrator–workers & evaluator–optimizer", "Dynamic subtask delegation (orchestrator–workers); the evaluator–optimizer loop (generate → critique → refine).", [["🎓 Bootcamp §14 — Orchestrator-Worker (+impl) & Evaluator-optimizer", AP.bootcamp], ["💻 all-agentic-architectures — Multi-Agent #27, Meta-Controller #31, Reflection #1, RLHF #34", AP.repo]]],
+        ["4", "Autonomous-agent loops: Reflection, ReAct & Plan-and-Execute", "Reflection & self-critique; the ReAct reason→act→observe loop; Plan-and-Execute (decompose → execute → replan).", [["🎓 Bootcamp §12 — ReAct Agent Architecture (+impl)", AP.bootcamp], ["📘 Agentic Design Patterns — Reflection & Planning/ReAct", AP.av2], ["💻 all-agentic-architectures — Reflection #1–3, ReAct #22, Planning #23, PEV #24", AP.repo]]],
+        ["5", "Agentic RAG", "Retrieval becomes a tool the agent invokes, reformulates & iterates on — not a fixed step; Agentic, Corrective (CRAG) & Adaptive RAG variants.", [["🎓 Bootcamp §16 — Agentic / Corrective / Adaptive RAG", AP.bootcamp], ["💻 all-agentic-architectures — Agentic RAG #11, CRAG #12, Self-RAG #13, Adaptive #14, GraphRAG #15", AP.repo]]],
+        ["6", "Advanced & self-improving patterns (reference)", "Beyond the core list — tree/graph search & self-improvement: Tree-of-Thoughts, LATS, Self-Discover, Chain-of-Verification, Constitutional AI. A look-up catalog, not a linear watch.", [["💻 all-agentic-architectures — Tree-of-Thoughts #7, LATS #8, Self-Discover #4, CoVe #3, Constitutional AI #5", AP.repo], ["📘 Master Agentic Design Patterns — Educative", AP.educative]]],
+        ["7", "Judgment: pick the simplest pattern", "Resist over-agenting (the FDE anti-pattern) — choose the least-autonomous pattern that works; best practices for effective agentic systems.", [["📘 Agentic Design Patterns — Best Practices & Key Takeaways", AP.av2], ["🎓 Practical Guide — universal vs specialized agents", AP.practical]]]
+      ]
+    };
+
+    ENRICH["multi-agent-orchestration-control"] = {
+      title: "Curated, phase-wise study plan",
+      body: "Compose single agents into systems — and govern them. Sequenced when-to vs when-not → coordination topologies → shared state → human-in-the-loop → guardrails & sandboxing → cost & latency. Builds on the single-agent patterns from the Workflow & agent patterns track. 🎓 = Udemy course · 💻 = runnable repo · 📘 = Analytics Vidhya course. Full coverage table: ../../agentic-patterns-coverage-findings.html.",
+      phases: [
+        ["1", "When multi-agent helps (and when a single agent wins)", "The decision: one capable agent vs. a team; universal vs. specialized agents; why (and why not) to add agents.", [["📘 Agentic Design Patterns — Multi-Agent Pattern: why & when", AP.av2], ["🎓 Practical Guide — universal vs specialized agents", AP.practical], ["🎓 Bootcamp §9 & §27 (agentic AI, multi-agent)", AP.bootcamp]]],
+        ["2", "Coordination topologies: supervisor / swarm / handoff", "Supervisor coordinating specialists, swarm, and hand-off patterns; sub-agent delegation; blackboard/debate/STORM as alternative topologies.", [["🎓 Bootcamp §27 Multi-Agent Travel Assistant + §26 sub-agents", AP.bootcamp], ["💻 all-agentic-architectures — Multi-Agent #27, Blackboard #28, Debate #29, STORM #30", AP.repo]]],
+        ["3", "Shared state & memory across agents", "Passing state between agents; shared/blackboard workspaces; cross-agent memory so the team doesn't repeat itself.", [["🎓 Bootcamp §12 — state schema + agent memory in LangGraph", AP.bootcamp], ["💻 all-agentic-architectures — Blackboard #28; memory patterns #16–20", AP.repo]]],
+        ["4", "Human-in-the-loop: approvals & interrupts", "Interrupting a run for approval; editing agent feedback; runtime human feedback; propose → simulate → approve gates.", [["🎓 Bootcamp §15 (4 HITL lectures) + §10 HITL middleware", AP.bootcamp], ["🎓 Practical Guide — adding a human in the loop", AP.practical], ["💻 all-agentic-architectures — Dry-Run #32 (propose→simulate→approve)", AP.repo]]],
+        ["5", "Guardrails, tool permissions & sandboxing", "Input/output guardrails; scoping tool permissions; sandboxing agent actions (file-system, browser) so autonomy stays safe.", [["🎓 Bootcamp §18 — Guardrails With LangChain", AP.bootcamp], ["💻 all-agentic-architectures — SWE-Agent #25 (sandboxed FS), BrowserAgent #26 (safety gates)", AP.repo], ["🎓 Practical Guide — problems & security risks", AP.practical]]],
+        ["6", "Cost & latency of multi-agent systems", "The real bill: token cost, latency and failure modes of running many agents; LLM-gateway routing/fallbacks as a lever. (Thin across sources — see the gap note in the findings doc.)", [["🎓 Bootcamp §19 — LLM Gateways (routing & cost)", AP.bootcamp], ["🎓 Practical Guide — pricing & when NOT to use MCP/agents", AP.practical]]]
+      ]
+    };
+
+    // Deep agents & harness engineering. Phases built from four scraped courses
+    // (Nov 2026, full curricula in agentic-ai.md): Agentic Harness Engineering
+    // (the 6-component harness model — the spine), Ed Donner's Complete Agent & MCP
+    // Course (Deep Agents Wk4, Deep Research Wk2, harness+MCP Wk6), Deep Agent —
+    // Multi-Agent RAG with Gemini/LangChain (deep researcher from scratch + LangChain
+    // Deep Agent), and the Agentic AI Engineering Masterclass (ADK, HITL LRO, deep
+    // research project). 🎓 = Udemy course.
+    var DA = {
+      harness:  "https://www.udemy.com/course/agentic-harness-engineering/?couponCode=PMNVD2025",
+      eddonner: "https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/?couponCode=PMNVD2025",
+      deepagent:"https://www.udemy.com/course/deep-agent/?couponCode=PMNVD2025",
+      masterclass:"https://www.udemy.com/course/agentic-ai-engineering-design-build-deploy-agents/?couponCode=PMNVD2025",
+      bootcamp: "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025"
+    };
+
+    ENRICH["deep-agents-harness-engineering"] = {
+      title: "Curated, phase-wise study plan",
+      body: "The harness is what turns a raw model into a capable, long-running agent. This plan follows the harness-engineering arc: the raw-model problem → the 6 harness components → build each layer (loop → file-system/env → sandbox → memory/context → long-horizon) → deep-research agents → observability & optimization. Driven mainly by the Agentic Harness Engineering course, with deep-agent builds from Ed Donner, the Deep Agent (Gemini) course, and the Masterclass. 🎓 = Udemy course. Full curricula: ../../agentic-ai.md.",
+      phases: [
+        ["1", "The raw-model problem & the harness model", "Why a bare LLM isn't enough; the harness = 6 core components (loop, tools, context, environment, memory, observability) and how they connect; decomposing a real harness (Claude Code).", [["🎓 Agentic Harness Engineering — 'Agent Harness: All the Parts' (6 components; decompose Claude Code)", DA.harness], ["🎓 Ed Donner — Wk6 D1 'Agent frameworks and the agent harness'", DA.eddonner]]],
+        ["2", "The conversation loop & context engineering", "The bare conversation loop; system prompt as the first harness primitive; context engineering as the real discipline — input/memory/skills context and progressive disclosure.", [["🎓 Agentic Harness Engineering — 'Designing the Harness Conversation Loop'", DA.harness], ["🎓 Ed Donner — Wk1 D5 context engineering; visible agent loop with checklist tools", DA.eddonner], ["🎓 Masterclass — Context Engineering: sessions & memory", DA.masterclass]]],
+        ["3", "File system, environment & sandbox layers", "Why a file system comes first; the FS abstraction, Git versioning, durable memory via AGENTS.md; safe code execution in Docker / UV sandboxes.", [["🎓 Agentic Harness Engineering — 'The File System Layer' (FS, Git, AGENTS.md) + Code-Execution/Sandbox layers", DA.harness], ["🎓 Ed Donner — Wk4 D4 'first Deep Agent with a file system & to-do tools'; Wk3 Docker/UV sandbox tools", DA.eddonner]]],
+        ["4", "Deep agents: skills, sub-agents & delegation", "The deepagents harness — planning to-do tool, sub-agent delegation (Task tool), skills (SKILL.md, progressive disclosure), backends & harness profiles; deep agents vs the Claude SDK.", [["🎓 Ed Donner — Wk4 D4 Deep Agents (harness for long-running tasks, SKILL.md, sub-agents, Skills)", DA.eddonner], ["🎓 Bootcamp §26 Building Deep Agents (customization, backends, deep agents vs Claude SDK, sub-agents)", DA.bootcamp], ["🎓 Deep Agent (Gemini) — LangChain's Deep Agent: file backend + research sub-agent", DA.deepagent]]],
+        ["5", "Memory, context management & long-horizon execution", "Short-term memory (SQLite) + summarization middleware to survive long context; durable/long-running agents & checkpointing; time-travel/replay; limiting model & tool calls with fallbacks.", [["🎓 Deep Agent (Gemini) — LangChain v1 Agent Bootcamp (SQLite memory, SummarizationMiddleware, TODO planner, PII guardrails)", DA.deepagent], ["🎓 Agentic Harness Engineering — Memory/Search + Context-Management + Long-Horizon Execution layers", DA.harness], ["🎓 Ed Donner — Wk4 D2 LangGraph memory & time travel (MemorySaver, SQLite, replay)", DA.eddonner]]],
+        ["6", "Deep research agents (long-horizon, multi-source)", "The research team pattern: orchestrator → researcher → editor; research-plan → run-researcher → run-editor tools; multi-source synthesis into a report; production deploy.", [["🎓 Deep Agent (Gemini) — Multi-Agent Deep Finance Researcher from scratch (orchestrator/researcher/editor, DeepAgentState, file tools)", DA.deepagent], ["🎓 Ed Donner — Wk2 Deep Research Agent (planner/writer/email agents, orchestrated by code)", DA.eddonner], ["🎓 Masterclass — Project 1: open-source Deep Research AI Agent", DA.masterclass]]],
+        ["7", "Observability, evaluation & harness optimization", "Traces, evaluation and feedback loops on the harness; human-in-the-loop for long-running ops; production logging; optimizing the harness end-to-end.", [["🎓 Agentic Harness Engineering — 'Observability, Evaluation & Harness Optimization'", DA.harness], ["🎓 Masterclass — Observability for agents + HITL long-running operations", DA.masterclass], ["🎓 Ed Donner — Wk6 capstone: observability, evaluation & feedback", DA.eddonner]]]
+      ]
+    };
+
+    // LLMOps & AI infrastructure + Security, compliance & private deployment.
+    // Both tracks are driven by the same two courses (AI Security Bootcamp &
+    // Complete Agentic AI Bootcamp) plus the Krishna Naik production-RAG project,
+    // so their phase plans are two halves of one continuous build. Section cites
+    // (e.g. A§13) map to the scraped curricula in ../../ai-security.md &
+    // ../../agentic-ai.md. Full combined plan: ../../llmops-security-phase-plan.md.
+    var LSP = {
+      sec:      "https://www.udemy.com/course/ai-security-bootcamp-guardrailsllm-gatewaysobservability/?couponCode=PMNVD2025",
+      bootcamp: "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=PMNVD2025",
+      prodrag:  "https://www.krishnaik.in/project/production-grade-cyclic-rag-with-langgraph-gcp-and-groq"
+    };
+
+    ENRICH["llmops-ai-infrastructure"] = {
+      title: "Curated, phase-wise study plan",
+      body: "The operability half of the build: put a gateway in front of the app (routing & fallbacks), make every decision observable, then cut cost with caching & rate limiting before shipping it on real infra. Driven by the AI Security Bootcamp (gateways §11–14, observability §4–6, Redis §21, projects §22–25) with the LLM-Gateways section of the Agentic AI Bootcamp (§19), and closed out by the Krishna Naik production-RAG project. Pairs with the Security track (guardrails → red-teaming), which shares the same courses. Full combined plan: ../../llmops-security-phase-plan.md. 🎓 = Udemy · 🛠️ = project.",
+      phases: [
+        ["1", "LLM gateways & routing", "One gateway in front of the reference agent with a documented fallback chain and a benchmark table (p50/p95 latency, cost per provider) justifying the routing policy.", [["🎓 A§11–12 — Portkey: setup, retry/timeout/fallback, load balancing, caching, LangChain integration", LSP.sec], ["🎓 A§13 — TensorZero: TOML, routing types, latency benchmarking, MiniJinja templates, unified tool-calling, A/B testing", LSP.sec], ["🎓 A§14 — Bifrost: fallback/streaming/logging, virtual keys + MCP through the gateway, mini-RAG w/ Qdrant", LSP.sec], ["🎓 B§19 — LLM Gateways: understanding & implementation", LSP.bootcamp]]],
+        ["2", "Observability & tracing", "Every call in the reference agent traced end-to-end in both LangSmith and Logfire, with guardrail hits and gateway fallbacks visible on a dashboard.", [["🎓 A§4 — Why observability; frameworks landscape", LSP.sec], ["🎓 A§5 — LangSmith: manual & custom tracing, agentic-RAG tracing, LangGraph app + Studio", LSP.sec], ["🎓 A§6 — Pydantic Logfire: trace simple RAG, ReAct agent & agentic workflow", LSP.sec]]],
+        ["3", "Caching, rate limiting & cost control", "Before/after cost + latency numbers with exact and semantic caching enabled, plus a working rate limiter with backoff.", [["🎓 A§21 — Redis: exact-match caching, semantic caching w/ embeddings, agent conversation memory, rate limiting & API cost control, RAG caching demo", LSP.sec]]],
+        ["4", "Serving & deployment strategies", "A deployment design doc: self-hosted serving (containers/autoscaling), plus a rollout/rollback strategy (canary, flags, circuit breakers) built on the Phase-1 fallback patterns.", [["🎓 A§22–23 — Docker → Artifact Registry → Cloud Run as the serving/runtime pattern", LSP.sec], ["🎓 A§24 — Integrating gateways + guardrails + evals into the deployed app", LSP.sec]]],
+        ["5", "Secured capstone — CI/CD + IaC", "A deployed, runnable agent composing gateway + tracing + caching, provisioned by Terraform behind a green CI/CD pipeline.", [["🎓 A§25 — Research platform: Terraform+AWS IaC, TensorZero config, LangSmith eval, GitHub Actions CI/CD, full deploy", LSP.sec], ["🛠️ Production RAG: Guardrails, LLM Gateway, Evals, IaC (GCP)", LSP.prodrag]]]
+      ]
+    };
+
+    ENRICH["security-compliance-private-deployment"] = {
+      title: "Curated, phase-wise study plan",
+      body: "The safety half of the build: model the attack surface, wrap the app in guardrails (they gate everything downstream), then attack what you built with PyRIT and quantify what gets through — before formalizing private/on-prem deployment and shipping a secured capstone. Driven by the AI Security Bootcamp (guardrails §7–10, PyRIT §20, projects §22–25) with the Guardrails section of the Agentic AI Bootcamp (§18). Pairs with the LLMOps track (gateways → observability), which shares the same courses. Full combined plan: ../../llmops-security-phase-plan.md. 🎓 = Udemy · 🛠️ = project.",
+      phases: [
+        ["1", "Foundations & threat model", "A one-page threat model for the reference agent: inputs, tools, data stores, egress — each annotated with the phase that defends it.", [["🎓 A§1 — Why security is the #1 GenAI concern; architecture of agentic apps (where controls attach)", LSP.sec], ["🎓 A§7 — What guardrails are; the framework landscape", LSP.sec], ["🎓 B§18 — Guardrails with LangChain: framing", LSP.bootcamp]]],
+        ["2", "Guardrail frameworks", "The same agent wrapped three ways (NeMo, Bedrock, Guardrails AI) with a comparison note: latency, cost, control granularity, and your default pick.", [["🎓 A§8 — NeMo Guardrails: input/output rails, PII via custom rails, secured HR-assistant build", LSP.sec], ["🎓 A§9 — AWS Bedrock Guardrails: content filters, denied topics, PII redaction, versioning, cost vs OSS", LSP.sec], ["🎓 A§10 — Guardrails AI: Hub & validators, OnFailAction, streaming Guard object, LangChain integration", LSP.sec], ["🎓 B§18 — PII guardrails in an agent (middleware)", LSP.bootcamp]]],
+        ["3", "Red-teaming with PyRIT", "A red-team report on the Phase-2 agent (attack → did the rail hold? → fix), re-run after fixes with the delta shown on a dashboard.", [["🎓 A§20 — PyRIT: targets/scorers/converters, PAIR/Crescendo/TAP/Many-Shot jailbreaks, encoding/obfuscation, multi-turn orchestrators, XPIA, Skeleton Key, automated scorers, multimodal attacks, fuzzing & bulk scanning, red-team dashboard app", LSP.sec]]],
+        ["4", "On-prem / private deployment", "A deployment design doc: where the agent runs (VPC/Private Link), how tenants are isolated, permission sandboxing, and the compliance/data-residency posture.", [["🎓 A§25 — Auth, IAM, connection pooling & tenant isolation in the deployed project", LSP.sec], ["🛠️ Applied against your existing Databricks / VPC / Private Link experience — formalize it", LSP.prodrag]]],
+        ["5", "Secured capstone", "A deployed, runnable agent composing guardrails + red-team dashboard + evals, with the security integration validated end-to-end.", [["🎓 A§22–24 — Secured Agentic RAG on GCP: ingestion → agentic graph → integrate guardrails/gateways/evals → eval pipeline", LSP.sec], ["🛠️ Production RAG: Guardrails, LLM Gateway, Evals, IaC (GCP)", LSP.prodrag]]]
+      ]
+    };
+
+    // DevOps & deployment foundations. Phases built from six scraped beginner-to-
+    // working-level courses (Nov 2026, full curricula in devops.md): Docker (Mumshad),
+    // the Full-Stack GenAI Docker section, Kubernetes (Mumshad), Terraform (Mumshad),
+    // GitHub Actions (Schwarzmüller), and the Grafana+Prometheus half of the
+    // Observability course. Ordered containers → orchestration → IaC → CI/CD →
+    // observability → ship-an-AI-app. 🎓 = Udemy course.
+    var DV = {
+      docker:   "https://www.udemy.com/course/learn-docker/?couponCode=PMNVD2025",
+      fsdocker: "https://www.udemy.com/course/full-stack-ai-with-python/?couponCode=PMNVD2025",
+      k8s:      "https://www.udemy.com/course/learn-kubernetes/",
+      terraform:"https://www.udemy.com/course/terraform-for-the-absolute-beginners/?couponCode=PMNVD2025",
+      ghactions:"https://www.udemy.com/course/github-actions-the-complete-guide/?couponCode=PMNVD2025",
+      grafana:  "https://www.udemy.com/course/grafana-prometheus-loki-alloy-tempo/?couponCode=PMNVD2025"
+    };
+
+    ENRICH["devops-deployment-foundations"] = {
+      title: "Curated, phase-wise study plan",
+      body: "The infra layer an FDE needs to ship an AI app into a client environment. Sequenced containers → orchestration → infrastructure-as-code → CI/CD → observability → deploy end-to-end. Each phase names its primary course (all beginner-to-working level; full curricula in ../../devops.md). 🎓 = Udemy course. Scoped per request: only the Docker section of Full-Stack GenAI, and only the Grafana + Prometheus half of the Observability course.",
+      phases: [
+        ["1", "Containers: Docker fundamentals", "Why containers (vs VMs); images vs containers; the Docker CLI; run commands (tags, interactive, port mapping, volumes/bind mounts, logs); engine internals (namespaces, cgroups), storage & networking; registries.", [["🎓 Docker for the Absolute Beginner — commands, run, images, engine/storage/networking, registry", DV.docker]]],
+        ["2", "Dockerfiles, Compose & image delivery", "Writing Dockerfiles; multi-stage builds & image optimization; CMD vs ENTRYPOINT; env vars; docker-compose (networking, volumes); publishing to Docker Hub / private registries.", [["🎓 Full-Stack GenAI — 'Mastering Docker for Developers' (Dockerfile, multi-stage, Compose, registries)", DV.fsdocker], ["🎓 Docker for the Absolute Beginner — Images & Docker Compose", DV.docker]]],
+        ["3", "Orchestration: Kubernetes essentials", "K8s architecture (control plane, nodes, containerd); Pods, ReplicaSets, Deployments; YAML manifests; Services (NodePort/ClusterIP/LoadBalancer); rolling updates & rollbacks; scaling; managed K8s on GKE/EKS/AKS.", [["🎓 Kubernetes for the Absolute Beginners — Pods/ReplicaSets/Deployments, Services, updates, K8s on cloud", DV.k8s]]],
+        ["4", "Infrastructure as Code: Terraform", "IaC & why Terraform; HCL; providers; input/output variables; resource attributes & dependencies; state (remote state + locking on S3); commands; lifecycle, count/for_each; modules; Terraform on AWS (IAM/S3/EC2).", [["🎓 Terraform for the Absolute Beginners with Labs — HCL → state → modules → AWS", DV.terraform]]],
+        ["5", "CI/CD: GitHub Actions", "Workflows, jobs, steps, runners & actions; event triggers & filters; job artifacts & outputs; environment variables & secrets; execution control (conditionals, matrix, caching); container jobs & services; custom actions; token permissions & security.", [["🎓 GitHub Actions — The Complete Guide (build → test → deploy on push; secrets; matrix; custom actions; security)", DV.ghactions]]],
+        ["6", "Observability: metrics, logs & dashboards", "Monitoring vs observability; push vs scrape; telemetry types; install Prometheus + Node Exporter; PromQL (selectors, operators, aggregations, over-time); Grafana dashboards & panels; connecting Grafana → Prometheus; alerts, notification policies & annotations.", [["🎓 Observability with Grafana & Prometheus — Prometheus + PromQL, Grafana dashboards, alerts", DV.grafana]]],
+        ["7", "Ship an AI app into a client-like environment", "Put it together: containerize the app, deploy to a cloud runtime (ECS / Cloud Run / K8s), wire CI/CD, provision with Terraform, add health checks + Prometheus/Grafana observability, and promote dev → staging → prod with secrets/config. The FDE reality.", [["🎓 Full-Stack GenAI — Docker orchestration & AWS ECS/ECR deploy (HA, health checks, cleanup)", DV.fsdocker], ["🎓 Terraform on AWS + GitHub Actions CI/CD as the IaC + pipeline layer", DV.terraform]]]
+      ]
+    };
+
   // Hub sections — group the top-level tracks into a small number of study
   // "sections" on the hub. Tracks are matched to a section by their slug (the
   // same slugify() used for topic pages), so this layer is purely presentational
@@ -239,6 +525,135 @@
       blurb: "Structured prep for the Anthropic Claude certifications — official courses, prep repos, and guides.",
       slugs: ["anthropic-certification-prep"]
     },
+    // Single contiguous learning spine (Phase 00 → 11). Ordered by prerequisite:
+    // calibrate → theory foundations → LangChain → retrieval/RAG → agents →
+    // advanced agentic systems → frameworks → Claude Code → production → craft →
+    // live cycle → compounding. Each track appears in exactly one phase (first
+    // section wins), so there are no gaps or duplicates.
+    {
+      title: "📍 00 · Calibrate",
+      blurb: "Aim before you run. Map yourself to the real bar and lock your capstones.",
+      slugs: [
+        "position-against-the-real-fde-bar"
+      ]
+    },
+    {
+      title: "📍 01 · LLM & Theory Foundations (optional — compressible)",
+      blurb: "Enough internals to reason about failure modes and whiteboard a transformer. The applied path below does not hard-depend on this — do it first if you like, or compress/skip and come back.",
+      slugs: [
+        "math-ml-intuition-for-llms",
+        "transformer-architecture",
+        "model-landscape-hugging-face",
+        "pretraining-fine-tuning-rl-optional"
+      ]
+    },
+    {
+      title: "📍 02 · Foundations & LangChain",
+      blurb: "Start the applied path here. The LangChain building blocks, then how to write and assemble what the model sees (prompt & context engineering). Everything downstream depends on this.",
+      slugs: [
+        "langchain-fundamentals",
+        "prompt-context-engineering"
+      ]
+    },
+    {
+      title: "📍 03 · Retrieval & RAG",
+      blurb: "Give models real knowledge. Learn the retrieval layer FIRST — embeddings & vector databases — then build RAG from naive to production, and extend it to multimodal / document intelligence.",
+      slugs: [
+        "embeddings-vector-databases",
+        "rag-naive-production",
+        "multimodal-document-intelligence"
+      ]
+    },
+    {
+      title: "📍 04 · Agents — Build Order",
+      blurb: "Build one capable agent from first principles: the reasoning + tool-use loop, a tool-calling agent in LangChain, LangGraph fundamentals, then full agents on LangGraph — plus workflow/agent patterns and the first-party SDKs.",
+      slugs: [
+        "agent-fundamentals-tool-use",
+        "tool-calling-ai-agent-with-langchain",
+        "langgraph-fundamentals",
+        "ai-agents-with-langgraph",
+        "workflow-agent-patterns",
+        "agent-sdks-first-party-lab"
+      ]
+    },
+    {
+      title: "📍 05 · Advanced Agentic Systems",
+      blurb: "Compose agents into systems. Agentic RAG & GraphRAG (needs both RAG and agents), then persistent memory, multi-agent orchestration, the deep-agent harness, and evaluation. (Agent protocols — MCP, ACP, A2A — are grouped in their own hub below.)",
+      slugs: [
+        "advanced-rag-graphrag",
+        "memory-state",
+        "multi-agent-orchestration-control",
+        "deep-agents-harness-engineering",
+        "evaluation-eval-harnesses"
+      ]
+    },
+    {
+      title: "🔌 Agent Protocols",
+      blurb: "The interoperability layer for agentic systems: how models reach tools & data (MCP), and how independent agents describe, discover & talk to each other (ACP, A2A). Learn MCP first — it's the most established and the one your domain uses — then the agent-to-agent protocols.",
+      slugs: [
+        "mcp-model-context-protocol",
+        "acp-agent-communication-protocol",
+        "a2a-agent2agent-protocol"
+      ]
+    },
+    {
+      title: "📍 06 · Alternative Agent Frameworks",
+      blurb: "Framework-specific tracks to pick up after the LangChain/LangGraph core path. Each is standalone — learn the one your project needs. The Orchestration overview compares all tiers and helps you choose.",
+      slugs: [
+        "dspy",
+        "crewai",
+        "pydanticai",
+        "autogen",
+        "orchestration-frameworks"
+      ]
+    },
+    {
+      title: "📍 07 · Claude Code & AI Coding Tools",
+      blurb: "Claude Code is Anthropic's flagship agentic coding harness — for an FDE targeting Anthropic, mastering it is table stakes, and knowing the wider tool landscape is how you advise clients credibly. It sits here because it composes everything in the agent arc.",
+      slugs: [
+        "claude-code-operator-mastery",
+        "the-ai-coding-tool-landscape"
+      ]
+    },
+    {
+      title: "📍 08 · Production & FDE Differentiators",
+      blurb: "This phase is where the offer is decided. Ops, deployment, and your governance moat (evaluation lives with Advanced Agentic Systems above).",
+      slugs: [
+        "devops-deployment-foundations",
+        "llmops-ai-infrastructure",
+        "security-compliance-private-deployment",
+        "safety-alignment-literacy"
+      ]
+    },
+    {
+      title: "📍 09 · FDE Craft & Landing",
+      blurb: "Turn skills into an offer: the consulting muscle, the full-stack gap, the portfolio, the loop.",
+      slugs: [
+        "discovery-solutioning",
+        "full-stack-shipping",
+        "capstones-portfolio",
+        "interview-positioning"
+      ]
+    },
+    {
+      title: "📍 10 · Live Cycle & Deepening",
+      blurb: "First applications are in. Run the loop like an engineer — instrument it, learn from every round — and go deep on one thing that makes you unmistakable.",
+      slugs: [
+        "running-the-interview-loop",
+        "pick-a-spike-go-deep-on-one-differentiator",
+        "third-capstone-a-frontier-signal-build"
+      ]
+    },
+    {
+      title: "📍 11 · Compounding & Second Wave",
+      blurb: "Turn the first cycle's signal into leverage: publish, get referred, and reapply from strength — until an offer lands.",
+      slugs: [
+        "public-presence-technical-storytelling",
+        "network-referral-activation",
+        "second-wave-decision-point"
+      ]
+    },
+    // Supplementary groupings — parallel to the numbered spine, not part of it.
     {
       title: "🧑‍🏫 Cohorts & Bootcamps",
       blurb: "Time-boxed cohorts, instructor-led programs, and multi-month bootcamps — the ones with sessions, assignments, and due dates. Each course is its own track.",
@@ -253,114 +668,16 @@
       ]
     },
     {
-      title: "🧠 Core AI Engineering Track",
-      blurb: "The main build path: Claude & agent SDKs, LangChain/LangGraph, RAG & evals, agent memory, frameworks, theory, and hands-on projects.",
+      title: "🧠 Core AI Engineering Track (course bundles)",
+      blurb: "Course-list view of the main build path: Claude & agent SDKs, the LangChain/LangGraph bundle, RAG & evals, agent memory, frameworks, theory, and hands-on projects. Overlaps the numbered spine above — use whichever framing you prefer.",
       slugs: [
         "core-ai-engineering-track",
-        "claude-agent-sdk-claude-code-and-agent-skills",
         "langchain-langgraph",
         "rag-evals-production",
         "agentic-memory-context",
         "agent-frameworks-builds",
         "ai-engineering-projects",
         "theory-math-for-core-llm-and-genai"
-      ]
-    },
-    // FDE-mirrored roadmap: each FDE phase is a hub section; each module inside it
-    // is a track. Generated from files/fde-agentic-engineering-tracker.jsx.
-    {
-      title: "📍 00 · Calibrate",
-      blurb: "Aim before you run. Map yourself to the real bar and lock your capstones.",
-      slugs: [
-        "position-against-the-real-fde-bar"
-      ]
-    },
-    {
-      title: "📍 01 · LLM Foundations",
-      blurb: "Enough internals to reason about failure modes and whiteboard a transformer. Move fast — you can compress this.",
-      slugs: [
-        "math-ml-intuition-for-llms",
-        "transformer-architecture",
-        "model-landscape-hugging-face",
-        "pretraining-fine-tuning-rl-optional"
-      ]
-    },
-    {
-      title: "📍 02 · Context, Retrieval & RAG",
-      blurb: "Retrieval quality is almost always the real bottleneck. Learn to measure it, not vibe it.",
-      slugs: [
-        "prompt-context-engineering",
-        "embeddings-vector-databases",
-        "rag-naive-production",
-        "advanced-rag-graphrag",
-        "multimodal-document-intelligence"
-      ]
-    },
-    {
-      title: "📍 03 · Agents — foundations & frameworks",
-      blurb: "Build one capable agent from first principles: the reasoning loop and tool use, the workflow patterns, then the SDKs and frameworks you'll actually build with.",
-      slugs: [
-        "agent-fundamentals-tool-use",
-        "workflow-agent-patterns",
-        "agent-sdks-first-party-lab",
-        "orchestration-frameworks"
-      ]
-    },
-    {
-      title: "📍 04 · Agents — memory, MCP & multi-agent",
-      blurb: "Turn a single agent into a system: give it persistent memory, connect it to the world through MCP, compose multiple agents, and master the deep-agent harness (Claude Code).",
-      slugs: [
-        "memory-state",
-        "mcp-model-context-protocol",
-        "multi-agent-orchestration-control",
-        "deep-agents-harness-engineering"
-      ]
-    },
-    {
-      title: "📍 05 · Claude Code & AI coding tools",
-      blurb: "Claude Code is Anthropic's flagship agentic coding harness — for an FDE targeting Anthropic, mastering it is table stakes, and knowing the wider tool landscape is how you advise clients credibly. It sits here because it composes everything in the agent arc.",
-      slugs: [
-        "claude-code-operator-mastery",
-        "the-ai-coding-tool-landscape"
-      ]
-    },
-    {
-      title: "📍 06 · Production & FDE Differentiators",
-      blurb: "This phase is where the offer is decided. Evals, ops, and your governance moat.",
-      slugs: [
-        "evaluation-eval-harnesses",
-        "devops-deployment-foundations",
-        "llmops-ai-infrastructure",
-        "security-compliance-private-deployment",
-        "safety-alignment-literacy"
-      ]
-    },
-    {
-      title: "📍 07 · FDE Craft & Landing",
-      blurb: "Turn skills into an offer: the consulting muscle, the full-stack gap, the portfolio, the loop.",
-      slugs: [
-        "discovery-solutioning",
-        "full-stack-shipping",
-        "capstones-portfolio",
-        "interview-positioning"
-      ]
-    },
-    {
-      title: "📍 08 · Live Cycle & Deepening",
-      blurb: "First applications are in. Run the loop like an engineer — instrument it, learn from every round — and go deep on one thing that makes you unmistakable.",
-      slugs: [
-        "running-the-interview-loop",
-        "pick-a-spike-go-deep-on-one-differentiator",
-        "third-capstone-a-frontier-signal-build"
-      ]
-    },
-    {
-      title: "📍 09 · Compounding & Second Wave",
-      blurb: "Turn the first cycle's signal into leverage: publish, get referred, and reapply from strength — until an offer lands.",
-      slugs: [
-        "public-presence-technical-storytelling",
-        "network-referral-activation",
-        "second-wave-decision-point"
       ]
     },
     {
