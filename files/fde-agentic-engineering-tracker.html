@@ -1,12 +1,118 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FDE Readiness — Agentic Engineering Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
 
-/* ------------------------------------------------------------------ *
- *  FDE READINESS — Agentic Engineering Deployment Plan
- *  Noob→expert curriculum tuned to the live Anthropic / OpenAI
- *  Forward Deployed Engineer bar, for a senior Databricks RSA.
- *  Target window: Q1 2027.
- * ------------------------------------------------------------------ */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0E1420}
+button{font-family:inherit;cursor:pointer}
+a{color:inherit}
+.root{min-height:100vh;background:#0E1420;color:#E7ECF4;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.hdr{border-bottom:1px solid #26344A;background:linear-gradient(180deg,#17202E 0%,#0E1420 100%)}
+.hdr-inner{max-width:1180px;margin:0 auto;padding:44px 28px 34px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:#34D6C1;margin-bottom:16px}
+.h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,4vw,42px);line-height:1.12;font-weight:600;margin:0 0 16px;letter-spacing:-.02em}
+.sub{font-size:15px;line-height:1.6;color:#95A1B5;max-width:720px;margin:0 0 26px}
+.meter{max-width:560px;margin-bottom:22px}
+.meter-top{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.meter-pct{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:#34D6C1;line-height:1}
+.meter-label{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#5E6B80;letter-spacing:.04em}
+.meter-track{height:8px;background:#1E2A3B;border-radius:20px;overflow:hidden;border:1px solid #26344A}
+.meter-fill{height:100%;background:linear-gradient(90deg,#34D6C1,#5fe8d6);border-radius:20px}
+.legend{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.legend-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:#5E6B80;letter-spacing:.04em}
+.legend-pill{font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:3px 9px;border-radius:20px;background:rgba(52,214,193,.14);color:#34D6C1;border:1px solid rgba(52,214,193,.3)}
+.body{max-width:1180px;margin:0 auto;padding:0 28px;display:flex;gap:34px;align-items:flex-start}
+.spine{position:sticky;top:0;align-self:flex-start;width:210px;flex-shrink:0;padding:30px 0;display:flex;flex-direction:column;gap:2px}
+.spine-node{display:flex;gap:12px;text-align:left;background:transparent;border:1px solid transparent;padding:2px 0}
+.spine-rail{display:flex;flex-direction:column;align-items:center;width:30px}
+.spine-dot{width:30px;height:30px;border-radius:50%;border:1.5px solid #26344A;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:#0E1420;flex-shrink:0}
+.spine-line{width:2px;flex:1;min-height:26px;background:#26344A;margin-top:2px}
+.spine-text{padding-bottom:14px;min-width:0}
+.spine-name{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;transition:color .2s}
+.spine-window{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5E6B80;margin-top:2px}
+.spine-mini{height:3px;background:#1E2A3B;border-radius:3px;margin-top:7px;width:90px;overflow:hidden}
+.spine-mini-fill{height:100%;border-radius:3px;transition:width .5s}
+.front-line{font-family:'JetBrains Mono',monospace;font-size:10px;color:#F4A93C;margin-top:6px;letter-spacing:.05em}
+.reset{margin-top:18px;margin-left:42px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5E6B80;background:transparent;border:1px solid #26344A;border-radius:6px;padding:5px 10px;align-self:flex-start;transition:all .2s}
+.main{flex:1;min-width:0;padding:30px 0 60px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.filter-btn{font-family:'JetBrains Mono',monospace;font-size:11.5px;padding:6px 13px;border-radius:20px;border:1px solid #26344A;transition:all .2s}
+.phase-block{margin-bottom:40px}
+.phase-head{display:flex;gap:16px;align-items:flex-start;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid #26344A}
+.phase-tag{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;color:#1E2A3B;-webkit-text-stroke:1px #26344A;line-height:1;flex-shrink:0}
+.phase-name{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;margin:0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;letter-spacing:-.01em}
+.phase-window{font-family:'JetBrains Mono',monospace;font-size:11px;color:#F4A93C;font-weight:400;letter-spacing:.03em}
+.phase-thesis{font-size:13.5px;color:#95A1B5;margin:6px 0 0;line-height:1.5;max-width:640px}
+.phase-pct{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:#95A1B5;flex-shrink:0}
+.module-grid{display:flex;flex-direction:column;gap:12px}
+.card{background:#17202E;border:1px solid #26344A;border-radius:12px;overflow:hidden;transition:border-color .3s}
+.card-head{width:100%;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:18px 20px 14px;background:transparent;border:none;text-align:left}
+.card-head-left{min-width:0;flex:1}
+.card-title-row{display:flex;align-items:center;gap:9px}
+.crit-dot{color:#F4A93C;font-size:10px;flex-shrink:0}
+.card-title{font-family:'Space Grotesk',sans-serif;font-size:16.5px;font-weight:600;margin:0;transition:color .2s;letter-spacing:-.01em}
+.card-why{font-size:13px;color:#95A1B5;margin:6px 0 10px;line-height:1.5}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px}
+.sig-pill{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2.5px 8px;border-radius:5px;background:#1E2A3B;color:#95A1B5;border:1px solid #26344A}
+.meta-pill{font-family:'JetBrains Mono',monospace;font-size:10px;padding:2.5px 8px;border-radius:5px;border:1px solid;font-weight:500}
+.card-head-right{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.ring{display:flex;align-items:center;justify-content:center}
+.ring-pct{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500}
+.chev{color:#5E6B80;font-size:12px;transition:transform .25s}
+.card-bar{height:3px;background:#1E2A3B;width:100%}
+.card-body{padding:16px 20px 20px}
+.topic-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.topic-item{display:flex;align-items:flex-start;gap:11px}
+.topic-tick{color:#5E6B80;flex-shrink:0;margin-top:1px}
+.check{width:18px;height:18px;border-radius:5px;border:1.5px solid #5E6B80;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all .15s;padding:0}
+.check-mark{color:#0E1420;font-size:11px;font-weight:700;line-height:1}
+.topic-text{font-size:13.5px;line-height:1.5;cursor:pointer;transition:color .15s;color:#E7ECF4}
+.topic-text.done{color:#5E6B80;text-decoration:line-through}
+.build-box{margin-top:16px;padding:12px 14px;background:rgba(52,214,193,.14);border-radius:8px;border-left:2px solid #34D6C1;display:flex;gap:10px;align-items:baseline}
+.build-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:#34D6C1;flex-shrink:0}
+.build-text{font-size:13px;color:#E7ECF4;line-height:1.5}
+.project-box{margin-top:12px;padding:12px 14px;background:rgba(244,169,60,.14);border-radius:8px;border-left:2px solid #F4A93C;display:flex;flex-direction:column;gap:5px}
+.project-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;color:#F4A93C}
+.project-item{display:flex;flex-direction:column;gap:3px}
+.project-link{font-size:13.5px;font-weight:600;color:#34D6C1;text-decoration:none;line-height:1.4}
+.project-link:hover{text-decoration:underline}
+.project-note{font-size:12.5px;color:#95A1B5;line-height:1.5}
+.res-row{margin-top:12px;display:flex;flex-wrap:wrap;gap:4px;align-items:baseline}
+.res-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5E6B80;letter-spacing:.04em;margin-right:4px}
+.res-item{font-size:12px;color:#95A1B5}
+.footer{margin-top:30px;padding-top:22px;border-top:1px solid #26344A}
+.foot-note{font-size:13px;color:#95A1B5;line-height:1.6;max-width:720px}
+.spine-node:hover .spine-name{color:#34D6C1}
+.filter-btn:hover{border-color:#34D6C1 !important}
+.card-head:hover .card-title{color:#34D6C1}
+.check:hover{border-color:#34D6C1 !important}
+.reset:hover{color:#F4A93C !important;border-color:#F4A93C !important}
+button:focus-visible{outline:2px solid #34D6C1;outline-offset:2px;border-radius:4px}
+.fill{transition:width .5s cubic-bezier(.4,0,.2,1)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#0E1420}
+::-webkit-scrollbar-thumb{background:#26344A;border-radius:6px}
+@media (prefers-reduced-motion:reduce){.fill{transition:none}html{scroll-behavior:auto}}
+@media (max-width:900px){
+ .body{flex-direction:column}
+ .spine{position:static;flex-direction:row;overflow-x:auto;width:100%;border-right:none;border-bottom:1px solid #26344A;gap:8px}
+ .spine-node{min-width:150px;flex-shrink:0}
+ .reset{margin-left:0}
+}
 
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
 const C = {
   bg: "#0E1420",
   panel: "#17202E",
@@ -21,7 +127,6 @@ const C = {
   amberSoft: "rgba(244,169,60,0.14)",
 };
 
-// The 5 real FDE competencies the postings screen for. Structure encodes truth.
 const SIGNALS = {
   found: { label: "foundations", color: C.inkDim },
   agent: { label: "agent dev", color: C.teal },
@@ -262,9 +367,9 @@ const PHASES = [
   {
     id: "p3",
     tag: "03",
-    name: "Agents — the core",
-    window: "late Aug – Oct",
-    thesis: "Spend the most time here. This is the job. Go from 'calls tools in a loop' to reliable, controllable systems.",
+    name: "Agents — foundations & frameworks",
+    window: "late Aug – Sep",
+    thesis: "Build one capable agent from first principles: the reasoning loop and tool use, the workflow patterns, then the SDKs and frameworks you'll actually build with.",
     modules: [
       {
         id: "m8",
@@ -348,6 +453,15 @@ const PHASES = [
         projects: [{ title: "Stateful Agentic AI with LangGraph + Llama 3", url: "https://www.krishnaik.in/project/building-stateful-agentic-ai-with-langgraph-and-llama-3", note: "LangGraph orchestration: state, tools, deployment." }, { title: "AutoGen Data Analyzer GPT", url: "https://www.krishnaik.in/project/autogen-data-analyzer-gpt-build-an-ai-powered-data-analysis-system", note: "AutoGen multi-agent team over CSV data — a framework alternate." }, { title: "Gen AI Clothing Store (Pydantic AI)", url: "https://www.krishnaik.in/project/gen-ai-powered-clothing-store-with-pydantic-ai", note: "PydanticAI agent — a type-safe framework alternate." }],
         resources: ["LangChain 1.0 middleware blog", "LangGraph docs"],
       },
+    ],
+  },
+  {
+    id: "p3b",
+    tag: "04",
+    name: "Agents — memory, MCP & multi-agent",
+    window: "Sep – Oct",
+    thesis: "Turn a single agent into a system: give it persistent memory, connect it to the world through MCP, compose multiple agents, and master the deep-agent harness (Claude Code).",
+    modules: [
       {
         id: "m10m",
         title: "Memory & state",
@@ -413,7 +527,7 @@ const PHASES = [
       {
         id: "m10",
         title: "Deep agents & harness engineering",
-        why: "The scaffolding around the model — tools, memory, sub-agents, context — is where long-horizon reliability is won or lost. It's last on purpose: it composes everything before it.",
+        why: "The scaffolding around the model — tools, memory, sub-agents, context — is where long-horizon reliability is won or lost. It composes everything in the agent arc before it.",
         signals: ["agent", "ship"],
         tag: null,
         critical: true,
@@ -421,21 +535,65 @@ const PHASES = [
           "Context engineering as the real discipline",
           "The harness = tools + memory + filesystem + sub-agents + context mgmt",
           "deepagents: planning todo tool, sub-agent delegation, skills, memory, harness profiles, backends",
-          "Claude Code mastery: CLAUDE.md, commands, skills, subagents, hooks (go operator-deep past your cert)",
-          "AI-coding-tool landscape: Cursor, Codex, Aider, Windsurf, Cline, Roo Code — know them to compare, not adopt",
           "Deep research agents: long-horizon, multi-source synthesis",
           "Durable / long-running agents & checkpointing",
           "Computer use & browser agents (powers Cowork; a major 2026 pattern)",
         ],
-        build: "A deep-research agent with sub-agents + memory over a domain — or a Claude Code skill+subagent pipeline for a real PS workflow.",
-        projects: [{ title: "Realtime Source Code Analyzer", url: "https://www.krishnaik.in/project/realtime-source-code-analyzer", note: "Repo-indexing code agent — adjacent to the coding-agent/harness theme." }],
-        resources: ["LangChain Deep Agents docs", "Claude Code docs", "Deep Agents vs Claude Agent SDK comparison"],
+        build: "A deep-research agent with sub-agents + memory over a domain — long-horizon, durable, with disciplined context management.",
+        resources: ["LangChain Deep Agents docs", "Deep Agents vs Claude Agent SDK comparison"],
+      },
+    ],
+  },
+  {
+    id: "pcc",
+    tag: "05",
+    name: "Claude Code & AI coding tools",
+    window: "Oct",
+    thesis: "Claude Code is Anthropic's flagship agentic coding harness — for an FDE targeting Anthropic, mastering it is table stakes, and knowing the wider tool landscape is how you advise clients credibly. It sits here because it composes everything in the agent arc.",
+    modules: [
+      {
+        id: "mcc",
+        title: "Claude Code — operator mastery",
+        why: "You'll use it daily and clients will ask you to justify it. Go past the Claude Certified Architect cert into real operator depth — configuration, extensibility, and headless automation.",
+        signals: ["agent", "ship"],
+        tag: null,
+        critical: true,
+        topics: [
+          "Claude Code core: CLAUDE.md, slash commands, the permission model",
+          "Skills, subagents & hooks — the extensibility surface",
+          "MCP servers inside Claude Code; wiring in tools & data",
+          "Headless / programmatic use via the Claude Agent SDK (deeper than m9s)",
+          "Claude Code in CI & automation; non-interactive runs",
+          "Cowork & computer use as the non-developer surface (awareness)",
+          "Operator depth past your Claude Certified Architect cert",
+        ],
+        build: "Ship a real Claude Code setup for a PS-style workflow — a CLAUDE.md, custom commands, a skill, and a subagent pipeline — then run it headless in CI.",
+        projects: [{ title: "Realtime Source Code Analyzer", url: "https://www.krishnaik.in/project/realtime-source-code-analyzer", note: "Repo-indexing code agent — the coding-agent pattern, hands-on." }],
+        resources: ["Claude Code docs", "Claude Agent SDK docs", "Anthropic engineering — Claude Code patterns"],
+      },
+      {
+        id: "mct",
+        title: "The AI coding-tool landscape",
+        why: "FDEs get asked 'how does this compare to Cursor?' constantly. Know the field well enough to position Claude Code honestly — not to adopt all of it.",
+        signals: ["discovery", "ship"],
+        tag: null,
+        critical: false,
+        topics: [
+          "IDE-native: Cursor, Windsurf, GitHub Copilot",
+          "CLI / terminal agents: Aider, Codex, Cline, Roo Code",
+          "How they differ: harness design, context handling, autonomy, price",
+          "Autonomous coding agents & SWE-bench-style benchmarks",
+          "Agentic coding workflow: spec → plan → implement → test → review",
+          "Positioning Claude Code vs the field in a client conversation",
+        ],
+        build: "Run the same non-trivial task through Claude Code and two others (say Cursor + Aider); write the honest comparison you'd give a client.",
+        resources: ["SWE-bench leaderboard", "Vendor docs: Cursor / Aider / Windsurf"],
       },
     ],
   },
   {
     id: "p4",
-    tag: "04",
+    tag: "06",
     name: "Production & FDE Differentiators",
     window: "Oct – Nov",
     thesis: "This phase is where the offer is decided. Evals, ops, and your governance moat.",
@@ -556,7 +714,7 @@ const PHASES = [
   },
   {
     id: "p5",
-    tag: "05",
+    tag: "07",
     name: "FDE Craft & Landing",
     window: "Nov – Q1 2027",
     thesis: "Turn skills into an offer: the consulting muscle, the full-stack gap, the portfolio, the loop.",
@@ -646,7 +804,7 @@ const PHASES = [
   },
   {
     id: "p6",
-    tag: "06",
+    tag: "08",
     name: "Live Cycle & Deepening",
     window: "Feb – Apr 2027",
     thesis: "First applications are in. Run the loop like an engineer — instrument it, learn from every round — and go deep on one thing that makes you unmistakable.",
@@ -667,7 +825,7 @@ const PHASES = [
           "Keep a live pipeline tracker (stage, contact, next action)",
         ],
         build: "An interview-loop retro doc that converts each round into 2–3 specific fixes.",
-        resources: ["Your Phase 05 mock-loop notes", "FDE interview writeups"],
+        resources: ["Your Phase 07 mock-loop notes", "FDE interview writeups"],
       },
       {
         id: "m21",
@@ -706,7 +864,7 @@ const PHASES = [
   },
   {
     id: "p7",
-    tag: "07",
+    tag: "09",
     name: "Compounding & Second Wave",
     window: "May – Jul 2027",
     thesis: "Turn the first cycle's signal into leverage: publish, get referred, and reapply from strength — until an offer lands.",
@@ -1009,16 +1167,6 @@ const PHASES = [
 
 ];
 
-const ALL_TOPICS = PHASES.flatMap((p) =>
-  p.modules.filter((m) => !m.reference && !m.optional).flatMap((m) => m.topics.map((_, i) => `${m.id}.${i}`))
-);
-const TOTAL = ALL_TOPICS.length;
-const SCHEDULED_PHASES = PHASES.filter((p) => p.modules.some((m) => !m.reference && !m.optional)).length;
-const SCHEDULED_MODULES = PHASES.flatMap((p) => p.modules).filter((m) => !m.reference && !m.optional).length;
-const OPTIONAL_MODULES = PHASES.flatMap((p) => p.modules).filter((m) => m.optional).length;
-const SUMMARY = `${SCHEDULED_PHASES} phases · ${SCHEDULED_MODULES} scheduled modules · ${TOTAL} tracked topics · +${OPTIONAL_MODULES} optional modules (off-path, not counted)`;
-const STORAGE_KEY = "fde-tracker-progress-v2";
-
 const TAG_STYLES = {
   gap: { label: "likely new for you", bg: C.amberSoft, fg: C.amber, bd: "rgba(244,169,60,0.4)" },
   strength: { label: "your strength", bg: C.tealSoft, fg: C.teal, bd: "rgba(52,214,193,0.4)" },
@@ -1026,803 +1174,132 @@ const TAG_STYLES = {
   optional: { label: "optional · off the FDE path", bg: "rgba(149,161,181,0.10)", fg: C.inkDim, bd: C.line },
 };
 
-export default function App() {
-  const [done, setDone] = useState({});
-  const [loaded, setLoaded] = useState(false);
-  const [open, setOpen] = useState({});
-  const [filter, setFilter] = useState("all");
-  const [activePhase, setActivePhase] = useState("p0");
-  const phaseRefs = useRef({});
+const ALL_TOPICS = PHASES.flatMap(p => p.modules.filter(m=>!m.reference&&!m.optional).flatMap(m=>m.topics.map((_,i)=>m.id+'.'+i)));
+const TOTAL = ALL_TOPICS.length;
+const SCHEDULED_PHASES = PHASES.filter(p=>p.modules.some(m=>!m.reference&&!m.optional)).length;
+const SCHEDULED_MODULES = PHASES.flatMap(p=>p.modules).filter(m=>!m.reference&&!m.optional).length;
+const OPTIONAL_MODULES = PHASES.flatMap(p=>p.modules).filter(m=>m.optional).length;
+const SUMMARY = SCHEDULED_PHASES+' phases \u00b7 '+SCHEDULED_MODULES+' scheduled modules \u00b7 '+TOTAL+' tracked topics \u00b7 +'+OPTIONAL_MODULES+' optional modules (off-path, not counted)';
+const STORAGE_KEY = 'fde-tracker-progress-v2';
 
-  // Load persisted progress
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await window.storage.get(STORAGE_KEY);
-        if (!cancelled && res && res.value) {
-          const parsed = JSON.parse(res.value);
-          setDone(parsed.done || {});
+let done = {}, open = {}, filter = 'all';
+try { const raw = localStorage.getItem(STORAGE_KEY); if (raw) done = (JSON.parse(raw).done)||{}; } catch(e){}
+function persist(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify({done})); } catch(e){} }
+
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const escA = s => esc(s).replace(/"/g,'&quot;');
+
+function moduleStats(m){ const total=m.topics.length; const complete=m.topics.filter((_,i)=>done[m.id+'.'+i]).length; return {total,complete,pct: total?complete/total:0}; }
+function phaseStats(p){ const ts=p.modules.filter(m=>!m.reference&&!m.optional).flatMap(m=>m.topics.map((_,i)=>m.id+'.'+i)); const complete=ts.filter(t=>done[t]).length; return {total:ts.length,complete,pct:ts.length?complete/ts.length:0}; }
+function currentPhaseId(){ const real=PHASES.filter(p=>p.modules.some(m=>!m.reference&&!m.optional)); for(const p of real) if(phaseStats(p).pct<1) return p.id; return real[real.length-1].id; }
+function moduleVisible(m){ if(filter==='optional') return !!m.optional; if(m.reference||m.optional) return filter==='all'; if(filter==='all') return true; if(filter==='critical') return m.critical; if(filter==='gap') return m.tag==='gap'; if(filter==='todo') return moduleStats(m).pct<1; return true; }
+
+const FILTERS=[['all','All modules'],['critical','FDE-critical'],['gap','Likely new for you'],['todo','Unfinished'],['optional','Optional']];
+const app = document.getElementById('app');
+
+function render(){
+  const y = window.scrollY;
+  const cur = currentPhaseId();
+  const completed = ALL_TOPICS.filter(t=>done[t]).length;
+  const overall = TOTAL? completed/TOTAL : 0;
+
+  let spine='';
+  PHASES.forEach((p,idx)=>{
+    const st=phaseStats(p), isCur=p.id===cur;
+    const dotBg = st.pct===1?C.teal:isCur?C.amber:C.panelHi;
+    const dotBd = st.pct===1?C.teal:isCur?C.amber:C.line;
+    const shadow = st.pct===1?('box-shadow:0 0 0 3px '+C.tealSoft):'';
+    spine += '<button class="spine-node" data-phase="'+escA(p.id)+'" style="border-color:'+(isCur?C.amber:'transparent')+'">'
+      + '<div class="spine-rail"><div class="spine-dot" style="background:'+dotBg+';border-color:'+dotBd+';'+shadow+'">'+(st.pct===1?'\u2713':esc(p.tag))+'</div>'
+      + (idx<PHASES.length-1?'<div class="spine-line"></div>':'')+'</div>'
+      + '<div class="spine-text"><div class="spine-name">'+esc(p.name)+'</div><div class="spine-window">'+esc(p.window)+'</div>'
+      + '<div class="spine-mini"><div class="spine-mini-fill" style="width:'+(st.pct*100)+'%;background:'+(st.pct===1?C.teal:C.inkDim)+'"></div></div>'
+      + (isCur&&st.pct<1?'<div class="front-line">\u25c2 front line</div>':'')+'</div></button>';
+  });
+  spine += '<button class="reset" id="reset">reset progress</button>';
+
+  let filters = FILTERS.map(([k,lbl])=>{
+    const on=filter===k;
+    return '<button class="filter-btn" data-filter="'+k+'" style="color:'+(on?C.bg:C.inkDim)+';background:'+(on?C.teal:'transparent')+';border-color:'+(on?C.teal:C.line)+';font-weight:'+(on?600:500)+'">'+esc(lbl)+'</button>';
+  }).join('');
+
+  let phasesHtml='';
+  PHASES.forEach(p=>{
+    const vis=p.modules.filter(moduleVisible);
+    if(!vis.length) return;
+    const st=phaseStats(p);
+    let cards='';
+    vis.forEach(m=>{
+      const isRef=!!m.reference, ms=moduleStats(m), isOpen=!!open[m.id], complete=!isRef&&ms.pct===1;
+      const border = complete?'rgba(52,214,193,0.4)':m.critical?'rgba(244,169,60,0.28)':C.line;
+      const sig = m.signals.map(s=>'<span class="sig-pill">'+esc(SIGNALS[s].label)+'</span>').join('');
+      const tagPill = (m.tag&&TAG_STYLES[m.tag])?'<span class="meta-pill" style="background:'+TAG_STYLES[m.tag].bg+';color:'+TAG_STYLES[m.tag].fg+';border-color:'+TAG_STYLES[m.tag].bd+'">'+esc(TAG_STYLES[m.tag].label)+'</span>':'';
+      let body='';
+      if(isOpen){
+        const topics = m.topics.map((t,i)=>{
+          const tid=m.id+'.'+i, ck=!!done[tid];
+          if(isRef) return '<li class="topic-item"><span class="topic-tick">\u25b9</span><span class="topic-text" style="color:'+C.inkDim+'">'+esc(t)+'</span></li>';
+          return '<li class="topic-item"><button class="check" data-tid="'+escA(tid)+'" style="background:'+(ck?C.teal:'transparent')+';border-color:'+(ck?C.teal:C.inkFaint)+'">'+(ck?'<span class="check-mark">\u2713</span>':'')+'</button><span class="topic-text'+(ck?' done':'')+'" data-tid="'+escA(tid)+'">'+esc(t)+'</span></li>';
+        }).join('');
+        const build = m.build?'<div class="build-box"><span class="build-label">BUILD</span><span class="build-text">'+esc(m.build)+'</span></div>':'';
+        let projects='';
+        if(m.projects&&m.projects.length){
+          const lbl=isRef?'PROJECTS \u2197':(m.projects.length>1?'PARALLEL PROJECTS \u2197':'PARALLEL PROJECT \u2197');
+          const items=m.projects.map(pr=>'<div class="project-item"><a href="'+escA(pr.url)+'" target="_blank" rel="noopener noreferrer" class="project-link">'+esc(pr.title)+'</a><span class="project-note">'+esc(pr.note)+'</span></div>').join('');
+          projects='<div class="project-box"><span class="project-label">'+lbl+'</span>'+items+'</div>';
         }
-      } catch (e) {
-        // no saved state yet — expected on first run
-      } finally {
-        if (!cancelled) setLoaded(true);
+        let res='';
+        if(m.resources&&m.resources.length){
+          const items=m.resources.map((r,i)=>'<span class="res-item">'+esc(r)+(i<m.resources.length-1?' \u00b7 ':'')+'</span>').join('');
+          res='<div class="res-row"><span class="res-label">anchor resources:</span>'+items+'</div>';
+        }
+        body='<div class="card-body"><ul class="topic-list">'+topics+'</ul>'+build+projects+res+'</div>';
       }
-    })();
-    return () => { cancelled = true; };
-  }, []);
-
-  const persist = async (nextDone) => {
-    try {
-      await window.storage.set(STORAGE_KEY, JSON.stringify({ done: nextDone }));
-    } catch (e) {
-      // storage failed — progress stays in-session
-    }
-  };
-
-  const toggle = (tid) => {
-    setDone((prev) => {
-      const next = { ...prev };
-      if (next[tid]) delete next[tid];
-      else next[tid] = true;
-      persist(next);
-      return next;
+      const bar = !isRef?'<div class="card-bar"><div class="fill" style="height:100%;width:'+(ms.pct*100)+'%;background:'+(complete?C.teal:C.inkDim)+'"></div></div>':'';
+      cards += '<article class="card" style="border-color:'+border+'">'
+        + '<button class="card-head" data-mod="'+escA(m.id)+'" aria-expanded="'+isOpen+'">'
+        + '<div class="card-head-left"><div class="card-title-row">'+(m.critical?'<span class="crit-dot" title="FDE-critical">\u25c6</span>':'')+'<h3 class="card-title">'+esc(m.title)+'</h3></div>'
+        + '<p class="card-why">'+esc(m.why)+'</p><div class="tag-row">'+sig+tagPill+'</div></div>'
+        + '<div class="card-head-right"><div class="ring"><span class="ring-pct" style="color:'+(complete?C.teal:C.inkDim)+'">'+(isRef?'ref':ms.complete+'/'+ms.total)+'</span></div>'
+        + '<span class="chev" style="transform:'+(isOpen?'rotate(180deg)':'rotate(0deg)')+'">\u25be</span></div></button>'
+        + bar + body + '</article>';
     });
-  };
+    const pct = st.total===0?'optional':Math.round(st.pct*100)+'%';
+    phasesHtml += '<section class="phase-block" id="phase-'+escA(p.id)+'"><div class="phase-head"><span class="phase-tag">'+esc(p.tag)+'</span>'
+      + '<div style="flex:1"><h2 class="phase-name">'+esc(p.name)+'<span class="phase-window">'+esc(p.window)+'</span></h2><p class="phase-thesis">'+esc(p.thesis)+'</p></div>'
+      + '<span class="phase-pct">'+pct+'</span></div><div class="module-grid">'+cards+'</div></section>';
+  });
 
-  const resetAll = () => {
-    if (!window.confirm("Clear all progress? This can't be undone.")) return;
-    setDone({});
-    persist({});
-  };
-
-  const moduleStats = (m) => {
-    const total = m.topics.length;
-    const complete = m.topics.filter((_, i) => done[`${m.id}.${i}`]).length;
-    return { total, complete, pct: total ? complete / total : 0 };
-  };
-  const phaseStats = (p) => {
-    const ts = p.modules.filter((m) => !m.reference && !m.optional).flatMap((m) => m.topics.map((_, i) => `${m.id}.${i}`));
-    const complete = ts.filter((t) => done[t]).length;
-    return { total: ts.length, complete, pct: ts.length ? complete / ts.length : 0 };
-  };
-
-  const completedCount = useMemo(
-    () => ALL_TOPICS.filter((t) => done[t]).length,
-    [done]
-  );
-  const overallPct = TOTAL ? completedCount / TOTAL : 0;
-
-  // First incomplete phase = "current front line"
-  const currentPhaseId = useMemo(() => {
-    const real = PHASES.filter((p) => p.modules.some((m) => !m.reference && !m.optional));
-    for (const p of real) if (phaseStats(p).pct < 1) return p.id;
-    return real[real.length - 1].id;
-  }, [done]);
-
-  const moduleVisible = (m) => {
-    if (filter === "optional") return !!m.optional;
-    if (m.reference || m.optional) return filter === "all";
-    if (filter === "all") return true;
-    if (filter === "critical") return m.critical;
-    if (filter === "gap") return m.tag === "gap";
-    if (filter === "todo") return moduleStats(m).pct < 1;
-    return true;
-  };
-
-  const scrollToPhase = (pid) => {
-    const el = phaseRefs.current[pid];
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  return (
-    <div style={styles.root}>
-      <style>{CSS}</style>
-
-      {/* ===== Header / mission readout ===== */}
-      <header style={styles.header}>
-        <div style={styles.headerInner}>
-          <div style={styles.eyebrow}>FORWARD DEPLOYED ENGINEER · READINESS PLAN</div>
-          <h1 style={styles.h1}>
-            Noob → expert in agentic engineering,
-            <br />
-            <span style={{ color: C.teal }}>aimed at the Anthropic / OpenAI FDE bar.</span>
-          </h1>
-          <p style={styles.sub}>
-            {SUMMARY} · sequenced <b style={{ color: C.ink }}>Jul 2026 → Jul 2027</b>. Every scheduled module
-            is tagged by which of the five real FDE competencies it builds. Check things off — progress saves automatically.
-          </p>
-
-          <div style={styles.meterWrap}>
-            <div style={styles.meterTop}>
-              <span style={styles.meterPct}>{Math.round(overallPct * 100)}%</span>
-              <span style={styles.meterLabel}>
-                {completedCount} / {TOTAL} topics · deployment readiness
-              </span>
-            </div>
-            <div style={styles.meterTrack}>
-              <div
-                className="fill"
-                style={{ ...styles.meterFill, width: `${overallPct * 100}%` }}
-              />
-            </div>
-          </div>
-
-          {/* signal legend */}
-          <div style={styles.legend}>
-            <span style={styles.legendLabel}>FDE competencies →</span>
-            {Object.entries(SIGNALS).filter(([k]) => k !== "found").map(([k, v]) => (
-              <span key={k} style={styles.legendPill}>
-                {v.label}
-              </span>
-            ))}
-          </div>
-        </div>
-      </header>
-
-      <div style={styles.body}>
-        {/* ===== Deployment spine (phase nav) ===== */}
-        <nav style={styles.spine} aria-label="Phases">
-          {PHASES.map((p, idx) => {
-            const st = phaseStats(p);
-            const isCurrent = p.id === currentPhaseId;
-            return (
-              <button
-                key={p.id}
-                className="spine-node"
-                onClick={() => scrollToPhase(p.id)}
-                style={{
-                  ...styles.spineNode,
-                  borderColor: isCurrent ? C.amber : C.line,
-                }}
-              >
-                <div style={styles.spineRail}>
-                  <div
-                    style={{
-                      ...styles.spineDot,
-                      background: st.pct === 1 ? C.teal : isCurrent ? C.amber : C.panelHi,
-                      borderColor: st.pct === 1 ? C.teal : isCurrent ? C.amber : C.line,
-                      boxShadow: st.pct === 1 ? `0 0 0 3px ${C.tealSoft}` : "none",
-                    }}
-                  >
-                    {st.pct === 1 ? "✓" : p.tag}
-                  </div>
-                  {idx < PHASES.length - 1 && <div style={styles.spineLine} />}
-                </div>
-                <div style={styles.spineText}>
-                  <div style={styles.spineName}>{p.name}</div>
-                  <div style={styles.spineWindow}>{p.window}</div>
-                  <div style={styles.spineMini}>
-                    <div
-                      style={{
-                        ...styles.spineMiniFill,
-                        width: `${st.pct * 100}%`,
-                        background: st.pct === 1 ? C.teal : C.inkDim,
-                      }}
-                    />
-                  </div>
-                  {isCurrent && st.pct < 1 && (
-                    <div style={styles.frontLine}>◂ front line</div>
-                  )}
-                </div>
-              </button>
-            );
-          })}
-          <button onClick={resetAll} className="reset" style={styles.reset}>
-            reset progress
-          </button>
-        </nav>
-
-        {/* ===== Main column ===== */}
-        <main style={styles.main}>
-          {/* filters */}
-          <div style={styles.filters}>
-            {[
-              ["all", "All modules"],
-              ["critical", "FDE-critical"],
-              ["gap", "Likely new for you"],
-              ["todo", "Unfinished"],
-              ["optional", "Optional"],
-            ].map(([k, lbl]) => (
-              <button
-                key={k}
-                onClick={() => setFilter(k)}
-                className="filter-btn"
-                style={{
-                  ...styles.filterBtn,
-                  color: filter === k ? C.bg : C.inkDim,
-                  background: filter === k ? C.teal : "transparent",
-                  borderColor: filter === k ? C.teal : C.line,
-                  fontWeight: filter === k ? 600 : 500,
-                }}
-              >
-                {lbl}
-              </button>
-            ))}
-          </div>
-
-          {PHASES.map((p) => {
-            const visibleModules = p.modules.filter(moduleVisible);
-            if (visibleModules.length === 0) return null;
-            const st = phaseStats(p);
-            return (
-              <section
-                key={p.id}
-                ref={(el) => (phaseRefs.current[p.id] = el)}
-                style={styles.phaseBlock}
-              >
-                <div style={styles.phaseHead}>
-                  <span style={styles.phaseTag}>{p.tag}</span>
-                  <div style={{ flex: 1 }}>
-                    <h2 style={styles.phaseName}>
-                      {p.name}
-                      <span style={styles.phaseWindow}>{p.window}</span>
-                    </h2>
-                    <p style={styles.phaseThesis}>{p.thesis}</p>
-                  </div>
-                  <span style={styles.phasePct}>{st.total === 0 ? "optional" : `${Math.round(st.pct * 100)}%`}</span>
-                </div>
-
-                <div style={styles.moduleGrid}>
-                  {visibleModules.map((m) => {
-                    const isRef = !!m.reference;
-                    const ms = moduleStats(m);
-                    const isOpen = open[m.id];
-                    const complete = !isRef && ms.pct === 1;
-                    return (
-                      <article
-                        key={m.id}
-                        style={{
-                          ...styles.card,
-                          borderColor: complete
-                            ? "rgba(52,214,193,0.4)"
-                            : m.critical
-                            ? "rgba(244,169,60,0.28)"
-                            : C.line,
-                        }}
-                      >
-                        <button
-                          className="card-head"
-                          onClick={() => setOpen((o) => ({ ...o, [m.id]: !o[m.id] }))}
-                          style={styles.cardHead}
-                          aria-expanded={!!isOpen}
-                        >
-                          <div style={styles.cardHeadLeft}>
-                            <div style={styles.cardTitleRow}>
-                              {m.critical && (
-                                <span style={styles.critDot} title="FDE-critical">◆</span>
-                              )}
-                              <h3 style={styles.cardTitle}>{m.title}</h3>
-                            </div>
-                            <p style={styles.cardWhy}>{m.why}</p>
-                            <div style={styles.tagRow}>
-                              {m.signals.map((s) => (
-                                <span key={s} style={styles.sigPill}>
-                                  {SIGNALS[s].label}
-                                </span>
-                              ))}
-                              {m.tag && TAG_STYLES[m.tag] && (
-                                <span
-                                  style={{
-                                    ...styles.metaPill,
-                                    background: TAG_STYLES[m.tag].bg,
-                                    color: TAG_STYLES[m.tag].fg,
-                                    borderColor: TAG_STYLES[m.tag].bd,
-                                  }}
-                                >
-                                  {TAG_STYLES[m.tag].label}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <div style={styles.cardHeadRight}>
-                            <div style={styles.ring}>
-                              <span
-                                style={{
-                                  ...styles.ringPct,
-                                  color: complete ? C.teal : C.inkDim,
-                                }}
-                              >
-                                {isRef ? "ref" : `${ms.complete}/${ms.total}`}
-                              </span>
-                            </div>
-                            <span
-                              style={{
-                                ...styles.chev,
-                                transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                              }}
-                            >
-                              ▾
-                            </span>
-                          </div>
-                        </button>
-
-                        {/* module progress bar */}
-                        {!isRef && (
-                          <div style={styles.cardBar}>
-                            <div
-                              className="fill"
-                              style={{
-                                ...styles.cardBarFill,
-                                width: `${ms.pct * 100}%`,
-                                background: complete ? C.teal : C.inkDim,
-                              }}
-                            />
-                          </div>
-                        )}
-
-                        {isOpen && (
-                          <div style={styles.cardBody}>
-                            <ul style={styles.topicList}>
-                              {m.topics.map((t, i) => {
-                                const tid = `${m.id}.${i}`;
-                                const checked = !!done[tid];
-                                if (isRef) {
-                                  return (
-                                    <li key={i} style={styles.topicItem}>
-                                      <span style={{ color: C.inkFaint, flexShrink: 0, marginTop: 1 }}>▹</span>
-                                      <span style={{ ...styles.topicText, color: C.inkDim }}>{t}</span>
-                                    </li>
-                                  );
-                                }
-                                return (
-                                  <li key={tid} style={styles.topicItem}>
-                                    <button
-                                      className="check"
-                                      onClick={() => toggle(tid)}
-                                      aria-pressed={checked}
-                                      style={{
-                                        ...styles.check,
-                                        background: checked ? C.teal : "transparent",
-                                        borderColor: checked ? C.teal : C.inkFaint,
-                                      }}
-                                    >
-                                      {checked && <span style={styles.checkMark}>✓</span>}
-                                    </button>
-                                    <span
-                                      style={{
-                                        ...styles.topicText,
-                                        color: checked ? C.inkFaint : C.ink,
-                                        textDecoration: checked ? "line-through" : "none",
-                                      }}
-                                      onClick={() => toggle(tid)}
-                                    >
-                                      {t}
-                                    </span>
-                                  </li>
-                                );
-                              })}
-                            </ul>
-
-                            {m.build && (
-                              <div style={styles.buildBox}>
-                                <span style={styles.buildLabel}>BUILD</span>
-                                <span style={styles.buildText}>{m.build}</span>
-                              </div>
-                            )}
-
-                            {m.projects && m.projects.length > 0 && (
-                              <div style={styles.projectBox}>
-                                <span style={styles.projectLabel}>
-                                  {isRef ? "PROJECTS ↗" : m.projects.length > 1 ? "PARALLEL PROJECTS ↗" : "PARALLEL PROJECT ↗"}
-                                </span>
-                                {m.projects.map((pr, i) => (
-                                  <div key={i} style={styles.projectItem}>
-                                    <a
-                                      href={pr.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      style={styles.projectLink}
-                                    >
-                                      {pr.title}
-                                    </a>
-                                    <span style={styles.projectNote}>{pr.note}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-
-                            {m.resources && m.resources.length > 0 && (
-                              <div style={styles.resRow}>
-                                <span style={styles.resLabel}>anchor resources:</span>
-                                {m.resources.map((r, i) => (
-                                  <span key={i} style={styles.resItem}>
-                                    {r}
-                                    {i < m.resources.length - 1 ? " · " : ""}
-                                  </span>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </article>
-                    );
-                  })}
-                </div>
-              </section>
-            );
-          })}
-
-          <footer style={styles.footer}>
-            <p style={styles.footNote}>
-              ◆ = FDE-critical module. Compress Phases 01–02 (you already have the depth), and spend the
-              bulk of your calendar on Phases 03–05. The single highest-leverage artifact you can produce
-              this year is the <b style={{ color: C.teal }}>eval harness</b> in Phase 04 — build it early
-              and let it pull the capstones behind it. Phases 06–07 aren't more theory — they're reps,
-              referrals, and shipping in public until an offer lands.
-            </p>
-          </footer>
-        </main>
-      </div>
-    </div>
-  );
+  app.innerHTML =
+    '<header class="hdr"><div class="hdr-inner">'
+    + '<div class="eyebrow">FORWARD DEPLOYED ENGINEER \u00b7 READINESS PLAN</div>'
+    + '<h1 class="h1">Noob \u2192 expert in agentic engineering,<br><span style="color:'+C.teal+'">aimed at the Anthropic / OpenAI FDE bar.</span></h1>'
+    + '<p class="sub">'+esc(SUMMARY)+' \u00b7 sequenced <b style="color:'+C.ink+'">Jul 2026 \u2192 Jul 2027</b>. Every scheduled module is tagged by which of the five real FDE competencies it builds. Check things off \u2014 progress saves automatically.</p>'
+    + '<div class="meter"><div class="meter-top"><span class="meter-pct">'+Math.round(overall*100)+'%</span><span class="meter-label">'+completed+' / '+TOTAL+' topics \u00b7 deployment readiness</span></div><div class="meter-track"><div class="meter-fill fill" style="width:'+(overall*100)+'%"></div></div></div>'
+    + '<div class="legend"><span class="legend-label">FDE competencies \u2192</span>'+Object.entries(SIGNALS).filter(([k])=>k!=='found').map(([k,v])=>'<span class="legend-pill">'+esc(v.label)+'</span>').join('')+'</div>'
+    + '</div></header>'
+    + '<div class="body"><nav class="spine" aria-label="Phases">'+spine+'</nav>'
+    + '<main class="main"><div class="filters">'+filters+'</div>'+phasesHtml
+    + '<footer class="footer"><p class="foot-note">\u25c6 = FDE-critical module. Compress Phases 01\u201302 (you already have the depth), and spend the bulk of your calendar on Phases 03\u201307. The single highest-leverage artifact you can produce this year is the <b style="color:'+C.teal+'">eval harness</b> in Phase 06 \u2014 build it early and let it pull the capstones behind it. Phases 08\u201309 aren\u2019t more theory \u2014 they\u2019re reps, referrals, and shipping in public until an offer lands.</p></footer>'
+    + '</main></div>';
+  window.scrollTo(0,y);
 }
 
-/* ------------------------------------------------------------------ */
+app.addEventListener('click', e=>{
+  const chk=e.target.closest('[data-tid]');
+  if(chk){ const t=chk.getAttribute('data-tid'); if(done[t]) delete done[t]; else done[t]=true; persist(); render(); return; }
+  const head=e.target.closest('[data-mod]');
+  if(head){ const id=head.getAttribute('data-mod'); open[id]=!open[id]; render(); return; }
+  const fil=e.target.closest('[data-filter]');
+  if(fil){ filter=fil.getAttribute('data-filter'); render(); return; }
+  const rst=e.target.closest('#reset');
+  if(rst){ if(confirm("Clear all progress? This can't be undone.")){ done={}; persist(); render(); } return; }
+  const sp=e.target.closest('[data-phase]');
+  if(sp){ const el=document.getElementById('phase-'+sp.getAttribute('data-phase')); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+});
 
-const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-* { box-sizing: border-box; }
-button { font-family: inherit; cursor: pointer; }
-.spine-node:hover .spineName { color: ${C.teal}; }
-.filter-btn:hover { border-color: ${C.teal} !important; }
-.card-head:hover h3 { color: ${C.teal}; }
-.check:hover { border-color: ${C.teal} !important; }
-.reset:hover { color: ${C.amber} !important; border-color: ${C.amber} !important; }
-button:focus-visible { outline: 2px solid ${C.teal}; outline-offset: 2px; border-radius: 4px; }
-.fill { transition: width .5s cubic-bezier(.4,0,.2,1); }
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: ${C.bg}; }
-::-webkit-scrollbar-thumb { background: ${C.line}; border-radius: 6px; }
-@media (prefers-reduced-motion: reduce) { .fill { transition: none; } * { scroll-behavior: auto !important; } }
-@media (max-width: 900px) {
-  .body-grid { flex-direction: column !important; }
-  .spine-nav { position: static !important; flex-direction: row !important; overflow-x: auto !important; width: 100% !important; border-right: none !important; border-bottom: 1px solid ${C.line} !important; }
-  .spine-node { min-width: 150px; }
-}
-`;
+render();
 
-const styles = {
-  root: {
-    minHeight: "100vh",
-    background: C.bg,
-    color: C.ink,
-    fontFamily: "'Inter', system-ui, sans-serif",
-    WebkitFontSmoothing: "antialiased",
-  },
-  header: {
-    borderBottom: `1px solid ${C.line}`,
-    background: `linear-gradient(180deg, ${C.panel} 0%, ${C.bg} 100%)`,
-  },
-  headerInner: { maxWidth: 1180, margin: "0 auto", padding: "44px 28px 34px" },
-  eyebrow: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 11,
-    letterSpacing: "0.22em",
-    color: C.teal,
-    marginBottom: 16,
-  },
-  h1: {
-    fontFamily: "'Space Grotesk', sans-serif",
-    fontSize: "clamp(26px, 4vw, 42px)",
-    lineHeight: 1.12,
-    fontWeight: 600,
-    margin: "0 0 16px",
-    letterSpacing: "-0.02em",
-  },
-  sub: { fontSize: 15, lineHeight: 1.6, color: C.inkDim, maxWidth: 720, margin: "0 0 26px" },
-  meterWrap: { maxWidth: 560, marginBottom: 22 },
-  meterTop: { display: "flex", alignItems: "baseline", gap: 12, marginBottom: 8 },
-  meterPct: {
-    fontFamily: "'Space Grotesk', sans-serif",
-    fontSize: 30,
-    fontWeight: 700,
-    color: C.teal,
-    lineHeight: 1,
-  },
-  meterLabel: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 11.5,
-    color: C.inkFaint,
-    letterSpacing: "0.04em",
-  },
-  meterTrack: {
-    height: 8,
-    background: C.panelHi,
-    borderRadius: 20,
-    overflow: "hidden",
-    border: `1px solid ${C.line}`,
-  },
-  meterFill: {
-    height: "100%",
-    background: `linear-gradient(90deg, ${C.teal}, #5fe8d6)`,
-    borderRadius: 20,
-  },
-  legend: { display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8 },
-  legendLabel: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 11,
-    color: C.inkFaint,
-    letterSpacing: "0.04em",
-  },
-  legendPill: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10.5,
-    padding: "3px 9px",
-    borderRadius: 20,
-    background: C.tealSoft,
-    color: C.teal,
-    border: `1px solid rgba(52,214,193,0.3)`,
-  },
-  body: {
-    maxWidth: 1180,
-    margin: "0 auto",
-    padding: "0 28px",
-    display: "flex",
-    gap: 34,
-    alignItems: "flex-start",
-  },
-  spine: {
-    position: "sticky",
-    top: 0,
-    alignSelf: "flex-start",
-    width: 210,
-    flexShrink: 0,
-    padding: "30px 0",
-    display: "flex",
-    flexDirection: "column",
-    gap: 2,
-  },
-  spineNode: {
-    display: "flex",
-    gap: 12,
-    textAlign: "left",
-    background: "transparent",
-    border: "none",
-    padding: "2px 0",
-  },
-  spineRail: { display: "flex", flexDirection: "column", alignItems: "center", width: 30 },
-  spineDot: {
-    width: 30,
-    height: 30,
-    borderRadius: "50%",
-    border: `1.5px solid ${C.line}`,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 11,
-    fontWeight: 500,
-    color: C.bg,
-    flexShrink: 0,
-  },
-  spineLine: { width: 2, flex: 1, minHeight: 26, background: C.line, marginTop: 2 },
-  spineText: { paddingBottom: 14, minWidth: 0 },
-  spineName: {
-    fontFamily: "'Space Grotesk', sans-serif",
-    fontSize: 14,
-    fontWeight: 600,
-    transition: "color .2s",
-  },
-  spineWindow: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10.5,
-    color: C.inkFaint,
-    marginTop: 2,
-  },
-  spineMini: {
-    height: 3,
-    background: C.panelHi,
-    borderRadius: 3,
-    marginTop: 7,
-    width: 90,
-    overflow: "hidden",
-  },
-  spineMiniFill: { height: "100%", borderRadius: 3, transition: "width .5s" },
-  frontLine: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10,
-    color: C.amber,
-    marginTop: 6,
-    letterSpacing: "0.05em",
-  },
-  reset: {
-    marginTop: 18,
-    marginLeft: 42,
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10.5,
-    color: C.inkFaint,
-    background: "transparent",
-    border: `1px solid ${C.line}`,
-    borderRadius: 6,
-    padding: "5px 10px",
-    alignSelf: "flex-start",
-    transition: "all .2s",
-  },
-  main: { flex: 1, minWidth: 0, padding: "30px 0 60px" },
-  filters: { display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 26 },
-  filterBtn: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 11.5,
-    padding: "6px 13px",
-    borderRadius: 20,
-    border: `1px solid ${C.line}`,
-    transition: "all .2s",
-  },
-  phaseBlock: { marginBottom: 40 },
-  phaseHead: {
-    display: "flex",
-    gap: 16,
-    alignItems: "flex-start",
-    paddingBottom: 16,
-    marginBottom: 16,
-    borderBottom: `1px solid ${C.line}`,
-  },
-  phaseTag: {
-    fontFamily: "'Space Grotesk', sans-serif",
-    fontSize: 30,
-    fontWeight: 700,
-    color: C.panelHi,
-    WebkitTextStroke: `1px ${C.line}`,
-    lineHeight: 1,
-    flexShrink: 0,
-  },
-  phaseName: {
-    fontFamily: "'Space Grotesk', sans-serif",
-    fontSize: 21,
-    fontWeight: 600,
-    margin: 0,
-    display: "flex",
-    alignItems: "baseline",
-    gap: 12,
-    flexWrap: "wrap",
-    letterSpacing: "-0.01em",
-  },
-  phaseWindow: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 11,
-    color: C.amber,
-    fontWeight: 400,
-    letterSpacing: "0.03em",
-  },
-  phaseThesis: { fontSize: 13.5, color: C.inkDim, margin: "6px 0 0", lineHeight: 1.5, maxWidth: 640 },
-  phasePct: {
-    fontFamily: "'Space Grotesk', sans-serif",
-    fontSize: 16,
-    fontWeight: 600,
-    color: C.inkDim,
-    flexShrink: 0,
-  },
-  moduleGrid: { display: "flex", flexDirection: "column", gap: 12 },
-  card: {
-    background: C.panel,
-    border: `1px solid ${C.line}`,
-    borderRadius: 12,
-    overflow: "hidden",
-    transition: "border-color .3s",
-  },
-  cardHead: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    gap: 16,
-    padding: "18px 20px 14px",
-    background: "transparent",
-    border: "none",
-    textAlign: "left",
-  },
-  cardHeadLeft: { minWidth: 0, flex: 1 },
-  cardTitleRow: { display: "flex", alignItems: "center", gap: 9 },
-  critDot: { color: C.amber, fontSize: 10, flexShrink: 0 },
-  cardTitle: {
-    fontFamily: "'Space Grotesk', sans-serif",
-    fontSize: 16.5,
-    fontWeight: 600,
-    margin: 0,
-    transition: "color .2s",
-    letterSpacing: "-0.01em",
-  },
-  cardWhy: { fontSize: 13, color: C.inkDim, margin: "6px 0 10px", lineHeight: 1.5 },
-  tagRow: { display: "flex", flexWrap: "wrap", gap: 6 },
-  sigPill: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10,
-    padding: "2.5px 8px",
-    borderRadius: 5,
-    background: C.panelHi,
-    color: C.inkDim,
-    border: `1px solid ${C.line}`,
-  },
-  metaPill: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10,
-    padding: "2.5px 8px",
-    borderRadius: 5,
-    border: "1px solid",
-    fontWeight: 500,
-  },
-  cardHeadRight: { display: "flex", alignItems: "center", gap: 14, flexShrink: 0 },
-  ring: { display: "flex", alignItems: "center", justifyContent: "center" },
-  ringPct: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 12,
-    fontWeight: 500,
-  },
-  chev: { color: C.inkFaint, fontSize: 12, transition: "transform .25s" },
-  cardBar: { height: 3, background: C.panelHi, width: "100%" },
-  cardBarFill: { height: "100%" },
-  cardBody: { padding: "16px 20px 20px" },
-  topicList: { listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 9 },
-  topicItem: { display: "flex", alignItems: "flex-start", gap: 11 },
-  check: {
-    width: 18,
-    height: 18,
-    borderRadius: 5,
-    border: `1.5px solid ${C.inkFaint}`,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0,
-    marginTop: 1,
-    transition: "all .15s",
-    padding: 0,
-  },
-  checkMark: { color: C.bg, fontSize: 11, fontWeight: 700, lineHeight: 1 },
-  topicText: { fontSize: 13.5, lineHeight: 1.5, cursor: "pointer", transition: "color .15s" },
-  buildBox: {
-    marginTop: 16,
-    padding: "12px 14px",
-    background: C.tealSoft,
-    borderRadius: 8,
-    borderLeft: `2px solid ${C.teal}`,
-    display: "flex",
-    gap: 10,
-    alignItems: "baseline",
-  },
-  buildLabel: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10,
-    letterSpacing: "0.12em",
-    color: C.teal,
-    flexShrink: 0,
-  },
-  buildText: { fontSize: 13, color: C.ink, lineHeight: 1.5 },
-  projectBox: {
-    marginTop: 12,
-    padding: "12px 14px",
-    background: C.amberSoft,
-    borderRadius: 8,
-    borderLeft: `2px solid ${C.amber}`,
-    display: "flex",
-    flexDirection: "column",
-    gap: 5,
-  },
-  projectLabel: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10,
-    letterSpacing: "0.12em",
-    color: C.amber,
-  },
-  projectLink: {
-    fontSize: 13.5,
-    fontWeight: 600,
-    color: C.teal,
-    textDecoration: "none",
-    lineHeight: 1.4,
-  },
-  projectItem: { display: "flex", flexDirection: "column", gap: 3 },
-  projectNote: { fontSize: 12.5, color: C.inkDim, lineHeight: 1.5 },
-  resRow: { marginTop: 12, display: "flex", flexWrap: "wrap", gap: 4, alignItems: "baseline" },
-  resLabel: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: 10.5,
-    color: C.inkFaint,
-    letterSpacing: "0.04em",
-    marginRight: 4,
-  },
-  resItem: { fontSize: 12, color: C.inkDim },
-  footer: { marginTop: 30, paddingTop: 22, borderTop: `1px solid ${C.line}` },
-  footNote: { fontSize: 13, color: C.inkDim, lineHeight: 1.6, maxWidth: 720 },
-};
+</script>
+</body>
+</html>

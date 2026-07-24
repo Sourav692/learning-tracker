@@ -2,281 +2,80 @@
 
 Scraped Udemy course curriculums on **prompt engineering** (via Playwright MCP). Each course is a `##` section below.
 
----
-
-## Prompt Engineering for Developers: The Definitive Guide
-
-- **Link:** https://www.udemy.com/course/prompt-engineering-definitive-guide/
-- **Scraped:** 2026-07-11
-- **Overview:** 11 sections · 128 lectures · ~16 hours. Project-based course that builds an "AI Toolbox" CLI (commits, code reviews, JSON output) while teaching prompting patterns.
-
-### 1. Introduction — _9 lectures • 25min_
-1. Introduction
-2. Why Learn Prompt Engineering?
-3. Aligning Expectations
-4. Course Project: What We Will Build
-5. Course Project: Module Breakdown
-6. Cost Overview for Using the OpenAI API
-7. Let's Stay Connected!
-8. Making the Most of This Course
-9. Course Resources
-
-### 2. Tools and Local Setup — _7 lectures • 19min_
-1. Section Introduction
-2. Python Local Setup
-3. OpenAI Setup Updates
-4. OpenAI Setup
-5. Anthropic Setup
-6. IMPORTANT! Setting Up Python and the Local Environment
-7. A Note on Using GitHub Copilot for Our Project
-
-### 3. Crash Course: The OpenAI Python Library — _12 lectures • 1hr 43min_
-1. Section Introduction
-2. Setting Up the Environment
-3. Handling Authentication
-4. Your First Chat Completion Call
-5. Fundamentals of API Interaction
-6. Introduction to LiteLLM
-7. Using LiteLLM with Anthropic
-8. The Response Object
-9. Useful Parameters: temperature and max_tokens
-10. IMPORTANT: Adapting to max_completion_tokens for GPT-5 Models
-11. Useful Parameters: stop, n, response_format
-12. Controlling Model Behavior with LiteLLM and Parameters
-13. Streaming
-14. Running LLMs Locally with Ollama
-
-### 4. AI Toolbox #1 - Setup and First Command — _6 lectures • 46min_
-1. Module 1: Overview
-2. Scaffold the Project
-3. Codebase Walkthrough
-4. Implement a Minimal CLI with Click
-5. AI-Powered Hello
-6. Testing Our Feature
-
-### 5. Foundations: How LLMs "Think" — _15 lectures • 1hr 35min_
-1. Section Introduction
-2. What Is Tokenization?
-3. Lab: Tokenization - Part 1
-4. Lab: Tokenization - Part 2
-5. Understanding Log Probabilities
-6. Lab: How LLMs Build Sentences
-7. The Context Window
-8. Explaining LLM Limitations to a Non-Technical Client
-9. Usage Cost Main Components
-10. Understanding Tokens, Context, and Costs
-11. Lab: Usage Cost - Part 1
-12. Lab: Usage Cost - Part 2
-13. Diagnosing and Explaining Rising API Costs
-14. Model Classes
-15. Prompt Roles
-16. Model Roles and Effective System Prompts
-17. Lab: System Prompts
-
-### 6. Core Prompting Patterns for Developers — _21 lectures • 2hr 16min_
-1. Section Introduction
-2. Instruction, Context, and Constraints
-3. Lab: Instruction, Context, and Constraints
-4. The Power of Delimiters: Delimiter Overview
-5. The Power of Delimiters: Refactoring a Prompt
-6. Lab: Using Delimiters
-7. Structuring a Prompt for Better Results
-8. The Persona Pattern
-9. Lab: The Persona Pattern
-10. Lab: Defining Behavioral Rules
-11. Lab: Example - Defining a DBA Expert
-12. Structuring Prompts for Clarity and Control
-13. Designing an Expert Code Reviewer Prompt
-14. Few-Shot Prompting
-15. Lab: Few-Shot Prompting
-16. Techniques for Formatting Output - Part 1
-17. Techniques for Formatting Output - Part 2
-18. The Chain-of-Thought Pattern
-19. Lab: Practicing Chain-of-Thought
-20. The Template Pattern
-21. Lab: Practicing the Template Pattern
-22. Advanced Techniques for Reasoning and Structured Output
-23. Building a Trustworthy AI Analysis Prompt
-
-### 7. AI Toolbox #2 - Smart Commits — _10 lectures • 1hr 54min_
-1. Module 2: Overview
-2. Scaffold the Commit Feature Boilerplate Code
-3. Retrieve the Git Diff
-4. Generate the Prompt Templates
-5. Implement the Commit Functionality
-6. Allow Commit Message Adjustments
-7. Improve the Test Suite
-8. Add Proper Logging to the Commit Feature
-9. Allow Choosing a Custom Model via the CLI
-10. Add Documentation
-
-### 8. Advanced Prompting Techniques — _14 lectures • 1hr 43min_
-1. Section Introduction
-2. Lab: Flip the Script Pattern - Part 1
-3. Lab: Flip the Script Pattern - Part 2
-4. Guiding with the "Flip the Script" Pattern
-5. Lab: Generate Prompts - Part 1
-6. Lab: Generate Prompts - Part 2
-7. Lab: The Decomposition Pattern
-8. Collaborative Prompting and Generation
-9. Decomposing a Complex AI Task
-10. Lab: The Self-Critique Pattern
-11. Lab: Implement Function Calling - Part 1
-12. Lab: Implement Function Calling - Part 2
-13. The "Real-World Data" Chatbot
-14. Lab: The Self-Consistency Pattern - Part 1
-15. Lab: The Self-Consistency Pattern - Part 2
-16. Advanced Task Processing and Tool Use
-
-### 9. AI Toolbox #3 - Smart Code Reviews — _20 lectures • 3hr 14min_
-1. Module 3: Overview
-2. Module TODOs Overview
-3. Migrate from Subprocess to GitPython
-4. Refactor Exceptions
-5. Scaffolding the Review Command
-6. Implementing Dataclasses and Helper Functions
-7. Integrating the Review Command into the CLI
-8. Implementing Logic and Syntax Review Prompts
-9. Leveraging LLMs for Reviews
-10. Creating Relevant Personas for More Advanced Analysis
-11. Implementing the Self-Consistency Workflow - Part 1
-12. Implementing the Self-Consistency Workflow - Part 2
-13. Define Functions for Tool Calling
-14. Implement a Lightweight Tool Registry - Part 1
-15. Implement a Lightweight Tool Registry - Part 2
-16. Fix Typing Issues
-17. Implement a First Draft for AI-Driven Tool Calling
-18. Improve the Tool Calling Loop
-19. Implement Tests for Tool Calling
-20. Add a Self-Critique Step in the Review
-
-### 10. AI Toolbox #4 - JSON and Markdown Output — _13 lectures • 2hr 10min_
-1. Module 4: Overview
-2. Start with Output Migration
-3. Split the Review Module into Multiple Files
-4. Fix Failing Tests
-5. Migrate Existing Prompts to Output JSON
-6. Update Existing Tests
-7. Migrate Review Pipeline and Helpers to Work with Dataclasses - Part 1
-8. Migrate Review Pipeline and Helpers to Work with Dataclasses - Part 2
-9. Complete Pipeline Migration
-10. Fix Minor Bugs
-11. Fix Existing Tests
-12. Implement Output Parsing for the Review Command
-13. Project Wrap-Up: Update Synthesis Logic and Project Documentation
-
-### 11. Conclusion — _1 lecture • 3min_
-1. Congratulations + BONUS Lecture!
+The first section synthesizes **what prompt-engineering & prompting topics are actually covered** across the two courses; the full per-course curriculums follow.
 
 ---
 
-## Prompt Engineering 2026: ChatGPT, Claude & AI Masterclass
+## 📌 Prompt Engineering & Prompt Topics Covered (synthesis)
 
-- **Link:** https://www.udemy.com/course/ai-prompt-engineering-masterclass-mk/
-- **Scraped:** 2026-07-11
-- **Overview:** 4 sections · 34 lectures. Beginner-to-advanced masterclass covering AI/LLM fundamentals, ChatGPT & Claude setup, core prompt structure, and advanced techniques (zero/few-shot, CoT, prompt chaining, multimodal).
+A distilled map of the **prompt-engineering / prompting** concepts taught across the two courses below. Non-prompting material (platform tours, coding SDK plumbing, image/video model UIs, RAG/agent infrastructure) is noted separately at the end so the prompting signal stays clean.
 
-### 1. Willkommen im ChatGPT Prompt Engineering Kurs! — _3 lectures • 17min_
-1. Why Prompt Engineering Is the Most In-Demand Skill of 2026 & About Your Teacher
-2. Your Roadmap: How to Get the Most From This Course
-3. How to Structure Your Learning for Maximum Results
+### Prompting foundations & principles
+- **What prompt engineering is & why it matters** — both courses open here.
+- **The Five Principles of Prompting** (Bootcamp): Give Direction, Specify Format, Provide Examples, Evaluate Quality, Divide Labor — with a worksheet/one-pager to apply them.
+- **Writing clear instructions** (Bootcamp): detailed/specific instructions, specifying the steps, using delimiters, specifying output length.
+- **Detailed & specific prompts + best practices** (Frameworks): the core "good prompt" habits.
+- **Prompt templates** — reusable, parameterized prompt structures (Frameworks; also LangChain `ChatPromptTemplate` in the Bootcamp).
+- **How models process prompts** (Bootcamp): tokens, chat vs reasoning models, AI hallucinations — the mental model behind prompt behavior.
 
-### 2. AI, ChatGPT & Claude Fundamentals 2026 — _9 lectures • 1hr 5min_
-1. What Is AI? ChatGPT and LLMs Explained for Complete Beginners
-2. ChatGPT vs Claude vs Gemini: Choosing the Right AI Tool
-3. How AI Actually Works: Neural Networks & Transformers Simply Explained
-4. Getting Started with Claude - Free Account Setup Step by Step
-5. Claude Cowork App for Agentic Daily Productivity
-6. Getting Started with ChatGPT - Account Setup and Interface Tour
-7. 10-Claude Privacy Settings and Personalization for Better Outputs
-8. 3 Layers of AI Personalization For Better Ourput
-9. ChatGPT and Claude on Mobile - AI Productivity Anywhere
-10. AI Fundamentals Check
+### Core prompting techniques
+- **Role / persona prompting** (both — Frameworks explicitly asks "does it even work?").
+- **Few-shot learning / providing examples** (both).
+- **Chain-of-Thought (CoT)** prompting (both).
+- **Self-consistency sampling** (both).
+- **Zero-shot helpers** (Bootcamp): Least-to-Most, Explain-It-Like-I'm-Five, Meta prompting.
+- **Emotion prompting** (Bootcamp).
+- **Reason + Act (ReAct)** (Bootcamp).
+- **Personas of Thought** (Bootcamp).
+- **Step-back prompting** (Frameworks).
+- **Chain-of-Density** for better summaries (Frameworks).
 
-### 3. Prompt Engineering for Beginners — _7 lectures • 57min_
-1. The 5 Elements of an Effective Prompt: Role, Task, Context, Format, Tone
-2. Writing Your First Prompts: From Vague to Precise
-3. Specific Prompts That Work Immediately Across Any Task
-4. One The Most Common Prompt Mistakes (and How to Fix It)
-5. Prompts with the Right Structure: Hands-On Exercise
-6. How to Effectively Iterate Prompts for Better Results
-7. Your Personal Prompt Library (Beginner): 10 Templates That Save 5+ Hours a Week
-8. Prompt Engineering Basics Quiz
+### Advanced "thought structure" prompting
+- **Tree-of-Thought** prompting (Frameworks).
+- **Skeleton-of-Thought** prompting (Frameworks).
+- **Program-of-Thought** prompting (Frameworks).
 
-### 4. Advanced Prompt Engineering Techniques — _12 lectures • 1hr 34min_
-1. Advanced Prompting Techniques - Overview
-2. Zero Shot Prompting Basics for Faster Output
-3. Few-Shot Prompting for Accurate Categorization
-4. Role Prompting: Unlock Specialist-Level Outputs
-5. Chain of Thought Prompting, When to Use It
-6. Clarifying Questions - Self-Prompting for Better Decisions
-7. Prompt Chaining: Breaking Complex Tasks Into Manageable Multi-Step Workflows
-8. Using Clear Section Labels for Better Prompts
-9. Claude Prefilled Structured Output Techniques
-10. Multimodal Inputs (Images, PDFs, Files) - SEO Example
-11. Using Claude Projects for Ongoing Context
-12. Your Prompt Library (Advanced): 10 Templates That Save 10-15+ Hours a Week
-13. Advanced Prompt Engineering Quiz
+### Output shaping & format control
+- **Different / structured output formats** (Bootcamp): custom formats, structured outputs.
+- **Sentiment analysis, review classification, tagging, claim detection** — task-shaped prompting (Bootcamp).
+- **Overcoming max output length / token limits**; pre-warming chats; asking for context (Bootcamp).
 
----
+### Prompt hyperparameters & tuning
+- **Prompt hyperparameters** (Frameworks): temperature & top-p; max tokens & stop sequence (length control); presence & frequency penalty (variety); tuning them together.
+- **Prompt tuning** (Frameworks): what it is + the implementation process (soft-prompt tuning, distinct from prompt *writing*).
 
-## Prompt and Context Engineering 101 for ChatGPT & Claude
+### Prompt optimization, evaluation & testing
+- **What evals are** and why (both).
+- **Prompt A/B testing** (Frameworks).
+- **Prompt evaluation tools:** PromptFoo (Frameworks); DSPy eval metrics & prompt optimization, prompt testing in Google Sheets no-code, RAG-system evals (Bootcamp).
+- **Prompt optimization** as a discipline — optimizing against the 5 principles, advanced optimization, DSPy primer (Bootcamp).
+- **Prompt caching** — concept + practice (Bootcamp).
 
-- **Link:** https://www.udemy.com/course/chatgpt-promptengineering/
-- **Scraped:** 2026-07-11
-- **Overview:** 4 sections · 36 lectures. Intro-level course on prompt types (zero/one/few-shot, CoT), learning-focused prompts, and advanced context engineering with Claude Code, Cowork, MCP connectors, and multi-agent teams.
+### Prompting beyond text (image / video models)
+- **Image prompting (Midjourney & Flux):** style modifiers, negative prompts, weighted terms, permutation prompts, prompt reverse-engineering, prompt token analysis, consistent characters (Bootcamp).
+- **Video prompting (Google Veo3):** JSON prompting, multi-shot prompting, spatial prompting with annotated frames (Bootcamp).
 
-### 1. Introduction — _6 lectures • 29min_
-1. Prompt Engineering Course Introduction
-2. Getting Started & Udemy FAQ
-3. Every Prompt is a Journey - Every Chat is a Blank Canvas
-4. Understanding Prompts and Their Importance in ChatGPT & Other AI Conversations
-5. Prompt Engineering Jobs Outlook
-6. ChatGPT 5 Demo
+### Applied / interview practice
+- **Mock-interview roleplays** demonstrating prompt-engineering technique (Frameworks).
+- **Text-model prompting projects** — ebooks, SEO articles, PRDs, summarization, thought-leadership posts, etc. (Bootcamp).
 
-### 2. Engineering Prompts for Learning with Focus Prompts — _5 lectures • 13min_
-1. Engineering Prompts for Learning with Focus Prompts Introduction
-2. Subject-Focused Learning Prompts
-3. Problem-Focused Learning Prompts
-4. Learner-Focused Learning Prompts
-5. Crafting the Right Prompt for a Struggling Learner
+### Adjacent (not prompt engineering per se — covered but out of scope for prompting)
+- OpenAI API/SDK plumbing (keys, Responses API, streaming, tiktoken, tool calling, structured outputs).
+- Retrieval/embeddings/vector DBs & RAG (Supabase PGVector, hybrid retrieval).
+- LangChain & LangGraph deep dives; agent architectures (routing, parallelization, orchestrators, evaluator-optimizer).
+- Platform/product tours (ChatGPT features, Gemini, LLaMA, Whisper, NotebookLM, Groq) and image/video tooling (Fal, ComfyUI, Kling, Runway).
 
-### 3. Shots & CoTs - Types of Prompts — _8 lectures • 20min_
-1. Shots & CoTs - Types of Prompts Introduction
-2. Chain-of-Thought Prompts - a.k.a. CoT Prompts
-3. Custom Instructions for ChatGPT (Available to ChatGPT Plus Subscribers Only)
-4. Zero-Shot Prompts
-5. Zero-Shot CoTs - Let's Think Step by Step
-6. One Shot Prompts
-7. Few Shot Prompts
-8. Choosing the Right Prompt Type for a Complex Task
-
-### 4. Advanced Prompt Engineering and Context Engineering with Claude Code and Cowork — _17 lectures • 1hr 29min_
-1. Connecting Claude to Canva with the Canva MCP Connector
-2. Using Multi-Agent Teams with Prompt and Context Guardrails
-3. Analyzing a Claude Code Session & What Went Wrong
-4. Setting Up Cowork as the Bridge Between Chat and Code
-5. Discovering the Quality Cliff & The 90-Character Wall
-6. Building the Brand Kit in Canva
-7. Generating the Presentation - Outline Review and First Attempt
-8. Hitting the Wall —-Timeouts and HTML or PowerPoint Fallback Paths Explored
-9. Pivoting Strategy - Chain of Thought Prompting (CoT) & Agent Team Requirements
-10. Human at the Helm - Why Durable Skills Matter More Than Ever
-11. Agent Team Requirements in Action with a Five-Phase Agent Architecture
-12. Launching an Agent Team from a staged one-liner in Claude Code
-13. Executing the Build with the Writer Phase and Local Compute
-14. Reviewing, Editing, and Committing the Build with Token Cost and Taste Calls
-15. Text Lesson Companion for this Section - Claude and Canva Agent Team Transcript
-16. Claude Opus 4.8 Released May 28, 2026 - Benchmarks and Updates
-17. BONUS
+### Quick take
+- **"Prompt Engineering Frameworks & Methodologies"** is the **prompting-pure** course: techniques, thought structures, hyperparameters, tuning, and evaluation — no coding-infra detours.
+- **"The Complete Prompt Engineering for AI Bootcamp"** is much broader: it covers all the core + advanced prompting techniques *plus* a full applied AI-engineering stack (APIs, RAG, agents, LangChain/LangGraph, image/video generation, evals).
 
 ---
 
 ## The Complete Prompt Engineering for AI Bootcamp (2026)
 
 - **Link:** https://www.udemy.com/course/prompt-engineering-for-ai/
-- **Scraped:** 2026-07-11
-- **Overview:** 21 sections · 216 lectures. Broad prompt-engineering bootcamp covering the 5 principles of prompting, deep dives on ChatGPT/Midjourney/Veo3, text & image model techniques, plus hands-on coding (OpenAI API, RAG/embeddings, LangChain, LangGraph, agents, evals/DSPy).
+- **Scraped:** 2026-07-24
+- **Overview:** 21 sections · 216 lectures. Broad prompt-engineering + applied AI-engineering bootcamp spanning text, image, and video models, with coding tracks (OpenAI SDK, RAG, LangChain/LangGraph, agents, evals).
 
 ### 1. Introduction — _8 lectures • 14min_
 1. Introduction to the Course
@@ -535,3 +334,63 @@ Scraped Udemy course curriculums on **prompt engineering** (via Playwright MCP).
 1. Free PDF Prompt Engineering Book (CH01)
 2. Sources of Inspiration
 3. Next steps after the course
+
+---
+
+## Prompt Engineering Frameworks & Methodologies
+
+- **Link:** https://www.udemy.com/course/prompt-engineering-frameworks/
+- **Scraped:** 2026-07-24
+- **Overview:** 8 sections · 36 lectures. A focused, prompting-pure course on frameworks, thought structures, hyperparameters, prompt tuning, and evaluation — with mock-interview roleplays.
+
+### 1. Introduction — _3 lectures • 14min_
+1. Introduction and course resources
+2. What is Prompt Engineering and why we need it?
+3. This is a milestone
+
+### 2. Prompt engineering basics and best practices — _3 lectures • 22min_
+1. Key to good prompting - Detailed and Specific prompts
+2. Prompting best practices
+3. Prompt templates
+4. Quiz
+
+### 3. Prompting frameworks — _7 lectures • 41min_
+1. Chain-of-thought prompting
+2. Step-back prompting
+3. Role prompting - does it even work?
+4. Self-consistency
+5. Chain-of-Density for better summaries
+6. Quiz
+7. About the upcoming roleplay
+8. Applying Prompt Engineering Techniques in a Mock Interview
+
+### 4. Thought structures — _3 lectures • 29min_
+1. Tree-of-thought prompting
+2. Skeleton-of-thought prompting
+3. Program-of-thought prompting
+4. Quiz
+
+### 5. Prompt hyperparameters and their tuning — _5 lectures • 36min_
+1. What are prompt hyperparameters
+2. Temperature and top-p
+3. Max tokens and Stop sequence for controlling length of output
+4. Presence penalty and frequency penalty for variety in response
+5. Tuning prompt parameters
+6. Quiz
+
+### 6. Prompt tuning — _2 lectures • 13min_
+1. What is prompt tuning
+2. Process of implementing prompt tuning
+3. Quiz
+
+### 7. Prompt evaluation — _5 lectures • 35min_
+1. Three ways of evaluating prompts
+2. Prompt A/B testing
+3. Prompt evaluation using PromptFoo
+4. Quiz
+5. Interview Role Play: Demonstrating Prompt Engineering Knowledge
+6. The final milestone!
+
+### 8. Conclusion — _2 lectures • 2min_
+1. About your certificate
+2. Bonus Lecture

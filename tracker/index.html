@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Plan by Topic — Study Tracker</title>
+<meta name="description" content="Topic-first view of the AI Engineering tracker: every track, its sub-topics, and all source links.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tracker.css">
+<meta name="theme-color" content="#0E1420">
+</head>
+<body>
+<header class="hdr">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a class="crumb" href="../files/fde-agentic-engineering-tracker.html">🎪 FDE Agentic Engineering Tracker</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb current" aria-current="page">Learning plan by topic</span>
+    </nav>
+    <p class="eyebrow">TOPIC-FIRST LEARNING PLAN</p>
+    <h1 class="h1">Study by <em>topic</em>, not by course</h1>
+    <p class="sub">The full AI Engineering tracker, grouped into collapsible <strong>sections</strong> — Certification,
+      Cohorts &amp; Bootcamps, the Core AI Engineering track, Forward Deployed Engineer Foundations, and Reference
+      &amp; Reading. Expand a section to browse its <strong>tracks</strong>; expand a track to see every topic it covers,
+      right here — no need to open the page. This view renders live from the tracker's own data, so it always stays in
+      sync.</p>
+    <div class="stat-row" id="stat-row"></div>
+    <div class="hub-controls">
+      <button class="hub-ctrl" id="hub-expand" type="button">＋ Expand all</button>
+      <button class="hub-ctrl" id="hub-collapse" type="button">－ Collapse all</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hub" id="hub"></section>
+  <p class="foot">Entry point: <a href="../files/fde-agentic-engineering-tracker.html">FDE Agentic Engineering Tracker</a> ·
+    Track pages live at <code>topics/&lt;slug&gt;.html</code>. Only <strong>Claude Code</strong> has a curated,
+    phase-wise plan today; every track lists its resources and preserves all source links.</p>
+</main>
+
+<script src="../data.js"></script>
+<script src="tracker.js"></script>
+<!-- One-time migration of progress from the old tracker (seeds localStorage before the app reads it). -->
+<script src="hub-seed.js"></script>
+<!-- Editing + cloud-sync layer: renders the hub itself (merged model), then wires auth/sync.
+     If these fail to load, the inline fallback below renders the read-only seed. -->
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="tracker-app.js"></script>
+<script>
+  // Fallback: if the editing layer didn't load (offline CDN, blocked, etc.),
+  // still render the read-only hub from the seed so the page is never blank.
+  if (!window.LT_EDIT) { LT_TRACKER.renderHub("hub"); }
+</script>
+<!-- Bespoke 3D hero animation (anime.js). Loads after content; degrades gracefully. -->
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+<script src="tracker-hero.js"></script>
+</body>
+</html>

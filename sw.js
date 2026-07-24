@@ -1,19 +1,24 @@
 // Service worker — offline app shell for the Learning Trackers PWA.
 // Bump CACHE when shipping changes so clients pick up new assets.
-const CACHE = 'lt-shell-v5';
+const CACHE = 'lt-shell-v13';
 const SHELL = [
   './',
   './index.html',
-  './ai-engineering.html',
   './data-engineering.html',
   './databricks.html',
   './styles.css',
-  './app.js',
-  './auth.js',
   './data.js',
-  './config.js',
+  './home-hero.js',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './tracker/index.html',
+  './tracker/tracker.js',
+  './tracker/tracker.css',
+  './tracker/tracker-app.js',
+  './tracker/tracker-hero.js',
+  './tracker/hub-seed.js',
+  './tracker/config.js',
+  './tracker/topic-status.js'
 ];
 
 self.addEventListener('install', e => {
@@ -37,9 +42,6 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
-
-  // Never cache Supabase API/auth/realtime traffic — always hit the network.
-  if (url.hostname.endsWith('supabase.co')) return;
 
   const sameOrigin = url.origin === location.origin;
 
