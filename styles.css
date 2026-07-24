@@ -551,3 +551,33 @@ body.signed-out .signin-panel{display:block}
 }
 /* hide completed items when the board opts in */
 .board-hide-done .item.st-done{display:none}
+
+/* ===========================================================================
+   3D hero animation (home-hero.js) — circus confetti depth field + reveals
+   =========================================================================== */
+.home3d{position:absolute;inset:0;z-index:1;pointer-events:none}
+.home3d canvas{position:absolute;inset:0;width:100%;height:100%}
+/* keep the tent emblem above the confetti canvas */
+.home-banner .home-tent{z-index:2}
+/* the tracks grid needs 3D depth for the card entrance + tilt */
+.tracks{perspective:1400px}
+.home3d-on .track-card{transform-style:preserve-3d;will-change:transform,opacity}
+
+/* When JS drives the reveal, cancel the CSS entrance and pre-hide copy/cards so
+   nothing flashes before anime.js runs. */
+.home3d-on .track-card{animation:none;opacity:0}
+.home3d-on .home-eyebrow,
+.home3d-on .home-sub,
+.home3d-on .ht-word{opacity:0}
+.home3d-on .home-title{perspective:800px}
+.home3d-on .ht-word{display:inline-block;transform-origin:50% 100%;will-change:transform,opacity}
+.home3d-on .home-tent{opacity:0}
+
+@media (prefers-reduced-motion:reduce){
+  .home3d-on .track-card,
+  .home3d-on .home-eyebrow,
+  .home3d-on .home-sub,
+  .home3d-on .ht-word,
+  .home3d-on .home-tent{opacity:1;transform:none}
+  .home3d-on .track-card{animation:none}
+}

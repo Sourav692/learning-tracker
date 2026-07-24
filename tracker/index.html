@@ -44,6 +44,20 @@
 
 <script src="../data.js"></script>
 <script src="tracker.js"></script>
-<script>LT_TRACKER.renderHub("hub");</script>
+<!-- One-time migration of progress from the old tracker (seeds localStorage before the app reads it). -->
+<script src="hub-seed.js"></script>
+<!-- Editing + cloud-sync layer: renders the hub itself (merged model), then wires auth/sync.
+     If these fail to load, the inline fallback below renders the read-only seed. -->
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="tracker-app.js"></script>
+<script>
+  // Fallback: if the editing layer didn't load (offline CDN, blocked, etc.),
+  // still render the read-only hub from the seed so the page is never blank.
+  if (!window.LT_EDIT) { LT_TRACKER.renderHub("hub"); }
+</script>
+<!-- Bespoke 3D hero animation (anime.js). Loads after content; degrades gracefully. -->
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+<script src="tracker-hero.js"></script>
 </body>
 </html>
