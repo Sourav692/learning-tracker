@@ -1,6 +1,6 @@
 // Service worker — offline app shell for the Learning Trackers PWA.
 // Bump CACHE when shipping changes so clients pick up new assets.
-const CACHE = 'lt-shell-v7';
+const CACHE = 'lt-shell-v13';
 const SHELL = [
   './',
   './index.html',
@@ -8,11 +8,17 @@ const SHELL = [
   './databricks.html',
   './styles.css',
   './data.js',
+  './home-hero.js',
   './manifest.json',
   './icon.svg',
   './tracker/index.html',
   './tracker/tracker.js',
-  './tracker/tracker.css'
+  './tracker/tracker.css',
+  './tracker/tracker-app.js',
+  './tracker/tracker-hero.js',
+  './tracker/hub-seed.js',
+  './tracker/config.js',
+  './tracker/topic-status.js'
 ];
 
 self.addEventListener('install', e => {

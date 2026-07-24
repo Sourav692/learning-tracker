@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Track — Learning Tracker</title>
+<meta name="description" content="A single track from the AI Engineering learning plan — sub-topics, resources, and all source links.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../tracker.css">
+<meta name="theme-color" content="#0E1420">
+</head>
+<body>
+<header class="hdr">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a class="crumb" href="../../files/fde-agentic-engineering-tracker.html">🎪 Tracker</a>
+      <span class="crumb-sep">/</span>
+      <a class="crumb" href="../index.html">Topics</a>
+      <span class="crumb-sep">/</span>
+      <span class="crumb current" id="crumb-current" aria-current="page">…</span>
+    </nav>
+    <p class="eyebrow">STUDY TRACK</p>
+    <h1 class="h1" id="tk-title">…</h1>
+    <p class="sub" id="tk-sub"></p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="topic"></div>
+  <p class="foot"><a href="../index.html">← All tracks</a> ·
+    Entry point: <a href="../../files/fde-agentic-engineering-tracker.html">FDE Agentic Engineering Tracker</a></p>
+</main>
+
+<script src="../../data.js"></script>
+<script src="../tracker.js"></script>
+<!-- Status layer: makes progress dots reflect saved status + clickable to cycle, synced with the hub. -->
+<!-- One-time migration of progress from the old tracker (same seed the hub uses). -->
+<script src="../hub-seed.js"></script>
+<script src="../config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../topic-status.js"></script>
+<script>LT_TRACKER.renderTopic("public-presence-technical-storytelling", "topic");</script>
+</body>
+</html>

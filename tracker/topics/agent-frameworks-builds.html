@@ -36,6 +36,12 @@
 
 <script src="../../data.js"></script>
 <script src="../tracker.js"></script>
+<!-- Status layer: makes progress dots reflect saved status + clickable to cycle, synced with the hub. -->
+<!-- One-time migration of progress from the old tracker (same seed the hub uses). -->
+<script src="../hub-seed.js"></script>
+<script src="../config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../topic-status.js"></script>
 <script>LT_TRACKER.renderTopic("agent-frameworks-builds", "topic");</script>
 </body>
 </html>

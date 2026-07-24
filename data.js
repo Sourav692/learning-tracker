@@ -2,22 +2,32 @@
 // Users' own additions/edits/reorderings are layered on top of this at runtime.
 window.LEARNING_DATA = [
   {
-    "title": "🎓 Cohorts & Bootcamps",
+    "title": "🎓 Google GenAI Academy",
     "topics": [
       {
-        "title": "Google GenAI Academy",
+        "title": "Cohort",
         "items": [
           { "t": "Google Cohort", "link": "https://hack2skill.com/event/apac-genaiacademy-c2/dashboard/roadmap" }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "title": "🎓 Analytics Vidhya - Agentic AI Pioneer Program",
+    "topics": [
       {
-        "title": "Analytics Vidhya - Agentic AI Pioneer Program",
+        "title": "Program",
         "items": [
           { "t": "Analytics Vidhya Assessment - Mentorship Assessment (31st March)", "done": true }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "title": "🎓 Become an AI Engineer | Learn by Doing - ByteByteGo",
+    "topics": [
       {
-        "title": "Become an AI Engineer | Learn by Doing - ByteByteGo",
+        "title": "Weekly Schedule",
         "items": [
           { "t": "02. WEEK 1 - Guided Learning LLM Foundations" },
           { "t": "03_WEEK_2_Deep_Dive_Project_1_Build_an_LLM_Playground_Sat_11th_Oct" },
@@ -32,9 +42,14 @@ window.LEARNING_DATA = [
           { "t": "12_WEEK_6_Capstone_Project_Demo_and_Presentation_Sun_9th_Nov" },
           { "t": "13. FINAL Extra Demo and Presentation (Sun 30th Nov)" }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "title": "🎓 Systematically Improving RAG Applications",
+    "topics": [
       {
-        "title": "Systematically Improving RAG Applications",
+        "title": "Weekly Schedule",
         "items": [
           { "t": "Week 1", "badge": "prog" },
           { "t": "Week 2" },
@@ -45,14 +60,64 @@ window.LEARNING_DATA = [
           { "t": "Week 7" },
           { "t": "Week 8" }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "title": "🎓 Bootcamps & Courses",
+    "topics": [
       {
-        "title": "Bootcamps & Courses",
+        "title": "Courses",
         "items": [
           { "t": "AI Engineering from Scratch", "link": "https://aiengineeringfromscratch.com/" },
           { "t": "AI Hero: A 12-Month Journey Taking You from Zero to Expert", "link": "https://www.udemy.com/course/ai-hero-a-12-month-journey-taking-you-from-zero-to-expert/?couponCode=CP260518SUMMXIN" },
           { "t": "Certified AI Engineering Masterclass: From Zero to AI Hero", "link": "https://www.udemy.com/course/ai-engineering-masterclass-from-zero-to-ai-hero/?couponCode=CP260518SUMMXIN" },
           { "t": "Data Science Academy", "link": "https://www.udemy.com/user/muhammad-usman-mallick-2/" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "🎓 Anthropic Academy",
+    "topics": [
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Claude Code 101", "link": "https://anthropic.skilljar.com/claude-code-101" },
+          { "t": "Claude Platform 101", "link": "https://anthropic.skilljar.com/claude-platform-101" },
+          { "t": "Introduction to Claude Cowork", "link": "https://anthropic.skilljar.com/introduction-to-claude-cowork" },
+          { "t": "Claude Code in Action", "link": "https://anthropic.skilljar.com/claude-code-in-action" },
+          { "t": "Building with the Claude API", "link": "https://anthropic.skilljar.com/claude-with-the-anthropic-api" },
+          { "t": "Introduction to Model Context Protocol", "link": "https://anthropic.skilljar.com/introduction-to-model-context-protocol" },
+          { "t": "Model Context Protocol: Advanced Topics", "link": "https://anthropic.skilljar.com/model-context-protocol-advanced-topics" },
+          { "t": "Introduction to agent skills", "link": "https://anthropic.skilljar.com/introduction-to-agent-skills" },
+          { "t": "Introduction to subagents", "link": "https://anthropic.skilljar.com/introduction-to-subagents" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "🎓 LangChain Academy",
+    "topics": [
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Foundation: Introduction to LangGraph - Python", "link": "https://academy.langchain.com/courses/intro-to-langgraph" },
+          { "t": "Foundation: Introduction to Agent Observability & Evaluations", "link": "https://academy.langchain.com/courses/intro-to-langsmith" },
+          { "t": "Foundation: Building Reliable Agents", "link": "https://academy.langchain.com/courses/building-reliable-agents" },
+          { "t": "Foundation: Monitoring Production Agents", "link": "https://academy.langchain.com/courses/production-monitoring" },
+          { "t": "Quickstart: LangSmith Fleet", "link": "https://academy.langchain.com/courses/quickstart-agent-builder" },
+          { "t": "Quickstart: LangSmith Essentials", "link": "https://academy.langchain.com/courses/quickstart-langsmith-essentials" },
+          { "t": "Quickstart: LangGraph Essentials - Python", "link": "https://academy.langchain.com/courses/langgraph-essentials-python" },
+          { "t": "Quickstart: LangChain Essentials - Python", "link": "https://academy.langchain.com/courses/langchain-essentials-python" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Project: Deep Agents", "link": "https://academy.langchain.com/courses/deep-agents-with-langgraph" },
+          { "t": "Project: Ambient Agents with LangGraph", "link": "https://academy.langchain.com/courses/ambient-agents" },
+          { "t": "Project: Deep Research with LangGraph", "link": "https://academy.langchain.com/courses/deep-research-with-langgraph" }
         ]
       }
     ]
@@ -110,20 +175,6 @@ window.LEARNING_DATA = [
         ]
       },
       {
-        "title": "Anthropic Academy",
-        "items": [
-          { "t": "Claude Code 101", "link": "https://anthropic.skilljar.com/claude-code-101" },
-          { "t": "Claude Platform 101", "link": "https://anthropic.skilljar.com/claude-platform-101" },
-          { "t": "Introduction to Claude Cowork", "link": "https://anthropic.skilljar.com/introduction-to-claude-cowork" },
-          { "t": "Claude Code in Action", "link": "https://anthropic.skilljar.com/claude-code-in-action" },
-          { "t": "Building with the Claude API", "link": "https://anthropic.skilljar.com/claude-with-the-anthropic-api" },
-          { "t": "Introduction to Model Context Protocol", "link": "https://anthropic.skilljar.com/introduction-to-model-context-protocol" },
-          { "t": "Model Context Protocol: Advanced Topics", "link": "https://anthropic.skilljar.com/model-context-protocol-advanced-topics" },
-          { "t": "Introduction to agent skills", "link": "https://anthropic.skilljar.com/introduction-to-agent-skills" },
-          { "t": "Introduction to subagents", "link": "https://anthropic.skilljar.com/introduction-to-subagents" }
-        ]
-      },
-      {
         "title": "Claude Cowork",
         "items": [
           { "t": "The Complete Claude Code & Claude Cowork Masterclass [2026]", "link": "https://www.udemy.com/course/claude-aiagents-cowork-masterclass/?couponCode=PMNVD2025", "stars": 6 },
@@ -177,27 +228,6 @@ window.LEARNING_DATA = [
           { "t": "Agentic AI: Deploy LangChain v1 Agent Projects to Production", "link": "https://www.udemy.com/course/langchain-ai-agent-projects/", "stars": 6 },
           { "t": "Ultimate RAG Bootcamp Using Langchain,LangGraph & Langsmith", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/" },
           { "t": "Complete Agentic AI Bootcamp With LangGraph and Langchain", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/" }
-        ]
-      },
-      {
-        "title": "LangChain Academy — Courses",
-        "items": [
-          { "t": "Foundation: Introduction to LangGraph - Python", "link": "https://academy.langchain.com/courses/intro-to-langgraph" },
-          { "t": "Foundation: Introduction to Agent Observability & Evaluations", "link": "https://academy.langchain.com/courses/intro-to-langsmith" },
-          { "t": "Foundation: Building Reliable Agents", "link": "https://academy.langchain.com/courses/building-reliable-agents" },
-          { "t": "Foundation: Monitoring Production Agents", "link": "https://academy.langchain.com/courses/production-monitoring" },
-          { "t": "Quickstart: LangSmith Fleet", "link": "https://academy.langchain.com/courses/quickstart-agent-builder" },
-          { "t": "Quickstart: LangSmith Essentials", "link": "https://academy.langchain.com/courses/quickstart-langsmith-essentials" },
-          { "t": "Quickstart: LangGraph Essentials - Python", "link": "https://academy.langchain.com/courses/langgraph-essentials-python" },
-          { "t": "Quickstart: LangChain Essentials - Python", "link": "https://academy.langchain.com/courses/langchain-essentials-python" }
-        ]
-      },
-      {
-        "title": "LangChain Academy — Projects",
-        "items": [
-          { "t": "Project: Deep Agents", "link": "https://academy.langchain.com/courses/deep-agents-with-langgraph" },
-          { "t": "Project: Ambient Agents with LangGraph", "link": "https://academy.langchain.com/courses/ambient-agents" },
-          { "t": "Project: Deep Research with LangGraph", "link": "https://academy.langchain.com/courses/deep-research-with-langgraph" }
         ]
       },
       {
@@ -373,6 +403,1051 @@ window.LEARNING_DATA = [
         "items": [
           { "t": "OpenAI API Docs: Rate Limits", "link": "https://developers.openai.com/api/docs/guides/rate-limits" },
           { "t": "Follow Krish Naik Youtube Channel", "link": "https://www.youtube.com/@krishnaik06/videos" }
+        ]
+      }
+    ]
+  },
+  // --- FDE-mirrored AI Engineering module tracks (phase = hub section, module = track; structure mirrors files/fde-agentic-engineering-tracker) ---
+  {
+    "title": "Position against the real FDE bar",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Read the live Anthropic + OpenAI FDE job descriptions line by line" },
+          { "t": "Map each RSA engagement (Barclays, AIA, Bajaj) to a JD requirement" },
+          { "t": "Write your honest gap list: full-stack TS, formal eval rigor, MCP depth, safety literacy" },
+          { "t": "Decide target teams / geos + confront the visa + relocation reality" },
+          { "t": "Lock your 2 flagship capstones now (Insurance Claims + Post-Trade Recon)" },
+          { "t": "Set a public build cadence (repo + writeup per capstone milestone)" },
+          { "t": "Map the Anthropic + OpenAI product surface (API, Claude Code, Cowork, connectors/MCP) so you can advise build-vs-buy" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Math & ML intuition for LLMs",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Linear algebra for attention: dot products, matmuls, softmax" },
+          { "t": "Probability & sampling: logits, temperature, top-p / top-k" },
+          { "t": "Gradients & backprop — conceptual, not from scratch" },
+          { "t": "Embeddings as geometry (why nearest-neighbour works)" },
+          { "t": "Next-token objective & cross-entropy loss" },
+          { "t": "Tokenization (BPE, SentencePiece) and where it bites you in production" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Transformer architecture",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Self-attention & multi-head attention" },
+          { "t": "Positional encodings (RoPE) and long-context" },
+          { "t": "Decoder-only vs encoder-decoder" },
+          { "t": "Residual streams, layernorm, the block" },
+          { "t": "KV cache; prefill vs decode (why latency behaves as it does)" },
+          { "t": "Decoding strategies: greedy, beam, sampling" },
+          { "t": "Inference internals awareness: Flash Attention, MoE, speculative decoding (drives cost/latency)" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Model landscape & Hugging Face",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Frontier vs open model families & their tradeoffs" },
+          { "t": "HF Hub / Transformers / Datasets ecosystem" },
+          { "t": "Serving OSS models: vLLM / TGI awareness" },
+          { "t": "Quantization intuition (GGUF / AWQ)" },
+          { "t": "Adaptation decision: prompt vs RAG vs fine-tune" },
+          { "t": "LoRA / PEFT + SFT basics — and when fine-tuning is the wrong answer" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "AI-Powered Content Summarization", "link": "https://www.krishnaik.in/project/ai-powered-content-summarization", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Pretraining, fine-tuning & RL (optional)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "① Pretraining — objective, data pipelines, scaling laws (Chinchilla)" },
+          { "t": "Tokenization & data curation at scale; compute / cost of a training run" },
+          { "t": "Distributed training: data / tensor / pipeline parallelism (awareness)" },
+          { "t": "② Fine-tuning — SFT / instruction tuning" },
+          { "t": "Parameter-efficient FT: LoRA, QLoRA, adapters" },
+          { "t": "Full FT vs PEFT vs prompt / RAG — the adaptation decision" },
+          { "t": "Distillation & quantization for deployment" },
+          { "t": "Data prep for a fine-tune; how to eval whether it actually helped" },
+          { "t": "③ RL & alignment — RLHF (reward model + PPO)" },
+          { "t": "RLAIF & Constitutional AI" },
+          { "t": "DPO & preference optimization (simpler alternatives to PPO)" },
+          { "t": "Reward hacking, over-optimization & alignment pitfalls" },
+          { "t": "When fine-tuning / RL is the wrong tool (usually — for an FDE)" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "AI-Powered Web App with LLM Fine-Tuning", "link": "https://www.krishnaik.in/project/bs", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Prompt & context engineering",
+    "topics": [
+      {
+        "title": "Prompt Engineering — Topics",
+        "items": [
+          { "t": "Foundations: what prompt engineering is & why it matters; tokens, chat vs. reasoning models, hallucinations" },
+          { "t": "The Five Principles of Prompting: Give Direction, Specify Format, Provide Examples, Evaluate Quality, Divide Labor" },
+          { "t": "Writing clear instructions: detailed/specific prompts, specifying the steps, delimiters, specifying length" },
+          { "t": "System / developer / user roles & message design" },
+          { "t": "Prompt templates (placeholders, reusable/parameterized structures) & best practices" },
+          { "t": "Core techniques: role/persona, few-shot / example selection, least-to-most, ELI5, meta prompting" },
+          { "t": "Reasoning techniques: Chain-of-Thought, self-consistency, ReAct, step-back, emotion prompting, personas of thought, chain-of-density" },
+          { "t": "Tool-use prompting & decomposition (CoT, ReAct, plan-then-act)" },
+          { "t": "Thought structures: Tree-of-Thought, Skeleton-of-Thought, Program-of-Thought" },
+          { "t": "Reasoning models & extended thinking: CoT / ToT, and when to reach for one" },
+          { "t": "Output shaping: structured / JSON outputs, constrained decoding, format control, classification / tagging" },
+          { "t": "Prompt hyperparameters & tuning: temperature, top-p, max tokens, stop sequence, presence/frequency penalty; soft prompts" },
+          { "t": "Prompt optimization & evaluation: evals, A/B testing, PromptFoo, DSPy, prompt caching" },
+          { "t": "Prompt versioning & management (treat prompts like code); defensive prompting & prompt-injection resistance" },
+          { "t": "XML prompting (Claude-specific) & structured prompt formats" },
+          { "t": "Multimodal prompting: image (Midjourney / Flux) & video (Veo3)" }
+        ]
+      },
+      {
+        "title": "Context Engineering — Topics",
+        "items": [
+          { "t": "Prompt engineering vs. context engineering (prompt eng. as a subset; context engineering as the real discipline)" },
+          { "t": "Taxonomy of context types: instruction, query/user, knowledge (RAG), memory, tool, user-specific, environmental/temporal" },
+          { "t": "Modular, conditional context construction within finite windows" },
+          { "t": "Context-window budgeting, compression & prompt caching" },
+          { "t": "Memory context: short-term (session) vs. long-term (cross-session); loading persistent → working memory" },
+          { "t": "Long-term memory design: storage (logs / summaries / hybrid), retrieval, caching, maintenance (dedup / clustering / decay)" },
+          { "t": "Dynamic context injection: real-time data, current date/time, tool outputs" },
+          { "t": "Temporal context & knowledge decay; progressive summarization; injection methods (event-driven, scheduled, user-specific)" },
+          { "t": "Knowledge context & RAG hand-off; user-specific context & personalization (profiles, preferences, privacy)" }
+        ]
+      },
+      {
+        "title": "Courses & Reading",
+        "items": [
+          { "t": "The Complete Prompt Engineering for AI Bootcamp (2026)", "link": "https://www.udemy.com/course/prompt-engineering-for-ai/", "tags": ["udemy"] },
+          { "t": "Prompt Engineering Frameworks & Methodologies", "link": "https://www.udemy.com/course/prompt-engineering-frameworks/", "tags": ["udemy"] },
+          { "t": "LLMOps Crash Course Part 5 — Prompt/Context Engineering Fundamentals", "link": "https://www.dailydoseofds.com/llmops-crash-course-part-5/" },
+          { "t": "LLMOps Crash Course Part 6 — Prompt Management, Defense & Control", "link": "https://www.dailydoseofds.com/llmops-crash-course-part-6/" },
+          { "t": "LLMOps Crash Course Part 7 — Context Engineering & Taxonomy of Context Types", "link": "https://www.dailydoseofds.com/llmops-crash-course-part-7/" },
+          { "t": "LLMOps Crash Course Part 8 — Memory & Temporal Context", "link": "https://www.dailydoseofds.com/llmops-crash-course-part-8/" }
+        ]
+      },
+      {
+        "title": "Build",
+        "items": [
+          { "t": "A versioned prompt library + a schema-validated structured extractor", "tags": ["build"] }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Telegram Chatbot (stateful context)", "link": "https://www.krishnaik.in/project/zomato-chatbot-using-chainlit", "tags": ["project"] }
+        ]
+      },
+      {
+        "title": "Resources",
+        "items": [
+          { "t": "Anthropic prompt engineering docs", "link": "https://platform.claude.com/docs/en/docs/build-with-claude/prompt-engineering/overview", "tags": ["docs"] },
+          { "t": "OpenAI structured outputs docs", "link": "https://platform.openai.com/docs/guides/structured-outputs", "tags": ["docs"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Embeddings & vector databases",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Embedding models & tradeoffs; cosine / dot / L2" },
+          { "t": "Embedding models in practice: HuggingFace vs OpenAI; embedding visualization; semantic & similarity search" },
+          { "t": "Chunking strategies (fixed, semantic, hierarchical)" },
+          { "t": "ANN indexes: HNSW, IVF, PQ" },
+          { "t": "pgvector vs Pinecone vs Weaviate vs Qdrant / Milvus / FAISS / Chroma / Astra / InMemory / Databricks Vector Search" },
+          { "t": "Vector store vs. vector database; adding/updating documents in an existing store" },
+          { "t": "Metadata filtering & hybrid search (BM25 + dense); reranking & MMR" },
+          { "t": "Scaling, freshness, and cost of a vector store" }
+        ]
+      },
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Vector Databases Fundamentals to Production [2026 Edition] — primary course; drives the phase plan", "link": "https://www.udemy.com/course/vector-databases-ai/", "tags": ["udemy"] },
+          { "t": "Ultimate RAG Bootcamp Using Langchain, LangGraph & Langsmith (vector/embedding parts: §6–9)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["udemy"] }
+        ]
+      },
+      {
+        "title": "Build",
+        "items": [
+          { "t": "Index a real corpus in pgvector + one managed store; benchmark recall / latency / cost", "tags": ["build"] }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "End-to-End Medical Chatbot (Pinecone RAG)", "link": "https://www.krishnaik.in/project/end-to-end-medical-chatbot", "tags": ["project"] },
+          { "t": "Knowledge Intelligence System (RAG)", "link": "https://www.krishnaik.in/project/knowledge-intelligence-system", "tags": ["project"] }
+        ]
+      },
+      {
+        "title": "Resources",
+        "items": [
+          { "t": "pgvector docs", "link": "https://github.com/pgvector/pgvector", "tags": ["docs"] },
+          { "t": "Pinecone docs (managed store)", "link": "https://docs.pinecone.io/", "tags": ["docs"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "RAG: naive → production",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "The RAG loop & why retrieval is the bottleneck" },
+          { "t": "Reranking (cross-encoders / rerank APIs)" },
+          { "t": "Citations & grounding enforcement" },
+          { "t": "Chunk / window tradeoffs & parent-child retrieval in practice" },
+          { "t": "Freshness & incremental indexing" },
+          { "t": "Failure taxonomy: retrieval error vs generation error" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "RAG-Based Document Search Application", "link": "https://www.krishnaik.in/project/building-a-rag-based-document-search-application", "tags": ["project"] },
+          { "t": "Flipkart Recommender Chatbot (RAG)", "link": "https://www.krishnaik.in/project/flipkart-product-recommender-chatbot-with-rag", "tags": ["project"] },
+          { "t": "Air India RAG Chatbot (Bedrock)", "link": "https://www.krishnaik.in/project/air-india-rag-chatbot-development", "tags": ["project"] },
+          { "t": "End-to-End RAG Document Search Project (Ultimate RAG Bootcamp §29)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["project", "course"] },
+          { "t": "Hands-On RAG Project — chat with your data (Gen AI with Context §4)", "link": "https://www.udemy.com/course/generative-ai-with-context-rag-cag-kag-applications/", "tags": ["project", "course"] },
+          { "t": "Chat-with-PDF RAG app (Full-stack GenAI with Python)", "link": "https://www.udemy.com/course/full-stack-ai-with-python/", "tags": ["project", "course"] },
+          { "t": "Multi-user Conversational RAG System (RAG Systems Essentials)", "link": "https://courses.analyticsvidhya.com/courses/take/rag-systems-essentials/lessons/60149553-brief-on-agentic-rag-systems", "tags": ["project", "course"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Advanced RAG & GraphRAG",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Query transformation: rewriting, HyDE, decomposition, fusion (RRF)" },
+          { "t": "Multi-hop & iterative retrieval" },
+          { "t": "Named variants: RAPTOR, Self-RAG, CRAG (corrective), adaptive RAG — when each applies" },
+          { "t": "Agentic RAG (retrieval as a tool the agent calls)" },
+          { "t": "GraphRAG: entity / community graphs (incl. LightRAG) — when it beats vector RAG" },
+          { "t": "RAG evaluation with ragas (faithfulness, context precision/recall)" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Enterprise Advanced RAG (HyDE, CRAG, Self-RAG, Text2SQL, Guardrails)", "link": "https://www.krishnaik.in/project/enterprise-advanced-rag-with-hybrid-search-reranking-hyde-crag-self-rag-text2sql-caching-and-guardrails-in-langgraph", "tags": ["project"] },
+          { "t": "Neural-Semantic Job Matching (LLM + MCP)", "link": "https://www.krishnaik.in/project/neural-semantic-matching-protocol-for-real-time-job-interoperability", "tags": ["project"] },
+          { "t": "Agentic RAG project (Ultimate RAG Bootcamp §16, LangGraph)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["project", "course"] },
+          { "t": "Production Agentic RAG — RAGWire, hybrid search, multi-agent, deploy (Advanced RAG: Build & Deploy)", "link": "https://www.udemy.com/course/advanced-rag-build-deploy-production-genai-apps/", "tags": ["project", "course"] },
+          { "t": "Real-World Agentic RAG — Gym Supplements use case (Advanced RAG: Build & Deploy §6)", "link": "https://www.udemy.com/course/advanced-rag-build-deploy-production-genai-apps/", "tags": ["project", "course"] },
+          { "t": "Hands-On KAG Project — knowledge-graph augmented generation (Gen AI with Context §8)", "link": "https://www.udemy.com/course/generative-ai-with-context-rag-cag-kag-applications/", "tags": ["project", "course"] },
+          { "t": "GraphRAG with Python & LangChain (Graph Databases: Neo4j/RDF/GraphRAG §13)", "link": "https://www.udemy.com/course/graph-databases-neo4j-rdf-knowledge-graphs-graphrag/", "tags": ["project", "course"] },
+          { "t": "Knowledge Graph from unstructured data with LLMs (Neo4j: Cypher/GDS §9)", "link": "https://www.udemy.com/course/knowledge-graph-with-neo4j-cypher-gds/", "tags": ["project", "course"] },
+          { "t": "Fraud detection with Knowledge Graphs (Graph Databases §11)", "link": "https://www.udemy.com/course/graph-databases-neo4j-rdf-knowledge-graphs-graphrag/", "tags": ["project", "course"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Multimodal & document intelligence",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Multimodal models: vision, PDF, audio inputs" },
+          { "t": "Document parsing & layout understanding" },
+          { "t": "OCR for scanned / low-quality documents" },
+          { "t": "Table & form extraction into structured data" },
+          { "t": "Vision RAG / multimodal RAG over document images" },
+          { "t": "Text-to-SQL / SQL RAG (your Genie domain); Code RAG over repos" },
+          { "t": "Evaluating extraction accuracy (field-level, not vibes)" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Azure Multi-Modal Compliance QA (LangGraph)", "link": "https://www.krishnaik.in/project/azure-video-compliance-qa-pipeline-with-langgraph", "tags": ["project"] },
+          { "t": "Multimodal RAG over PDFs with text + images (Ultimate RAG Bootcamp §11)", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/", "tags": ["project", "course"] },
+          { "t": "Multimodal RAG with ColPali (Master RAG §8)", "link": "https://www.udemy.com/course/retrieval-augmented-gen/", "tags": ["project", "course"] },
+          { "t": "Multimodal RAG project + RAG with OpenAI File Search (RAG, AI Agents & GenAI w/ Python)", "link": "https://www.udemy.com/course/generative-ai-rag/", "tags": ["project", "course"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Agent fundamentals & tool use",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "What 'agentic' actually means; the ReAct model-tool loop" },
+          { "t": "Function / tool calling: single, parallel, forced" },
+          { "t": "Structured tool schemas & argument validation" },
+          { "t": "Writing the loop by hand: dispatch, stop conditions, step caps" },
+          { "t": "Planning, reflection, retries & error recovery" },
+          { "t": "The '5/10 reliability is useless' problem — designing for consistency" },
+          { "t": "You own tool execution — so you own the security surface" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Notion ReAct Planner Agent", "link": "https://www.krishnaik.in/project/notion-react-planner-agent", "tags": ["project"] },
+          { "t": "Candidate Interview & Evaluation Agent", "link": "https://www.krishnaik.in/project/automated-candidate-interview-evaluation-system", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Workflow & agent patterns",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Workflows vs agents — when autonomy is worth the unpredictability" },
+          { "t": "Augmented LLM (tool use + retrieval + memory) as the base building block" },
+          { "t": "Prompt chaining (decompose into fixed steps)" },
+          { "t": "Routing / classification (send input down the right path)" },
+          { "t": "Parallelization: sectioning & voting" },
+          { "t": "Orchestrator–workers (dynamic subtask delegation)" },
+          { "t": "Evaluator–optimizer loop (generate → critique → refine)" },
+          { "t": "Reflection & self-critique; ReAct; Plan-and-Execute" },
+          { "t": "Agentic RAG: your Phase-02 retrieval becomes a tool the agent invokes, reformulates & iterates on — not a fixed step" },
+          { "t": "Pick the simplest pattern that works — resist over-agenting (FDE anti-pattern)" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Autonomous Blog Generation Agent (LangGraph DAG)", "link": "https://www.krishnaik.in/project/production-grade-content-generation-engine-with-langgraph-fastapi-and-uv", "tags": ["project"] },
+          { "t": "Personalized Holiday Management Agent", "link": "https://www.krishnaik.in/project/personalized-holiday-management-agent", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Agent SDKs (first-party / lab)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Claude Agent SDK — the harness behind Claude Code, as a library" },
+          { "t": "OpenAI Agents SDK — agents, handoffs, guardrails, sessions" },
+          { "t": "How each wraps your raw loop: what they add, what they hide" },
+          { "t": "Tool use, structured outputs & MCP through the SDK — MCP covered in depth after Memory" },
+          { "t": "Sessions, state & memory primitives the SDK gives you" },
+          { "t": "When the first-party SDK is enough (and you don't need an orchestration framework)" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Google ADK: Build & Deploy AI Agents", "link": "https://www.krishnaik.in/project/google-adk-build-ai-agents-and-deploy-to-the-cloud", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Orchestration frameworks",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "LangChain 1.0 + Middleware (before_model / after_model, HITL, summarization)" },
+          { "t": "LangGraph: state, nodes, edges, checkpointing, durable execution" },
+          { "t": "CrewAI (role-based crews) & AutoGen (conversable agents)" },
+          { "t": "DSPy: programmatic prompting & optimization" },
+          { "t": "How to choose your tier — and when to abandon the abstraction" },
+          { "t": "OSS agent landscape: Hermes Agent (Nous), OpenClaw — know them well enough to compare, not to adopt" },
+          { "t": "Also on the board: PydanticAI (type-safe), LlamaIndex Workflows, SmolAgents, Semantic Kernel, Haystack" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Stateful Agentic AI with LangGraph + Llama 3", "link": "https://www.krishnaik.in/project/building-stateful-agentic-ai-with-langgraph-and-llama-3", "tags": ["project"] },
+          { "t": "AutoGen Data Analyzer GPT", "link": "https://www.krishnaik.in/project/autogen-data-analyzer-gpt-build-an-ai-powered-data-analysis-system", "tags": ["project"] },
+          { "t": "Gen AI Clothing Store (Pydantic AI)", "link": "https://www.krishnaik.in/project/gen-ai-powered-clothing-store-with-pydantic-ai", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Memory & state",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Short-term (scratchpad / context) vs long-term memory" },
+          { "t": "Memory types: episodic, semantic, procedural" },
+          { "t": "Session / conversation memory vs persistent knowledge" },
+          { "t": "Vector-backed memory: retrieval, relevance + recency, consolidation" },
+          { "t": "Writing, updating, summarizing & forgetting memory" },
+          { "t": "State & checkpointing (LangGraph checkpointers / store)" },
+          { "t": "File-based memory: AGENTS.md / CLAUDE.md (deepagents, Claude Code)" },
+          { "t": "Memory frameworks: mem0, Letta / MemGPT, Zep — tradeoffs" },
+          { "t": "Evaluating memory: does recall actually raise task success?" },
+          { "t": "Case study: how Hermes Agent (Nous) does persistent memory + autonomously-generated skills" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Insurance Claims Copilot (LangMem + RAG)", "link": "https://www.krishnaik.in/project/insurance-claims-copilot-with-memory-and-tool-calling", "tags": ["project"] },
+          { "t": "AI Customer Support Agent (Memory + Tools)", "link": "https://www.krishnaik.in/project/ai-powered-customer-support-agent-with-memory-and-tool-calling", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "MCP (Model Context Protocol)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "The protocol: servers, clients, tools, resources, prompts" },
+          { "t": "Transports: stdio, SSE, streamable HTTP; local vs remote MCP" },
+          { "t": "Building custom MCP servers (expose your own tools & data)" },
+          { "t": "MCP clients: how agents and the lab SDKs consume servers" },
+          { "t": "Auth & security: the MCP attack surface, scoping, sandboxing" },
+          { "t": "The ecosystem: filesystem, GitHub, browser, database — and Databricks MCP (your domain)" },
+          { "t": "When MCP earns its keep vs. inline tools" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "MCP with AutoGen (Notion integration)", "link": "https://www.krishnaik.in/project/mcp-with-autogen-integrating-ai-agents-with-notion", "tags": ["project"] },
+          { "t": "Medical Diagnosis App (FastMCP)", "link": "https://www.krishnaik.in/project/medical-diagnosis-app", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Multi-agent orchestration & control",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "When multi-agent actually helps (and when a single agent wins)" },
+          { "t": "Supervisor / swarm / handoff patterns" },
+          { "t": "Shared state & memory across agents" },
+          { "t": "Human-in-the-loop: approvals & interrupts" },
+          { "t": "Guardrails, tool permissions & sandboxing" },
+          { "t": "Cost & latency of multi-agent systems" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "AI GitHub PR Code Reviewer (multi-agent)", "link": "https://www.krishnaik.in/project/lfnm", "tags": ["project"] },
+          { "t": "SwarmAI Multi-Agent Personal Assistant", "link": "https://www.krishnaik.in/project/swarmai-build-a-multi-agent-personal-assistant", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Deep agents & harness engineering",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Context engineering as the real discipline" },
+          { "t": "The harness = tools + memory + filesystem + sub-agents + context mgmt" },
+          { "t": "deepagents: planning todo tool, sub-agent delegation, skills, memory, harness profiles, backends" },
+          { "t": "Deep research agents: long-horizon, multi-source synthesis" },
+          { "t": "Durable / long-running agents & checkpointing" },
+          { "t": "Computer use & browser agents (powers Cowork; a major 2026 pattern)" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Claude Code — operator mastery",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Claude Code core: CLAUDE.md, slash commands, the permission model" },
+          { "t": "Skills, subagents & hooks — the extensibility surface" },
+          { "t": "MCP servers inside Claude Code; wiring in tools & data" },
+          { "t": "Headless / programmatic use via the Claude Agent SDK (deeper than m9s)" },
+          { "t": "Claude Code in CI & automation; non-interactive runs" },
+          { "t": "Cowork & computer use as the non-developer surface (awareness)" },
+          { "t": "Operator depth past your Claude Certified Architect cert" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Realtime Source Code Analyzer", "link": "https://www.krishnaik.in/project/realtime-source-code-analyzer", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "The AI coding-tool landscape",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "IDE-native: Cursor, Windsurf, GitHub Copilot" },
+          { "t": "CLI / terminal agents: Aider, Codex, Cline, Roo Code" },
+          { "t": "How they differ: harness design, context handling, autonomy, price" },
+          { "t": "Autonomous coding agents & SWE-bench-style benchmarks" },
+          { "t": "Agentic coding workflow: spec → plan → implement → test → review" },
+          { "t": "Positioning Claude Code vs the field in a client conversation" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Evaluation & eval harnesses",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Why evals are the demo→prod gap-closer (FDE framing)" },
+          { "t": "Taxonomy: offline vs online, component vs end-to-end, reference-based vs free" },
+          { "t": "LLM-as-judge: rubrics, pairwise, bias & mitigation" },
+          { "t": "Building eval datasets from real traffic" },
+          { "t": "Regression suites & CI gates for nondeterministic systems" },
+          { "t": "Agent-specific eval: trajectory, tool-call correctness, task success" },
+          { "t": "Hallucination / grounding / faithfulness metrics" },
+          { "t": "Red-teaming & adversarial evals" },
+          { "t": "Tooling: LangSmith, Braintrust, promptfoo, DeepEval, ragas" },
+          { "t": "Synthetic data generation for eval sets" },
+          { "t": "Trace replay & failure harnesses (replay prod traces to catch regressions)" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Anime Recommender w/ LLM-as-Judge + LangSmith", "link": "https://www.krishnaik.in/project/anibaba-ai-powered-anime-recommendation-system", "tags": ["project"] },
+          { "t": "AI Travel Planner (GCP + ELK + DeepEval)", "link": "https://www.krishnaik.in/project/ai-powered-travel-itinerary-planner", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "DevOps & deployment foundations",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Containerization: Docker images, multi-stage builds, docker-compose" },
+          { "t": "Kubernetes essentials: pods, deployments, services, scaling (working level)" },
+          { "t": "CI/CD pipelines: GitHub Actions — build, test, deploy on push" },
+          { "t": "Infrastructure as Code: Terraform basics (providers, state, modules)" },
+          { "t": "Cloud deploy end-to-end: pick one — AWS ECS / GCP Cloud Run / Azure" },
+          { "t": "Secrets, config & environment promotion (dev → staging → prod)" },
+          { "t": "Observability basics: logs, metrics, health checks (Prometheus / Grafana)" },
+          { "t": "Deploy an AI app into a client-like environment — the FDE reality" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "MLOps Jenkins Shared Library CI/CD", "link": "https://www.krishnaik.in/project/nknk", "tags": ["project"] },
+          { "t": "YouTube SEO — Jenkins, ArgoCD & Kubernetes", "link": "https://www.krishnaik.in/project/cnxm", "tags": ["project"] },
+          { "t": "AWS Cost Optimizer (Terraform, Lambda, API Gateway)", "link": "https://www.krishnaik.in/project/kjckx", "tags": ["project"] },
+          { "t": "AI Image Analyzer (Terraform, Bedrock, Lambda, S3)", "link": "https://www.krishnaik.in/project/dnskc", "tags": ["project"] },
+          { "t": "Kubernetes Pen Testing & Benchmarking", "link": "https://www.krishnaik.in/project/nmn", "tags": ["project"] },
+          { "t": "AWS Threat Detection (GuardDuty, Lambda, SNS)", "link": "https://www.krishnaik.in/project/jn", "tags": ["project"] },
+          { "t": "AI Job Analyzer (Filebeat, ELK, Kubernetes)", "link": "https://www.krishnaik.in/project/fmlml", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "LLMOps & AI infrastructure",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Serving & inference: latency, throughput, batching" },
+          { "t": "LLM gateways & model routing (fallbacks, multi-provider, load balancing)" },
+          { "t": "Observability & tracing (LangSmith, OpenTelemetry-GenAI)" },
+          { "t": "Prompt / agent versioning & deploys" },
+          { "t": "Caching: prompt & semantic (Redis / semantic cache store)" },
+          { "t": "Rate limiting: token buckets, provider limits, backoff, queueing, concurrency" },
+          { "t": "Cost & latency optimization" },
+          { "t": "CI/CD for prompts & agents; SLOs for nondeterministic systems" },
+          { "t": "Deployment strategies: canary, rollback, feature flags; circuit breakers, HA / disaster recovery" },
+          { "t": "Drift & regression monitoring in production" },
+          { "t": "Self-hosted / on-prem model serving: vLLM, GPU, containers (Docker), autoscaling — ties to your VPC moat" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Production RAG: Guardrails, LLM Gateway, Evals, IaC (GCP)", "link": "https://www.krishnaik.in/project/production-grade-cyclic-rag-with-langgraph-gcp-and-groq", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Security, compliance & private deployment",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Prompt injection & jailbreaks: direct & indirect defenses" },
+          { "t": "Data governance, PII, secrets handling; data-poisoning awareness" },
+          { "t": "Tool / permission sandboxing" },
+          { "t": "Guardrails: input/output filtering, PII redaction" },
+          { "t": "On-prem / VPC / Private Link deployment (already yours — formalize it)" },
+          { "t": "Model risk, audit & compliance in regulated verticals" },
+          { "t": "Tenant isolation & multi-tenant safety" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Safety & alignment literacy",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Why safety is commercial, not just ethical" },
+          { "t": "Core concepts: RLHF, Constitutional AI, responsible scaling — at a literate level" },
+          { "t": "How safety shows up in deployment: refusals, misuse, guardrails" },
+          { "t": "Being able to discuss it in an Anthropic interview loop" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Discovery & solutioning",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Ambiguous ask → technical roadmap (your RSA superpower, sharpened)" },
+          { "t": "Scoping POC vs production; sequencing scope/speed/quality tradeoffs" },
+          { "t": "Success metrics & eval-driven acceptance criteria" },
+          { "t": "Stakeholder mapping & exec-level communication" },
+          { "t": "Writing SOWs / technical proposals (you already do this)" },
+          { "t": "Codifying repeatable patterns — the FDE feedback loop to product" },
+          { "t": "Build-custom vs deploy a product (Claude Cowork / Claude Code): the buy-vs-build call" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Full-stack shipping",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "TypeScript fundamentals for a Python-first engineer" },
+          { "t": "React + Next.js essentials" },
+          { "t": "Streaming UIs: SSE, token streaming, tool-call rendering" },
+          { "t": "FastAPI backends & clean API design" },
+          { "t": "Auth: OAuth, M2M (you've touched this on Databricks Apps)" },
+          { "t": "Deploy: Vercel / Fly / containers" },
+          { "t": "Calling LLM APIs from both TS and Python" },
+          { "t": "Async / concurrency patterns for LLM apps (parallel calls, streaming, backpressure)" },
+          { "t": "Testing & mocking nondeterministic LLM/agent code; Pydantic for typed I/O" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Real-Time Voice AI Agent (FastAPI + React + AWS)", "link": "https://www.krishnaik.in/project/real-time-voice-ai-agent-with-rag-and-low-latency-voice-processing", "tags": ["project"] },
+          { "t": "Resume Genie Career Suite", "link": "https://www.krishnaik.in/project/resume-genie-an-ai-powered-career-suite", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Capstones & portfolio",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Capstone A — Insurance Claims Intelligence Agent (end-to-end + evals + private-deploy story)" },
+          { "t": "Capstone B — Banking Post-Trade Reconciliation Agent (your Barclays domain: ambiguity→roadmap→build→eval)" },
+          { "t": "Capstone C (optional) — GenieBench as an open eval harness / OSS" },
+          { "t": "Each: public repo + README + short demo + eval report" },
+          { "t": "Anonymize ALL client detail (you already flag this — hold the line)" },
+          { "t": "One meaningful OSS contribution (LangGraph, MCP SDK, DSPy, or a Databricks AI repo) — visible proof you work in frontier codebases" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Multi-Agent Quantitative Analysis System", "link": "https://www.krishnaik.in/project/multi-agent-quantitative-analysis-system-with-azure-cloud-integration", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Interview & positioning",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Resume tuned to FDE language: shipped production LLM systems + evals + governance" },
+          { "t": "GitHub + LinkedIn as your FDE shopfront" },
+          { "t": "The FDE loop: ambiguity/deployment thinking, take-home build, AI system design, discovery role-play, values" },
+          { "t": "Mock discovery + mock build reviews with a peer" },
+          { "t": "Referrals: Databricks network → Anthropic/OpenAI + partner FDE pods (Deloitte etc.)" },
+          { "t": "Apply Q1 2027 with 2 capstones already live" },
+          { "t": "AI system-design reps: design a RAG platform, a deep-research agent, a multi-agent orchestration, a GraphRAG system" },
+          { "t": "Behavioral: driving ambiguous projects, customer influence, technical storytelling" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Pipecat AI Interview Coach (real-time voice)", "link": "https://www.krishnaik.in/project/pipecat-ai-interview-coach-real-time-voice-interaction", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Running the interview loop",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Instrument every round: what was asked, where you stalled, what follow-ups came" },
+          { "t": "Post-mortem each loop into a concrete fix list" },
+          { "t": "Rehearse the take-home build under real time pressure" },
+          { "t": "Tighten discovery / ambiguity role-plays (the actual FDE screen)" },
+          { "t": "Manage process & timing across parallel pipelines" },
+          { "t": "Keep a live pipeline tracker (stage, contact, next action)" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Pick a spike — go deep on one differentiator",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Choose your spike: eval methodology, agent reliability/harness, or regulated-vertical deployment (your moat)" },
+          { "t": "Read primary sources + source code, not just docs" },
+          { "t": "Reproduce a hard result end-to-end" },
+          { "t": "Write the definitive explainer others would cite" },
+          { "t": "Be able to go five layers deep when probed" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Third capstone — a frontier-signal build",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Pick a stretch build: computer-use agent, multi-agent platform w/ observability, or an autonomous data-eng agent" },
+          { "t": "Production-grade: evals + deploy story from day one" },
+          { "t": "Build in public — document as you go" },
+          { "t": "Tie it to your spike so depth and portfolio compound" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Public presence & technical storytelling",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Launch your production-war-stories content (channel/blog) — fully anonymized" },
+          { "t": "Turn each capstone + your spike into a talk or post" },
+          { "t": "Do a meetup talk or a conference CFP" },
+          { "t": "Build the 'teach it to prove it' habit" },
+          { "t": "Keep client confidentiality & anonymization airtight" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "YouTube Content Creation Agent", "link": "https://www.krishnaik.in/project/youtube-content-creation-storyforge-agent", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Network & referral activation",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Map warm paths: ex-colleagues now at labs or partners" },
+          { "t": "Reconnect authentically before you ask for anything" },
+          { "t": "Get referred, not cold-applied" },
+          { "t": "Work the partner-pod route (Deloitte & other badged FDE teams)" },
+          { "t": "Rank a second-wave target list with role-fit reasoning" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Second wave & decision point",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Reapply with sharpened portfolio + referrals behind you" },
+          { "t": "Resolve the geo/route call: US relo vs EMEA/APAC vs partner pod (flagged back in Phase 0)" },
+          { "t": "July 2027 honest reassessment: offer in hand, or adjust the plan" },
+          { "t": "Keep the consulting track alive as a parallel path (your 2026 freelance goals)" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Math & theory foundations (optional)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Linear algebra: eigenvalues/vectors, norms, orthogonality, matrix decompositions" },
+          { "t": "Probability: Bayes, Gaussian, likelihood & MLE" },
+          { "t": "Information theory: entropy, cross-entropy, KL divergence" },
+          { "t": "Calculus: gradients, chain rule, backprop by hand" },
+          { "t": "Statistics: variance, covariance, correlation, sampling, confidence intervals" },
+          { "t": "Optimization: gradient descent, SGD, Adam, LR schedulers, loss functions" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Classic deep learning (optional)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Neural network basics: layers, activations, the training loop" },
+          { "t": "CNNs — convolution, pooling, vision" },
+          { "t": "RNNs, LSTMs, GRUs — sequence modelling before attention" },
+          { "t": "Why attention replaced recurrence (the bridge to transformers)" },
+          { "t": "Embeddings, normalization, residual connections — from the theory side" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Elephant Species Classification (CNN + Transfer Learning)", "link": "https://www.krishnaik.in/project/elephant-species-classification-using-deep-learning-and-transfer-learning", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Software & API engineering foundations (optional)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Async deep: asyncio, threads vs processes, generators, context managers, decorators" },
+          { "t": "Typing & Pydantic; dependency injection" },
+          { "t": "Packaging & envs: uv, Poetry, virtualenvs" },
+          { "t": "API styles: REST, WebSockets, SSE, gRPC, OpenAPI" },
+          { "t": "Auth: OAuth, JWT" },
+          { "t": "Testing, mocking, logging, config & secrets management" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "End-to-End NexusView Python Package", "link": "https://www.krishnaik.in/project/end-to-end-nexusview-package", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Hugging Face ecosystem (full) (optional)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Transformers & Datasets in depth" },
+          { "t": "PEFT, TRL, Accelerate" },
+          { "t": "Evaluate; the Inference API" },
+          { "t": "Hub & Spaces; Gradio demos" },
+          { "t": "Safetensors, Tokenizers, Model Cards" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "End-to-End NLP: Summarization w/ HF Transformers", "link": "https://www.krishnaik.in/project/building-a-dialogue-summarization-system-with-hugging-face-transformers", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Inference & serving infrastructure (deep) (optional)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "GPU & CUDA basics; memory & KV-cache management" },
+          { "t": "Batching & throughput; continuous batching" },
+          { "t": "Serving engines: vLLM, TGI, TensorRT-LLM, SGLang, Ollama, LM Studio" },
+          { "t": "Ray / Ray Serve for distributed inference" },
+          { "t": "Docker, Kubernetes, autoscaling, load balancing (foundations in m13d; here at serving scale)" },
+          { "t": "Kafka, queues, Redis for streaming pipelines (closer to your data-eng background)" },
+          { "t": "NVIDIA stack; monitoring the serving layer" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Realtime Flight Data Engineering (Airflow + Snowflake)", "link": "https://www.krishnaik.in/project/nkdn", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "LLMOps tooling (broader) (optional)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "MLflow: tracking, registry, deployment (your strength)" },
+          { "t": "Weights & Biases — experiment tracking" },
+          { "t": "Phoenix / Arize — LLM observability" },
+          { "t": "Experiment tracking & model-versioning discipline" },
+          { "t": "Drift detection tooling" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Network Security ML (MLflow + Dagshub)", "link": "https://www.krishnaik.in/project/automated-data-pipeline-for-machine-learning-projects", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Interview coding / DSA (optional)",
+    "topics": [
+      {
+        "title": "Topics",
+        "items": [
+          { "t": "Python medium/hard problem patterns" },
+          { "t": "Arrays, strings, hashmaps" },
+          { "t": "Trees & graphs: BFS / DFS" },
+          { "t": "Recursion & dynamic-programming basics" },
+          { "t": "Complexity analysis; async coding problems" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Timetable Generator (Genetic Algorithm)", "link": "https://www.krishnaik.in/project/intelligent-timetable-generator-with-genetic-algorithm", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Classic & tabular ML builds",
+    "topics": [
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Cancer Risk Assessment (ML)", "link": "https://www.krishnaik.in/project/predictive-modeling-for-cancer-risk-assessment-using-machine-learning", "tags": ["project"] },
+          { "t": "Telecom Churn Prediction", "link": "https://www.krishnaik.in/project/telecom-customer-churn-prediction-using-machine-learning", "tags": ["project"] },
+          { "t": "Academic Risk & Engagement", "link": "https://www.krishnaik.in/project/academic-risk-engagement-prediction-system", "tags": ["project"] },
+          { "t": "2-Stage Loan Approval & Valuation", "link": "https://www.krishnaik.in/project/loan-approval-and-loan-amount-prediction-system", "tags": ["project"] },
+          { "t": "Thunderstorm Forecasting (MLflow)", "link": "https://www.krishnaik.in/project/thunderstorm-forecasting-with-mlflow-tracking", "tags": ["project"] },
+          { "t": "Drinks Quality Prediction", "link": "https://www.krishnaik.in/project/drinks-quality-prediction-system", "tags": ["project"] },
+          { "t": "Collaborative Filtering Recommender", "link": "https://www.krishnaik.in/project/collaborative-filtering-recommendation-system", "tags": ["project"] },
+          { "t": "Social Video Sentiment", "link": "https://www.krishnaik.in/project/social-video-audience-sentiment-intelligence", "tags": ["project"] },
+          { "t": "Global Mobility Analyzer", "link": "https://www.krishnaik.in/project/global-mobility-application-analyzer", "tags": ["project"] },
+          { "t": "Books Recommender", "link": "https://www.krishnaik.in/project/books-recommender-system", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Computer vision & medical imaging",
+    "topics": [
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Object Detection (Faster R-CNN + DVC)", "link": "https://www.krishnaik.in/project/jhjh", "tags": ["project"] },
+          { "t": "Chest Disease Identification", "link": "https://www.krishnaik.in/project/chest-disease-identification", "tags": ["project"] },
+          { "t": "Discarded Material Detection", "link": "https://www.krishnaik.in/project/discarded-material-identification-system", "tags": ["project"] },
+          { "t": "Facial Emotion Detection", "link": "https://www.krishnaik.in/project/facial-emotion-detection-system", "tags": ["project"] },
+          { "t": "Waste Detection (YOLOv5)", "link": "https://www.krishnaik.in/project/end-to-end-waste-materials-detection-system", "tags": ["project"] },
+          { "t": "Sign Language Detection", "link": "https://www.krishnaik.in/project/sign-language-detection-systems-for-deaf-and-mute-individuals", "tags": ["project"] },
+          { "t": "Mosquito Detection", "link": "https://www.krishnaik.in/project/mosquito-detection-system-prevent-mosquito-borne-diseases", "tags": ["project"] },
+          { "t": "Thyroid Cancer Detection (Grad-CAM XAI)", "link": "https://www.krishnaik.in/project/thyrocheck-ai-deep-learning-for-thyroid-nodule-classification", "tags": ["project"] },
+          { "t": "Kidney Tumor Identification", "link": "https://www.krishnaik.in/project/kidney-tumor-identification-system", "tags": ["project"] },
+          { "t": "Tumor Detection XAI (GCP)", "link": "https://www.krishnaik.in/project/end-2-end-tumor-detection-with-xai-and-gcp", "tags": ["project"] },
+          { "t": "Poultry Disease Identification", "link": "https://www.krishnaik.in/project/poultry-disease-identification", "tags": ["project"] },
+          { "t": "Solar Panel Defect Classification", "link": "https://www.krishnaik.in/project/solar-panel-defect-classification-using-deep-learning", "tags": ["project"] },
+          { "t": "Heart Murmur Detection (LSTM)", "link": "https://www.krishnaik.in/project/ai-powered-heart-murmur-detection-system", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Data analytics & BI (Power BI)",
+    "topics": [
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Regional Sales Performance", "link": "https://www.krishnaik.in/project/regional-sales-performance-analysis-and-visualization", "tags": ["project"] },
+          { "t": "Telecom Churn Dashboard", "link": "https://www.krishnaik.in/project/telecom-customer-churn-analysis-and-dashboarding-project", "tags": ["project"] },
+          { "t": "Solar Energy (Power BI + MySQL)", "link": "https://www.krishnaik.in/project/solar-energy-data-analysis-and-reporting-with-power-bi-mysql", "tags": ["project"] },
+          { "t": "Diamonds Data Analysis (Power BI)", "link": "https://www.krishnaik.in/project/interactive-diamonds-data-analysis-and-visualization-with-power-bi", "tags": ["project"] },
+          { "t": "SQL Server + Power BI Sales", "link": "https://www.krishnaik.in/project/sql-server-and-power-bi-for-end-to-end-sales-data-analysis-and-visualization", "tags": ["project"] }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Python utilities & misc",
+    "topics": [
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Personal AI Voice Assistant (JARVIS)", "link": "https://www.krishnaik.in/project/python-mega-project-personal-ai-voice-assistant-system", "tags": ["project"] },
+          { "t": "PCAP StoryTeller", "link": "https://www.krishnaik.in/project/pcap-storyteller", "tags": ["project"] },
+          { "t": "YouTube Mixtape Creation", "link": "https://www.krishnaik.in/project/automated-youtube-mixtape-creation-with-python", "tags": ["project"] },
+          { "t": "Smart Attendance Portal (Supabase)", "link": "https://www.krishnaik.in/project/smart-attendance-portal-with-supabase", "tags": ["project"] }
         ]
       }
     ]
