@@ -1225,6 +1225,22 @@ window.LEARNING_DATA = [
     ]
   },
   {
+    "title": "Some more important courses",
+    "topics": [
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "LLM Token Optimization — Enterprise Cost & Performance", "link": "https://www.udemy.com/course/llm-token-optimization-enterprise-cost-performance/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "AI in Production — A Crash Course in Modal Cloud for LLM Inference", "link": "https://www.udemy.com/course/ai-in-production-a-crash-course-in-modal-cloud-for-llms-inference/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "AI Hallucinations Management & Fact-Checking in LLMs", "link": "https://www.udemy.com/course/ai-hallucinations-management-fact-checking-in-llms/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Generative and Agentic AI in Production", "link": "https://www.udemy.com/course/generative-and-agentic-ai-in-production/", "tags": ["udemy"] },
+          { "t": "LLMOps Masterclass — Generative AI, MLOps, AIOps", "link": "https://www.udemy.com/course/llmops-masterclass-generative-ai-mlops-aiops/?couponCode=PMNVD2025", "tags": ["udemy"] },
+          { "t": "Mastering AI with Transformers and LLMs", "link": "https://www.udemy.com/course/mastering-ai-with-transformers-and-llms/?couponCode=PMNVD2025", "tags": ["udemy"] }
+        ]
+      }
+    ]
+  },
+  {
     "title": "Safety & alignment literacy",
     "topics": [
       {
