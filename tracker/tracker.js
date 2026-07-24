@@ -622,7 +622,8 @@
         "devops-deployment-foundations",
         "llmops-ai-infrastructure",
         "security-compliance-private-deployment",
-        "safety-alignment-literacy"
+        "safety-alignment-literacy",
+        "some-more-important-courses"
       ]
     },
     {
