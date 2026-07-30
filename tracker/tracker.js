@@ -861,6 +861,7 @@
 
   function renderHub(mountId) {
     var data = window.LEARNING_DATA || [];
+    var edit = window.LT_EDIT || null;   // editing layer (tracker-app.js), if present
     var mount = document.getElementById(mountId || "hub");
     if (!mount) return;
     mount.innerHTML = "";   // clear so renderHub can be called again after edits
@@ -878,15 +879,21 @@
     }
 
     // Index tracks by slug so sections can pull them in a defined order while
-    // preserving the original data.js order within each section.
+    // preserving the original data.js order within each section. A renamed track
+    // is also indexed under its original title's slug, so renaming it doesn't
+    // knock it out of the section that claims it.
     var bySlug = {}, order = [];
     data.forEach(function (sec) {
       var slug = slugify(sec.title);
       bySlug[slug] = sec;
       order.push(slug);
+      if (sec._origModule) {
+        var origSlug = slugify(sec._origModule);
+        if (origSlug !== slug && !bySlug[origSlug]) bySlug[origSlug] = sec;
+      }
     });
 
-    var placed = {};   // slugs already assigned to a section
+    var placed = {};   // track titles already assigned to a section
     var n = 0;         // running track number across all sections
 
     // Each section is itself a collapsible <details>, open by default, holding a
@@ -918,20 +925,24 @@
 
     HUB_SECTIONS.forEach(function (def) {
       var secs = [];
-      def.slugs.forEach(function (slug) {
-        if (bySlug[slug] && !placed[slug]) { placed[slug] = 1; secs.push(bySlug[slug]); }
+      // Built-in slugs first, then any tracks the user filed into this section
+      // via "Add track" (persisted by the editing layer, so they stay put).
+      var slugs = def.slugs.concat(
+        (edit && edit.sectionSlugs) ? edit.sectionSlugs(def.title) : []);
+      slugs.forEach(function (slug) {
+        var sec = bySlug[slug];
+        if (sec && !placed[sec.title]) { placed[sec.title] = 1; secs.push(sec); }
       });
       renderSection(def.title, def.blurb, secs, null, def);
     });
 
     // Anything not claimed by a section (e.g. new tracks added to data.js) still
     // shows up, so tracks can never silently disappear from the hub.
-    var leftovers = order.filter(function (slug) { return !placed[slug]; })
-      .map(function (slug) { return bySlug[slug]; });
+    var leftovers = order.map(function (slug) { return bySlug[slug]; })
+      .filter(function (sec) { return sec && !placed[sec.title]; });
     renderSection("🗂️ More Tracks", "Other tracks in your data not yet assigned to a section above.", leftovers, null, null);
 
     // Editing layer (tracker-app.js): a control to add a brand-new track/module.
-    var edit = window.LT_EDIT || null;
     if (edit && edit.moduleAdder) mount.appendChild(edit.moduleAdder());
 
     wireHubControls(mount);

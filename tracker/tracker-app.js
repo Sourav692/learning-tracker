@@ -41,14 +41,19 @@
   var topicEdits = {};    // { "module::topic": {title?, deleted?} }
   var sectionEdits = {};  // { "module": {title?, deleted?} }
   var order = {};         // { sections:[...], topics:{ module:[...] } }
+  var hubSections = {};   // { "<hub section title>": [trackSlug, ...] } — user "Add track" placements
   var settings = {};      // reserved
   var state = {};         // { id: 'todo'|'prog'|'done' }
 
-  try { var d = JSON.parse(localStorage.getItem(DATA_KEY)) || {}; custom = d.custom || {}; edits = d.edits || {}; topicEdits = d.topicEdits || {}; sectionEdits = d.sectionEdits || {}; order = d.order || {}; settings = d.settings || {}; } catch (e) {}
+  try { var d = JSON.parse(localStorage.getItem(DATA_KEY)) || {}; custom = d.custom || {}; edits = d.edits || {}; topicEdits = d.topicEdits || {}; sectionEdits = d.sectionEdits || {}; order = d.order || {}; hubSections = d.hubSections || {}; settings = d.settings || {}; } catch (e) {}
   try { state = JSON.parse(localStorage.getItem(STATE_KEY)) || {}; } catch (e) { state = {}; }
 
+  function dataLayers() {
+    return { custom: custom, edits: edits, topicEdits: topicEdits, sectionEdits: sectionEdits, order: order, hubSections: hubSections, settings: settings };
+  }
+
   function saveData() {
-    try { localStorage.setItem(DATA_KEY, JSON.stringify({ custom: custom, edits: edits, topicEdits: topicEdits, sectionEdits: sectionEdits, order: order, settings: settings })); } catch (e) {}
+    try { localStorage.setItem(DATA_KEY, JSON.stringify(dataLayers())); } catch (e) {}
     scheduleSync();
   }
   function saveState() {
@@ -202,19 +207,25 @@
     return row;
   }
 
-  // Controls shown on a section summary header: add track
+  // Controls shown on a section summary header: add track (reachable while the
+  // section is collapsed, where the bottom "Add track" row is hidden).
   function sectionControls(title, def) {
     var wrap = el("span", "lt-ctrls");
     wrap.appendChild(iconBtn("＋", "Add track to " + title, "", function () { openTrackAdderForSection(def); }));
     return wrap;
   }
 
-  // "Add track" button at the bottom of a section's track list
+  // "Add track" row at the bottom of a section's track list — the section-level
+  // twin of topicAdder()'s "Add topic" row inside a track.
   function trackAdder(def) {
-    var row = el("div", "lt-add-row");
-    row.appendChild(iconBtn("＋ Add track", "Add a new track module to this section", "wide", function () { openTrackAdderForSection(def); }));
+    var row = el("div", "lt-add-row lt-add-track");
+    row.appendChild(iconBtn("＋ Add track", "Add a new track to this section", "wide", function () { openTrackAdderForSection(def); }));
     return row;
   }
+
+  // Track slugs the user filed into a hub section, so tracker.js can pull them
+  // into that section on every render (not just the one right after creation).
+  function sectionSlugs(title) { return (hubSections[title] || []).slice(); }
 
   // "Add new track/module" control at the very bottom of the hub.
   function moduleAdder() {
@@ -229,7 +240,8 @@
     topicAdder: topicAdder,
     moduleAdder: moduleAdder,
     sectionControls: sectionControls,
-    trackAdder: trackAdder
+    trackAdder: trackAdder,
+    sectionSlugs: sectionSlugs
   };
 
   // ===========================================================================
@@ -435,13 +447,13 @@
   }
 
   function openTrackAdderForSection(def) {
-    var sectionName = def ? def.title : "hub";
     var nameIn = input("", "e.g. 🎓 11 · My New Track");
     var topicIn = input("", "First sub-topic (optional, default: Course Details)");
     var body = el("div");
     body.appendChild(field("Track name (required)", nameIn));
     body.appendChild(field("First sub-topic (optional)", topicIn));
-    openModal(def ? ("Add track to “" + sectionName + "”") : "Add new track", body, [
+    if (def) body.appendChild(el("p", "lt-note", "It will be added to “" + def.title + "”."));
+    openModal(def ? ("Add track to “" + def.title + "”") : "Add new track", body, [
       { label: "Cancel", cls: "ghost", onClick: closeModal },
       { label: "Create track", cls: "primary", onClick: function () {
         var name = nameIn.value.trim(); if (!name) { nameIn.focus(); return; }
@@ -449,14 +461,21 @@
         var firstTopic = topicIn.value.trim() || "Course Details";
         custom[name] = custom[name] || {};
         if (!custom[name][firstTopic]) custom[name][firstTopic] = [];
-        if (def && def.slugs) {
-          var slug = (window.LT_TRACKER && window.LT_TRACKER.slugify) ? window.LT_TRACKER.slugify(name) : name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-          if (def.slugs.indexOf(slug) === -1) def.slugs.push(slug);
+        if (def) {
+          var list = hubSections[def.title] = hubSections[def.title] || [];
+          var slug = slugOf(name);
+          if (list.indexOf(slug) === -1) list.push(slug);
         }
         saveData(); refresh();
         closeModal();
       } }
     ]);
+  }
+
+  function slugOf(title) {
+    return (window.LT_TRACKER && window.LT_TRACKER.slugify)
+      ? window.LT_TRACKER.slugify(title)
+      : String(title).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
 
   function findModuleTitle(title) {
@@ -540,17 +559,18 @@
   }
   function signOut() { try { sb.auth.signOut(); } catch (e) { console.error("[auth] sign-out", e); } }
 
-  function localSnapshot() { return { custom: custom, edits: edits, topicEdits: topicEdits, sectionEdits: sectionEdits, order: order, settings: settings, state: state }; }
+  function localSnapshot() { return assign(dataLayers(), { state: state }); }
   function isEmptySnapshot(d) {
     if (!d) return true;
     return !Object.keys(d.custom || {}).length && !Object.keys(d.edits || {}).length
       && !Object.keys(d.topicEdits || {}).length && !Object.keys(d.sectionEdits || {}).length
-      && !Object.keys(d.order || {}).length && !Object.keys(d.state || {}).length;
+      && !Object.keys(d.order || {}).length && !Object.keys(d.hubSections || {}).length
+      && !Object.keys(d.state || {}).length;
   }
   function applyRemote(d) {
     custom = d.custom || {}; edits = d.edits || {}; topicEdits = d.topicEdits || {}; sectionEdits = d.sectionEdits || {};
-    order = d.order || {}; settings = d.settings || {}; state = d.state || {};
-    try { localStorage.setItem(DATA_KEY, JSON.stringify({ custom: custom, edits: edits, topicEdits: topicEdits, sectionEdits: sectionEdits, order: order, settings: settings })); } catch (e) {}
+    order = d.order || {}; hubSections = d.hubSections || {}; settings = d.settings || {}; state = d.state || {};
+    try { localStorage.setItem(DATA_KEY, JSON.stringify(dataLayers())); } catch (e) {}
     try { localStorage.setItem(STATE_KEY, JSON.stringify(state)); } catch (e) {}
     applyingRemote = true; refresh(); applyingRemote = false;
   }

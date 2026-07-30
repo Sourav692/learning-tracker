@@ -178,7 +178,7 @@ a.item-text:hover{color:var(--teal);text-decoration:underline}
 
 /* inline control clusters on module rows and topic bullets */
 .lt-ctrls{display:inline-flex;gap:4px;align-items:center;margin-left:8px;flex-shrink:0}
-.track-acc-head .lt-ctrls{margin-left:auto}
+.track-acc-head .lt-ctrls,.hub-section-head .lt-ctrls{margin-left:auto}
 .ta-topic .lt-ctrls{opacity:0;transition:opacity .15s}
 .ta-topic:hover .lt-ctrls,.ta-topic:focus-within .lt-ctrls{opacity:1}
 .lt-ebtn{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:4px 7px;cursor:pointer;transition:all .15s}
@@ -186,8 +186,11 @@ a.item-text:hover{color:var(--teal);text-decoration:underline}
 .lt-ebtn.danger:hover{border-color:#d23f2f;color:#e5695c}
 .lt-ebtn.wide{padding:6px 12px}
 
-/* add-topic row (inside a track body) + add-module row (end of hub) */
+/* add-topic row (inside a track body) + add-track row (end of a section's list)
+   + add-module row (end of hub) */
 .lt-add-row{margin-top:14px}
+.lt-add-track{display:flex}
+.lt-add-track .lt-ebtn.wide{flex:1;padding:9px 14px;font-size:12px;border-style:dashed}
 .lt-add-module{margin-top:22px;display:flex;justify-content:center}
 .lt-add-module .lt-ebtn.wide{font-size:12.5px;padding:10px 18px;border-style:dashed}
 
