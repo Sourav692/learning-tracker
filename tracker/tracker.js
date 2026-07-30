@@ -577,7 +577,7 @@
       ]
     },
     {
-      title: "📍 05 · Advanced Agentic Systems",
+      title: "📍 05a · Advanced Agentic Systems",
       blurb: "Compose agents into systems. Agentic RAG & GraphRAG (needs both RAG and agents), then persistent memory, multi-agent orchestration, the deep-agent harness, and evaluation. (Agent protocols — MCP, ACP, A2A — are grouped in their own hub below.)",
       slugs: [
         "advanced-rag-graphrag",
@@ -588,12 +588,12 @@
       ]
     },
     {
-      title: "🔌 Agent Protocols",
+      title: "🔌 05b · Agent Protocols",
       blurb: "The interoperability layer for agentic systems: how models reach tools & data (MCP), and how independent agents describe, discover & talk to each other (ACP, A2A). Learn MCP first — it's the most established and the one your domain uses — then the agent-to-agent protocols.",
       slugs: [
-        "mcp-model-context-protocol",
-        "acp-agent-communication-protocol",
-        "a2a-agent2agent-protocol"
+        "01-mcp-model-context-protocol",
+        "02-acp-agent-communication-protocol",
+        "03-a2a-agent2agent-protocol"
       ]
     },
     {
@@ -656,16 +656,19 @@
     },
     // Supplementary groupings — parallel to the numbered spine, not part of it.
     {
-      title: "🧑‍🏫 Cohorts & Bootcamps",
+      title: "📍 12 · Cohorts & Bootcamps",
       blurb: "Time-boxed cohorts, instructor-led programs, and multi-month bootcamps — the ones with sessions, assignments, and due dates. Each course is its own track.",
       slugs: [
-        "google-genai-academy",
-        "analytics-vidhya-agentic-ai-pioneer-program",
-        "become-an-ai-engineer-learn-by-doing-bytebytego",
-        "systematically-improving-rag-applications",
-        "bootcamps-courses",
-        "anthropic-academy",
-        "langchain-academy"
+        "01-google-genai-academy",
+        "02-anthropic-academy",
+        "03-langchain-academy",
+        "04-become-an-ai-engineer-learn-by-doing-bytebytego",
+        "05-analytics-vidhya-agentic-ai-pioneer-program",
+        "06-ai-engineering-from-scratch",
+        "07-ai-hero-a-12-month-journey-taking-you-from-zero-to-expert",
+        "08-certified-ai-engineering-masterclass-from-zero-to-ai-hero",
+        "09-systematically-improving-rag-applications",
+        "10-data-science-academy"
       ]
     },
     {
@@ -954,7 +957,10 @@
     var data = window.LEARNING_DATA || [];
     var sec = null;
     for (var i = 0; i < data.length; i++) {
-      if (slugify(data[i].title) === slug) { sec = data[i]; break; }
+      var s = slugify(data[i].title);
+      var cleanS = s.replace(/^[0-9]+-/, "");
+      var cleanSlug = slug.replace(/^[0-9]+-/, "");
+      if (s === slug || cleanS === cleanSlug || (cleanSlug === "cohorts-bootcamps" && (cleanS === "bootcamps-courses" || cleanS === "01-google-genai-academy"))) { sec = data[i]; break; }
     }
     var mount = document.getElementById(mountId || "topic");
     var titleEl = document.getElementById("tk-title");

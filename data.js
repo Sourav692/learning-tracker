@@ -2,7 +2,7 @@
 // Users' own additions/edits/reorderings are layered on top of this at runtime.
 window.LEARNING_DATA = [
   {
-    "title": "🎓 Google GenAI Academy",
+    "title": "🎓 01 · Google GenAI Academy",
     "topics": [
       {
         "title": "Cohort",
@@ -13,18 +13,52 @@ window.LEARNING_DATA = [
     ]
   },
   {
-    "title": "🎓 Analytics Vidhya - Agentic AI Pioneer Program",
+    "title": "🎓 02 · Anthropic Academy",
     "topics": [
       {
-        "title": "Program",
+        "title": "Courses",
         "items": [
-          { "t": "Analytics Vidhya Assessment - Mentorship Assessment (31st March)", "done": true }
+          { "t": "Claude Code 101", "link": "https://anthropic.skilljar.com/claude-code-101" },
+          { "t": "Claude Platform 101", "link": "https://anthropic.skilljar.com/claude-platform-101" },
+          { "t": "Introduction to Claude Cowork", "link": "https://anthropic.skilljar.com/introduction-to-claude-cowork" },
+          { "t": "Claude Code in Action", "link": "https://anthropic.skilljar.com/claude-code-in-action" },
+          { "t": "Building with the Claude API", "link": "https://anthropic.skilljar.com/claude-with-the-anthropic-api" },
+          { "t": "Introduction to Model Context Protocol", "link": "https://anthropic.skilljar.com/introduction-to-model-context-protocol" },
+          { "t": "Model Context Protocol: Advanced Topics", "link": "https://anthropic.skilljar.com/model-context-protocol-advanced-topics" },
+          { "t": "Introduction to agent skills", "link": "https://anthropic.skilljar.com/introduction-to-agent-skills" },
+          { "t": "Introduction to subagents", "link": "https://anthropic.skilljar.com/introduction-to-subagents" }
         ]
       }
     ]
   },
   {
-    "title": "🎓 Become an AI Engineer | Learn by Doing - ByteByteGo",
+    "title": "🎓 03 · LangChain Academy",
+    "topics": [
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "Foundation: Introduction to LangGraph - Python", "link": "https://academy.langchain.com/courses/intro-to-langgraph" },
+          { "t": "Foundation: Introduction to Agent Observability & Evaluations", "link": "https://academy.langchain.com/courses/intro-to-langsmith" },
+          { "t": "Foundation: Building Reliable Agents", "link": "https://academy.langchain.com/courses/building-reliable-agents" },
+          { "t": "Foundation: Monitoring Production Agents", "link": "https://academy.langchain.com/courses/production-monitoring" },
+          { "t": "Quickstart: LangSmith Fleet", "link": "https://academy.langchain.com/courses/quickstart-agent-builder" },
+          { "t": "Quickstart: LangSmith Essentials", "link": "https://academy.langchain.com/courses/quickstart-langsmith-essentials" },
+          { "t": "Quickstart: LangGraph Essentials - Python", "link": "https://academy.langchain.com/courses/langgraph-essentials-python" },
+          { "t": "Quickstart: LangChain Essentials - Python", "link": "https://academy.langchain.com/courses/langchain-essentials-python" }
+        ]
+      },
+      {
+        "title": "Projects",
+        "items": [
+          { "t": "Project: Deep Agents", "link": "https://academy.langchain.com/courses/deep-agents-with-langgraph" },
+          { "t": "Project: Ambient Agents with LangGraph", "link": "https://academy.langchain.com/courses/ambient-agents" },
+          { "t": "Project: Deep Research with LangGraph", "link": "https://academy.langchain.com/courses/deep-research-with-langgraph" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "🎓 04 · Become an AI Engineer | Learn by Doing - ByteByteGo",
     "topics": [
       {
         "title": "Weekly Schedule",
@@ -46,7 +80,51 @@ window.LEARNING_DATA = [
     ]
   },
   {
-    "title": "🎓 Systematically Improving RAG Applications",
+    "title": "🎓 05 · Analytics Vidhya - Agentic AI Pioneer Program",
+    "topics": [
+      {
+        "title": "Program",
+        "items": [
+          { "t": "Analytics Vidhya Assessment - Mentorship Assessment (31st March)", "done": true }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "🎓 06 · AI Engineering from Scratch",
+    "topics": [
+      {
+        "title": "Course Details",
+        "items": [
+          { "t": "AI Engineering from Scratch", "link": "https://aiengineeringfromscratch.com/" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "🎓 07 · AI Hero: A 12-Month Journey Taking You from Zero to Expert",
+    "topics": [
+      {
+        "title": "Course Details",
+        "items": [
+          { "t": "AI Hero: A 12-Month Journey Taking You from Zero to Expert", "link": "https://www.udemy.com/course/ai-hero-a-12-month-journey-taking-you-from-zero-to-expert/?couponCode=CP260518SUMMXIN" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "🎓 08 · Certified AI Engineering Masterclass: From Zero to AI Hero",
+    "topics": [
+      {
+        "title": "Course Details",
+        "items": [
+          { "t": "Certified AI Engineering Masterclass: From Zero to AI Hero", "link": "https://www.udemy.com/course/ai-engineering-masterclass-from-zero-to-ai-hero/?couponCode=CP260518SUMMXIN" }
+        ]
+      }
+    ]
+  },
+  {
+    "title": "🎓 09 · Systematically Improving RAG Applications",
     "topics": [
       {
         "title": "Weekly Schedule",
@@ -64,60 +142,12 @@ window.LEARNING_DATA = [
     ]
   },
   {
-    "title": "🎓 Bootcamps & Courses",
+    "title": "🎓 10 · Data Science Academy",
     "topics": [
       {
-        "title": "Courses",
+        "title": "Course Details",
         "items": [
-          { "t": "AI Engineering from Scratch", "link": "https://aiengineeringfromscratch.com/" },
-          { "t": "AI Hero: A 12-Month Journey Taking You from Zero to Expert", "link": "https://www.udemy.com/course/ai-hero-a-12-month-journey-taking-you-from-zero-to-expert/?couponCode=CP260518SUMMXIN" },
-          { "t": "Certified AI Engineering Masterclass: From Zero to AI Hero", "link": "https://www.udemy.com/course/ai-engineering-masterclass-from-zero-to-ai-hero/?couponCode=CP260518SUMMXIN" },
           { "t": "Data Science Academy", "link": "https://www.udemy.com/user/muhammad-usman-mallick-2/" }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "🎓 Anthropic Academy",
-    "topics": [
-      {
-        "title": "Courses",
-        "items": [
-          { "t": "Claude Code 101", "link": "https://anthropic.skilljar.com/claude-code-101" },
-          { "t": "Claude Platform 101", "link": "https://anthropic.skilljar.com/claude-platform-101" },
-          { "t": "Introduction to Claude Cowork", "link": "https://anthropic.skilljar.com/introduction-to-claude-cowork" },
-          { "t": "Claude Code in Action", "link": "https://anthropic.skilljar.com/claude-code-in-action" },
-          { "t": "Building with the Claude API", "link": "https://anthropic.skilljar.com/claude-with-the-anthropic-api" },
-          { "t": "Introduction to Model Context Protocol", "link": "https://anthropic.skilljar.com/introduction-to-model-context-protocol" },
-          { "t": "Model Context Protocol: Advanced Topics", "link": "https://anthropic.skilljar.com/model-context-protocol-advanced-topics" },
-          { "t": "Introduction to agent skills", "link": "https://anthropic.skilljar.com/introduction-to-agent-skills" },
-          { "t": "Introduction to subagents", "link": "https://anthropic.skilljar.com/introduction-to-subagents" }
-        ]
-      }
-    ]
-  },
-  {
-    "title": "🎓 LangChain Academy",
-    "topics": [
-      {
-        "title": "Courses",
-        "items": [
-          { "t": "Foundation: Introduction to LangGraph - Python", "link": "https://academy.langchain.com/courses/intro-to-langgraph" },
-          { "t": "Foundation: Introduction to Agent Observability & Evaluations", "link": "https://academy.langchain.com/courses/intro-to-langsmith" },
-          { "t": "Foundation: Building Reliable Agents", "link": "https://academy.langchain.com/courses/building-reliable-agents" },
-          { "t": "Foundation: Monitoring Production Agents", "link": "https://academy.langchain.com/courses/production-monitoring" },
-          { "t": "Quickstart: LangSmith Fleet", "link": "https://academy.langchain.com/courses/quickstart-agent-builder" },
-          { "t": "Quickstart: LangSmith Essentials", "link": "https://academy.langchain.com/courses/quickstart-langsmith-essentials" },
-          { "t": "Quickstart: LangGraph Essentials - Python", "link": "https://academy.langchain.com/courses/langgraph-essentials-python" },
-          { "t": "Quickstart: LangChain Essentials - Python", "link": "https://academy.langchain.com/courses/langchain-essentials-python" }
-        ]
-      },
-      {
-        "title": "Projects",
-        "items": [
-          { "t": "Project: Deep Agents", "link": "https://academy.langchain.com/courses/deep-agents-with-langgraph" },
-          { "t": "Project: Ambient Agents with LangGraph", "link": "https://academy.langchain.com/courses/ambient-agents" },
-          { "t": "Project: Deep Research with LangGraph", "link": "https://academy.langchain.com/courses/deep-research-with-langgraph" }
         ]
       }
     ]
@@ -835,7 +865,7 @@ window.LEARNING_DATA = [
     ]
   },
   {
-    "title": "MCP (Model Context Protocol)",
+    "title": "🔌 01 · MCP (Model Context Protocol)",
     "topics": [
       {
         "title": "Topics",
@@ -877,7 +907,7 @@ window.LEARNING_DATA = [
     ]
   },
   {
-    "title": "ACP (Agent Communication Protocol)",
+    "title": "🔌 02 · ACP (Agent Communication Protocol)",
     "topics": [
       {
         "title": "Topics",
@@ -904,7 +934,7 @@ window.LEARNING_DATA = [
     ]
   },
   {
-    "title": "A2A (Agent2Agent Protocol)",
+    "title": "🔌 03 · A2A (Agent2Agent Protocol)",
     "topics": [
       {
         "title": "Topics",
