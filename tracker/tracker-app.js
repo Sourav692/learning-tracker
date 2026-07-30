@@ -202,6 +202,20 @@
     return row;
   }
 
+  // Controls shown on a section summary header: add track
+  function sectionControls(title, def) {
+    var wrap = el("span", "lt-ctrls");
+    wrap.appendChild(iconBtn("＋", "Add track to " + title, "", function () { openTrackAdderForSection(def); }));
+    return wrap;
+  }
+
+  // "Add track" button at the bottom of a section's track list
+  function trackAdder(def) {
+    var row = el("div", "lt-add-row");
+    row.appendChild(iconBtn("＋ Add track", "Add a new track module to this section", "wide", function () { openTrackAdderForSection(def); }));
+    return row;
+  }
+
   // "Add new track/module" control at the very bottom of the hub.
   function moduleAdder() {
     var row = el("div", "lt-add-module");
@@ -213,7 +227,9 @@
     moduleControls: moduleControls,
     topicControls: topicControls,
     topicAdder: topicAdder,
-    moduleAdder: moduleAdder
+    moduleAdder: moduleAdder,
+    sectionControls: sectionControls,
+    trackAdder: trackAdder
   };
 
   // ===========================================================================
@@ -415,19 +431,28 @@
   //  MODULE (section / track) add / rename / delete
   // ===========================================================================
   function openModuleAdder() {
-    var nameIn = input("", "e.g. 🚀 My New Track");
-    var topicIn = input("", "First sub-topic (optional)");
+    openTrackAdderForSection(null);
+  }
+
+  function openTrackAdderForSection(def) {
+    var sectionName = def ? def.title : "hub";
+    var nameIn = input("", "e.g. 🎓 11 · My New Track");
+    var topicIn = input("", "First sub-topic (optional, default: Course Details)");
     var body = el("div");
     body.appendChild(field("Track name (required)", nameIn));
     body.appendChild(field("First sub-topic (optional)", topicIn));
-    openModal("Add new track", body, [
+    openModal(def ? ("Add track to “" + sectionName + "”") : "Add new track", body, [
       { label: "Cancel", cls: "ghost", onClick: closeModal },
-      { label: "Create", cls: "primary", onClick: function () {
+      { label: "Create track", cls: "primary", onClick: function () {
         var name = nameIn.value.trim(); if (!name) { nameIn.focus(); return; }
         if (findModuleTitle(name)) { alert("A track with that name already exists."); return; }
-        var firstTopic = topicIn.value.trim() || "Resources";
+        var firstTopic = topicIn.value.trim() || "Course Details";
         custom[name] = custom[name] || {};
         if (!custom[name][firstTopic]) custom[name][firstTopic] = [];
+        if (def && def.slugs) {
+          var slug = (window.LT_TRACKER && window.LT_TRACKER.slugify) ? window.LT_TRACKER.slugify(name) : name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+          if (def.slugs.indexOf(slug) === -1) def.slugs.push(slug);
+        }
         saveData(); refresh();
         closeModal();
       } }

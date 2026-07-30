@@ -892,8 +892,8 @@
     // Each section is itself a collapsible <details>, open by default, holding a
     // stack of per-track accordions. Two levels of expand/collapse: section, then
     // track (which reveals the bulleted topic list).
-    function renderSection(title, blurb, secs, opts) {
-      if (!secs.length) return;
+    function renderSection(title, blurb, secs, opts, def) {
+      if (!secs.length && !(edit && def)) return;
       var wrap = el("details", "hub-section");
       if (opts && opts.open === true) wrap.setAttribute("open", "");
 
@@ -903,6 +903,7 @@
       head.appendChild(el("h2", "hub-section-title", title));
       head.appendChild(el("span", "hub-section-count",
         secs.length + (secs.length === 1 ? " track" : " tracks")));
+      if (edit && edit.sectionControls && def) head.appendChild(edit.sectionControls(title, def));
       wrap.appendChild(head);
 
       var inner = el("div", "hub-section-body");
@@ -910,6 +911,7 @@
       var list = el("div", "track-list");
       secs.forEach(function (sec) { list.appendChild(trackAccordion(sec, ++n)); });
       inner.appendChild(list);
+      if (edit && edit.trackAdder && def) inner.appendChild(edit.trackAdder(def));
       wrap.appendChild(inner);
       mount.appendChild(wrap);
     }
@@ -919,14 +921,14 @@
       def.slugs.forEach(function (slug) {
         if (bySlug[slug] && !placed[slug]) { placed[slug] = 1; secs.push(bySlug[slug]); }
       });
-      renderSection(def.title, def.blurb, secs);
+      renderSection(def.title, def.blurb, secs, null, def);
     });
 
     // Anything not claimed by a section (e.g. new tracks added to data.js) still
     // shows up, so tracks can never silently disappear from the hub.
     var leftovers = order.filter(function (slug) { return !placed[slug]; })
       .map(function (slug) { return bySlug[slug]; });
-    renderSection("🗂️ More Tracks", "Other tracks in your data not yet assigned to a section above.", leftovers);
+    renderSection("🗂️ More Tracks", "Other tracks in your data not yet assigned to a section above.", leftovers, null, null);
 
     // Editing layer (tracker-app.js): a control to add a brand-new track/module.
     var edit = window.LT_EDIT || null;
