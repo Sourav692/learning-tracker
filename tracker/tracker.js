@@ -978,7 +978,7 @@
       var s = slugify(data[i].title);
       var cleanS = s.replace(/^[0-9]+-/, "");
       var cleanSlug = slug.replace(/^[0-9]+-/, "");
-      if (s === slug || cleanS === cleanSlug || (cleanSlug === "cohorts-bootcamps" && (cleanS === "bootcamps-courses" || cleanS === "01-google-genai-academy"))) { sec = data[i]; break; }
+      if (s === slug || cleanS === cleanSlug) { sec = data[i]; break; }
     }
     var mount = document.getElementById(mountId || "topic");
     var titleEl = document.getElementById("tk-title");
