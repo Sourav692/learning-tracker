@@ -668,7 +668,8 @@
         "07-ai-hero-a-12-month-journey-taking-you-from-zero-to-expert",
         "08-certified-ai-engineering-masterclass-from-zero-to-ai-hero",
         "09-systematically-improving-rag-applications",
-        "10-data-science-academy"
+        "10-data-science-academy",
+        "11-popular-udemy-courses"
       ]
     },
     {
@@ -851,8 +852,12 @@
 
     if (edit && edit.topicAdder) body.appendChild(edit.topicAdder(sec));
 
+    // Track pages are filed without the title's leading sequence number
+    // ("🎓 10 · Data Science Academy" -> topics/data-science-academy.html), and
+    // renderTopic() matches with or without it, so strip it here or numbered
+    // tracks link to a file that doesn't exist.
     var open = el("a", "ta-open", "Open full track →");
-    open.href = "topics/" + slug + ".html";
+    open.href = "topics/" + slug.replace(/^[0-9]+-/, "") + ".html";
     body.appendChild(open);
     acc.appendChild(body);
 

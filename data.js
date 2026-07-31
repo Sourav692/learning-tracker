@@ -153,6 +153,36 @@ window.LEARNING_DATA = [
     ]
   },
   {
+    "title": "🎓 11 · Popular Udemy Courses",
+    "topics": [
+      {
+        "title": "Courses",
+        "items": [
+          { "t": "AI Engineer Agentic Track: The Complete Agent & MCP Course", "link": "https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/?couponCode=CM260427IN" },
+          { "t": "AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents", "link": "https://www.udemy.com/course/llm-engineering-master-ai-and-large-language-models/" },
+          { "t": "AI Builder: Create Agents, Voice Agents & Automations in n8n", "link": "https://www.udemy.com/course/ai-builder-with-n8n-create-agents-voice-agents/" },
+          { "t": "AI Leader: Generative AI & Agentic AI for Leaders & Founders", "link": "https://www.udemy.com/course/executive-briefing-generative-ai-and-large-language-models-llm/" },
+          { "t": "AI Engineer Production Track: Deploy LLMs & Agents at Scale", "link": "https://www.udemy.com/course/generative-and-agentic-ai-in-production/" },
+          { "t": "2026 Bootcamp: Generative AI, LLM Apps, AI Agents, Cursor AI", "link": "https://www.udemy.com/course/bootcamp-generative-artificial-intelligence-and-llm-app-development/" },
+          { "t": "LLMOps Masterclass 2026 - Generative AI - MLOps - AIOps", "link": "https://www.udemy.com/course/llmops-masterclass-generative-ai-mlops-aiops/?couponCode=PMNVD2025" },
+          { "t": "MLOps Bootcamp: Mastering AI Operations for Success - AIOps", "link": "https://www.udemy.com/course/mlops-bootcamp-mastering-ai-operations-for-success-aiops/" },
+          { "t": "Complete Agentic AI Bootcamp With LangGraph and Langchain", "link": "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/" },
+          { "t": "Ultimate RAG Bootcamp Using Langchain,LangGraph & Langsmith", "link": "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/" },
+          { "t": "The Complete Claude Code & Claude Cowork Masterclass [2026]", "link": "https://www.udemy.com/course/claude-aiagents-cowork-masterclass/?couponCode=PMNVD2025" },
+          { "t": "Mastering Claude Cowork & AI Agents in 5 hours [2026]", "link": "https://www.udemy.com/course/mastering-claude-cowork-ai-agents/?couponCode=PMNVD2025" },
+          { "t": "LLM Engineering, RAG, & AI Agents Masterclass [2026]", "link": "https://www.udemy.com/course/become-an-llm-agentic-ai-engineer-14-day-bootcamp-2025/" },
+          { "t": "The Agentic AI Engineering Masterclass 2026", "link": "https://www.udemy.com/course/become-an-ai-agent-workflow-automation-engineer/?couponCode=CM260427IN" },
+          { "t": "Agentic AI Architectures with Patterns, Frameworks and MCP", "link": "https://www.udemy.com/course/agentic-ai-architectures-with-patterns-frameworks-and-mcp/" },
+          { "t": "The Complete LangChain, LangGraph, & LangSmith Course (2026)", "link": "https://www.udemy.com/course/the-complete-langchain-langgraph-langsmith-course/" },
+          { "t": "Advanced LangGraph: Workflows, Multi-Agents, Deep Agents", "link": "https://www.udemy.com/course/advanced-langgraph-workflows-multi-agents-deep-agents/?couponCode=CP260518SUMMXIN" },
+          { "t": "Agentic AI - Private Agentic RAG with LangGraph and Ollama", "link": "https://www.udemy.com/course/agentic-ai-private-agentic-rag-with-langgraph-and-ollama/" },
+          { "t": "LLM Fine-Tuning for Beginners: HuggingFace & Unsloth" },
+          { "t": "LLMs from Scratch: Build, Align & Fine-Tune with PyTorch" }
+        ]
+      }
+    ]
+  },
+  {
     "title": "📊 RAG, Evals & Production",
     "topics": [
       {
